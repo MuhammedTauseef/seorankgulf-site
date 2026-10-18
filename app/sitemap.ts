@@ -1,8 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getPublishedPosts } from "@/lib/blog";
-import { getPublishedDemos } from "@/lib/demos-db";
 
-const BASE = "https://replypilot-site.vercel.app";
+const BASE = "https://seorankgulf.com";
 
 /**
  * Public routes for search engines. Auth-gated pages stay out.
@@ -15,19 +14,12 @@ const BASE = "https://replypilot-site.vercel.app";
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await getPublishedPosts().catch(() => []);
-  const demos = await getPublishedDemos().catch(() => []);
   const routes: { path: string; lastModified?: Date; priority: number }[] = [
     { path: "/", priority: 1 },
-    { path: "/demo", priority: 0.9 },
     { path: "/blog", priority: 0.9 },
-    { path: "/videos", priority: 0.9 },
     ...posts.map((p) => ({
       path: `/blog/${p.slug}`,
       lastModified: new Date(p.updated_at || p.created_at),
-      priority: 0.5,
-    })),
-    ...demos.map((d) => ({
-      path: `/demo/${d.slug}`,
       priority: 0.5,
     })),
     { path: "/about", priority: 0.5 },

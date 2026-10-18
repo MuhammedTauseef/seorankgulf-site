@@ -10,15 +10,11 @@ import { createClient } from "@/lib/supabase/client";
  * Auth-aware: signed-in users see Dashboard/Admin + Sign out instead of Log in.
  */
 const BASE_LINKS: { label: string; href: string; external?: boolean }[] = [
-  { label: "About", href: "/about", external: true },
   { label: "Services", href: "#services" },
-  { label: "Live demos", href: "#demos" },
-  { label: "Demo videos", href: "/videos" },
   { label: "Blog", href: "/blog" },
-  { label: "Process", href: "#process" },
   { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
-  { label: "Contact form", href: "#contact" },
+  { label: "Contact", href: "#contact" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/muhammadtauseef9", external: true },
 ];
 
@@ -143,7 +139,7 @@ export default function MobileNav() {
             role="menuitem"
             onClick={() => setOpen(false)}
           >
-            Get Your AI Agent{role ? " — $249" : ""}
+            Get Free SEO Audit
           </a>
         </div>
       )}
