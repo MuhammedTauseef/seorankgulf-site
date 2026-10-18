@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { getPublishedPosts } from "@/lib/blog";
 import { whatsappLinkFor } from "@/lib/site-config";
@@ -96,12 +95,11 @@ export default async function Home() {
               <p className="ag-meta">{c.hero.metaLine}</p>
             </div>
             <div className="ag-hero-media">
-              <Image
+              <img
                 src="/images/hero-3d.webp"
                 alt="3D illustration of SEO growth"
-                width={560}
-                height={373}
-                priority
+                width="560"
+                height="373"
                 className="ag-hero-img"
               />
             </div>
