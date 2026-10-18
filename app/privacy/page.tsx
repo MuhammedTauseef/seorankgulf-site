@@ -8,20 +8,20 @@ export const dynamic = "force-dynamic";
 
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — ReplyPilot",
+  title: "Privacy Policy — SEORankGulf",
   description:
-    "How ReplyPilot collects, uses, and protects your data. Contact-form data is stored in Supabase; we never sell your data.",
+    "How SEORankGulf collects, uses, and protects your data. Contact-form data is stored in Supabase; we never sell your data.",
   alternates: {
-    canonical: "https://replypilot-site.vercel.app/privacy",
+    canonical: "https://seorankgulf.com/privacy",
   },
   openGraph: {
-    url: "https://replypilot-site.vercel.app/privacy",
+    url: "https://seorankgulf.com/privacy",
     images: [
       {
-        url: "https://replypilot-site.vercel.app/og-image.jpg",
+        url: "https://seorankgulf.com/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "ReplyPilot — AI Sales Agents for Small Business",
+        alt: "SEORankGulf — AI Sales Agents for Small Business",
       },
     ],
   }
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 const fallbackBlocks: Block[] = [
   { type: "p", text: "Last updated: October 14, 2026" },
   { type: "h2", text: "Who we are" },
-  { type: "p", text: "ReplyPilot is an AI automation studio run by Muhammad Tauseef. This policy explains what data this website collects, why, and how it is handled. If you have questions, email muhammadtauseef714@gmail.com." },
+  { type: "p", text: "SEORankGulf is an AI automation studio run by Muhammad Tauseef. This policy explains what data this website collects, why, and how it is handled. If you have questions, email muhammadtauseef714@gmail.com." },
   { type: "h2", text: "Data we collect" },
   { type: "ul", items: [
       "Contact form: your name, email address, business type, and anything you write in the message field.",

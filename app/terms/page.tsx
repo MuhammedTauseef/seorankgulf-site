@@ -8,20 +8,20 @@ export const dynamic = "force-dynamic";
 
 
 export const metadata: Metadata = {
-  title: "Terms of Service — ReplyPilot",
+  title: "Terms of Service — SEORankGulf",
   description:
-    "The terms for using the ReplyPilot website and engaging ReplyPilot's AI automation services.",
+    "The terms for using the SEORankGulf website and engaging SEORankGulf's AI automation services.",
   alternates: {
-    canonical: "https://replypilot-site.vercel.app/terms",
+    canonical: "https://seorankgulf.com/terms",
   },
   openGraph: {
-    url: "https://replypilot-site.vercel.app/terms",
+    url: "https://seorankgulf.com/terms",
     images: [
       {
-        url: "https://replypilot-site.vercel.app/og-image.jpg",
+        url: "https://seorankgulf.com/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "ReplyPilot — AI Sales Agents for Small Business",
+        alt: "SEORankGulf — AI Sales Agents for Small Business",
       },
     ],
   }
@@ -30,11 +30,11 @@ export const metadata: Metadata = {
 const fallbackBlocks: Block[] = [
   { type: "p", text: "Last updated: October 14, 2026" },
   { type: "h2", text: "Using this website" },
-  { type: "p", text: "By using this site you agree to these terms. ReplyPilot is an AI automation studio operated by Muhammad Tauseef. If you do not agree, please do not use the site." },
+  { type: "p", text: "By using this site you agree to these terms. SEORankGulf is an AI automation studio operated by Muhammad Tauseef. If you do not agree, please do not use the site." },
   { type: "h2", text: "The AI assistant" },
-  { type: "p", text: "The on-site chat assistant answers questions about ReplyPilot's services. It can save your contact details as a lead or book a demo slot if you ask it to. It does not give legal, financial, or medical advice, and while it tries to be accurate, you should confirm important details by email at muhammadtauseef714@gmail.com." },
+  { type: "p", text: "The on-site chat assistant answers questions about SEORankGulf's services. It can save your contact details as a lead or book a demo slot if you ask it to. It does not give legal, financial, or medical advice, and while it tries to be accurate, you should confirm important details by email at muhammadtauseef714@gmail.com." },
   { type: "h2", text: "Demos" },
-  { type: "p", text: "The demo businesses and demo conversations shown on this site are fictional samples that show what ReplyPilot can build. They are not real clients, real results, or performance claims." },
+  { type: "p", text: "The demo businesses and demo conversations shown on this site are fictional samples that show what SEORankGulf can build. They are not real clients, real results, or performance claims." },
   { type: "h2", text: "Services and pricing" },
   { type: "ul", items: [
       "Setup: $249 one-time per AI agent, with 50% ($125) due upfront and 50% ($124) on go-live.",
@@ -49,12 +49,12 @@ const fallbackBlocks: Block[] = [
   { type: "ul", items: [
       "Do not abuse the contact form, chat, or booking tools.",
       "Do not attempt to break, overload, or bypass this site's security.",
-      "Do not use the demos or content here to misrepresent ReplyPilot's work as your own."
+      "Do not use the demos or content here to misrepresent SEORankGulf's work as your own."
     ] },
   { type: "h2", text: "Intellectual property" },
-  { type: "p", text: "The content on this site, including text, images, videos, and demos, belongs to ReplyPilot. You may read and share links to it, but you may not copy, republish, or claim it as your own without permission." },
+  { type: "p", text: "The content on this site, including text, images, videos, and demos, belongs to SEORankGulf. You may read and share links to it, but you may not copy, republish, or claim it as your own without permission." },
   { type: "h2", text: "Liability" },
-  { type: "p", text: "This site and its demos are provided as is. To the extent allowed by law, ReplyPilot is not liable for indirect or consequential losses from using the site. Nothing here limits rights you have under applicable consumer law." },
+  { type: "p", text: "This site and its demos are provided as is. To the extent allowed by law, SEORankGulf is not liable for indirect or consequential losses from using the site. Nothing here limits rights you have under applicable consumer law." },
   { type: "h2", text: "Changes" },
   { type: "p", text: "These terms may be updated occasionally; the date at the top shows the latest version. Continued use of the site after changes means you accept them." },
   { type: "h2", text: "Contact" },

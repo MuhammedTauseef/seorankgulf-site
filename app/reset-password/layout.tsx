@@ -7,11 +7,11 @@ import type { Metadata } from "next";
  * can read the noindex.
  */
 export const metadata: Metadata = {
-  title: "Choose a new password — ReplyPilot",
+  title: "Choose a new password — SEORankGulf",
   description:
-    "Set a new password for your ReplyPilot account using your reset link.",
+    "Set a new password for your SEORankGulf account using your reset link.",
   alternates: {
-    canonical: "https://replypilot-site.vercel.app/reset-password",
+    canonical: "https://seorankgulf.com/reset-password",
   },
   robots: { index: false, follow: false },
 };

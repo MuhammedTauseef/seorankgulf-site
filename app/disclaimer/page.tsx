@@ -7,20 +7,20 @@ export const dynamic = "force-dynamic";
 
 
 export const metadata: Metadata = {
-  title: "Disclaimer | ReplyPilot",
+  title: "Disclaimer | SEORankGulf",
   description:
-    "ReplyPilot disclaimer — educational content, no guarantees, affiliate and advertising disclosure.",
+    "SEORankGulf disclaimer — educational content, no guarantees, affiliate and advertising disclosure.",
   alternates: {
-    canonical: "https://replypilot-site.vercel.app/disclaimer",
+    canonical: "https://seorankgulf.com/disclaimer",
   },
   openGraph: {
-    url: "https://replypilot-site.vercel.app/disclaimer",
+    url: "https://seorankgulf.com/disclaimer",
     images: [
       {
-        url: "https://replypilot-site.vercel.app/og-image.jpg",
+        url: "https://seorankgulf.com/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "ReplyPilot — AI Sales Agents for Small Business",
+        alt: "SEORankGulf — AI Sales Agents for Small Business",
       },
     ],
   }
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 const fallbackBlocks: Block[] = [
   { type: "p", text: "Last updated: October 8, 2026" },
   { type: "h2", text: "General information" },
-  { type: "p", text: "The content on ReplyPilot is provided for general information and educational purposes only." },
+  { type: "p", text: "The content on SEORankGulf is provided for general information and educational purposes only." },
 ];
 
 function renderBlock(block: Block, i: number) {

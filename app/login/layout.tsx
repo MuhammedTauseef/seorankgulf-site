@@ -6,11 +6,11 @@ import type { Metadata } from "next";
  * robots.txt does NOT disallow this route, so Google can read the noindex.
  */
 export const metadata: Metadata = {
-  title: "Log in — ReplyPilot",
+  title: "Log in — SEORankGulf",
   description:
-    "Log in to your ReplyPilot account to manage your AI agent and enquiries.",
+    "Log in to your SEORankGulf account to manage your AI agent and enquiries.",
   alternates: {
-    canonical: "https://replypilot-site.vercel.app/login",
+    canonical: "https://seorankgulf.com/login",
   },
   robots: { index: false, follow: false },
 };

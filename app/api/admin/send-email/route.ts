@@ -22,12 +22,12 @@ async function requireAdmin() {
 const wrap = (body: string) => `
 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; color: #1f2937;">
   <div style="text-align: center; margin-bottom: 24px;">
-    <strong style="font-size: 1.5rem; color: #1e3a5f;">ReplyPilot</strong>
+    <strong style="font-size: 1.5rem; color: #1e3a5f;">SEORankGulf</strong>
   </div>
   ${body}
   <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #9ca3af; text-align: center;">
-    ReplyPilot — AI Automation<br>
-    <a href="https://replypilot-site.vercel.app" style="color: #f59e0b;">replypilot-site.vercel.app</a>
+    SEORankGulf — AI Automation<br>
+    <a href="https://seorankgulf.com" style="color: #f59e0b;">seorankgulf.com</a>
   </div>
 </div>`;
 
@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const from = process.env.RESEND_FROM || "ReplyPilot <hello@replypilot-site.vercel.app>";
+  const from = process.env.RESEND_FROM || "SEORankGulf <hello@seorankgulf.com>";
   const html = wrap(
     `<div style="white-space: pre-wrap; line-height: 1.6;">${message
       .replace(/&/g, "&amp;")

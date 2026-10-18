@@ -13,13 +13,13 @@ export const metadata: Metadata = {
     "ReplyPilot FAQ",
   ],
   alternates: {
-    canonical: "https://replypilot-site.vercel.app/faq",
+    canonical: "https://seorankgulf.com/faq",
   },
   openGraph: {
-    url: "https://replypilot-site.vercel.app/faq",
+    url: "https://seorankgulf.com/faq",
     images: [
       {
-        url: "https://replypilot-site.vercel.app/og-image.jpg",
+        url: "https://seorankgulf.com/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "ReplyPilot — AI Sales Agents for Small Business",

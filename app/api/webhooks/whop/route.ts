@@ -14,7 +14,7 @@ import { createClient } from "@supabase/supabase-js";
  *
  * Setup:
  * 1. Whop Dashboard → Developer → Webhooks → Create webhook
- *    URL: https://replypilot-site.vercel.app/api/webhooks/whop
+ *    URL: https://seorankgulf.com/api/webhooks/whop
  *    Events: payment.succeeded, payment.failed, membership.activated,
  *            membership.deactivated, invoice.paid
  * 2. Copy the webhook secret → Vercel env var WHOP_WEBHOOK_SECRET
@@ -34,12 +34,12 @@ const ADMIN_EMAIL = "muhammadtauseef714@gmail.com";
 const emailWrap = (body: string) => `
 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; color: #1f2937;">
   <div style="text-align: center; margin-bottom: 24px;">
-    <strong style="font-size: 1.5rem; color: #1e3a5f;">ReplyPilot</strong>
+    <strong style="font-size: 1.5rem; color: #1e3a5f;">SEORankGulf</strong>
   </div>
   ${body}
   <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #9ca3af; text-align: center;">
-    ReplyPilot — AI Automation<br>
-    <a href="https://replypilot-site.vercel.app" style="color: #f59e0b;">replypilot-site.vercel.app</a>
+    SEORankGulf — AI Automation<br>
+    <a href="https://seorankgulf.com" style="color: #f59e0b;">seorankgulf.com</a>
   </div>
 </div>`;
 
@@ -50,7 +50,7 @@ async function sendEmail(to: string, subject: string, htmlBody: string): Promise
     console.log(`[EMAIL:DEV-MODE] NOT SENT (no RESEND_API_KEY) | To: ${to} | Subject: ${subject}`);
     return { status: "dev-mode", detail: "No RESEND_API_KEY — logged, not sent." };
   }
-  const from = process.env.RESEND_FROM || "ReplyPilot <hello@replypilot-site.vercel.app>";
+  const from = process.env.RESEND_FROM || "SEORankGulf <hello@seorankgulf.com>";
   try {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -340,19 +340,19 @@ export async function POST(request: NextRequest) {
           <tr><td style="padding:8px;border-bottom:1px solid #eee;"><strong>Client linked</strong></td><td style="padding:8px;border-bottom:1px solid #eee;">${clientId ? "✅ Yes (auto-activated)" : "⚠️ No — manual review needed"}</td></tr>
           <tr><td style="padding:8px;"><strong>Whop ID</strong></td><td style="padding:8px;font-family:monospace;font-size:.85em;">${whopPaymentId}</td></tr>
         </table>
-        <p><a href="https://replypilot-site.vercel.app/admin/payments" style="background:#f59e0b;color:#111827;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:700;">View in Admin →</a></p>`
+        <p><a href="https://seorankgulf.com/admin/payments" style="background:#f59e0b;color:#111827;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:700;">View in Admin →</a></p>`
       );
       // 2. Confirm to the client
       if (buyerEmail) {
         sendEmail(
           buyerEmail,
-          `Payment confirmed — ${planLabel} | ReplyPilot`,
+          `Payment confirmed — ${planLabel} | SEORankGulf`,
           `<h2 style="color:#15803d;">Payment Confirmed ✅</h2>
           <p>Hi ${buyerName || "there"},</p>
           <p>We've received your payment of <strong>${amountStr}</strong> for <strong>${planLabel}</strong>.</p>
           <p>Your account ${clientId ? "has been activated automatically" : "is being set up"} — we'll be in touch shortly with next steps.</p>
           <p>Questions? Just reply to this email.</p>
-          <p>— The ReplyPilot Team</p>`
+          <p>— The SEORankGulf Team</p>`
         );
       }
 
@@ -397,18 +397,18 @@ export async function POST(request: NextRequest) {
           <tr><td style="padding:8px;border-bottom:1px solid #eee;"><strong>Amount</strong></td><td style="padding:8px;border-bottom:1px solid #eee;">${failAmountStr}</td></tr>
           <tr><td style="padding:8px;"><strong>Event</strong></td><td style="padding:8px;font-family:monospace;font-size:.85em;">${normalizedType}</td></tr>
         </table>
-        <p><a href="https://replypilot-site.vercel.app/admin/payments" style="background:#f59e0b;color:#111827;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:700;">View in Admin →</a></p>`
+        <p><a href="https://seorankgulf.com/admin/payments" style="background:#f59e0b;color:#111827;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:700;">View in Admin →</a></p>`
       );
       // Notify the buyer too
       if (buyerEmail) {
         sendEmail(
           buyerEmail,
-          `Payment issue — ${failPlanLabel} | ReplyPilot`,
+          `Payment issue — ${failPlanLabel} | SEORankGulf`,
           `<h2 style="color:#dc2626;">Payment Didn't Go Through</h2>
           <p>Hi ${buyerName || "there"},</p>
           <p>Your payment of <strong>${failAmountStr}</strong> for <strong>${failPlanLabel}</strong> could not be completed.</p>
           <p>No charge was made. Please try again, or contact us if you need help.</p>
-          <p>— The ReplyPilot Team</p>`
+          <p>— The SEORankGulf Team</p>`
         );
       }
 

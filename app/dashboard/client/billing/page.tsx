@@ -1,8 +1,7 @@
 import Link from "next/link";
-import CheckoutButton from "@/components/CheckoutButton";
-import PriceValue from "@/components/PriceValue";
+import { whatsappLink } from "@/lib/site-config";
 
-/** /dashboard/client/billing — pay the go-live balance and manage the care plan. */
+/** /dashboard/client/billing — SEORankGulf billing info. */
 export default function BillingPage() {
   return (
     <main>
@@ -18,8 +17,8 @@ export default function BillingPage() {
             Billing
           </h1>
           <p style={{ color: "#4b5563", marginBottom: 32 }}>
-            Your build is split into two payments, plus the optional monthly
-            care plan. Pay securely through Whop.
+            Your SEORankGulf plan is billed monthly. No long-term contracts —
+            cancel anytime.
           </p>
 
           <div
@@ -31,40 +30,24 @@ export default function BillingPage() {
             }}
           >
             <h2 style={{ fontSize: "1.2rem", marginBottom: 8 }}>
-              Go-live balance — <PriceValue>$124</PriceValue> one-time
+              Monthly SEO plan
             </h2>
             <p style={{ color: "#4b5563", marginBottom: 16 }}>
-              Due when you approve your finished agent and it goes live on
-              your website and channels.
+              Invoices are sent monthly. To upgrade, downgrade, or discuss
+              your plan, message us on WhatsApp.
             </p>
-            <CheckoutButton linkKey="goLive" label={<>Pay $124 go-live balance</>} />
-          </div>
-
-          <div
-            style={{
-              border: "1px solid #e5e7eb",
-              borderRadius: 12,
-              padding: 24,
-              marginBottom: 16,
-            }}
-          >
-            <h2 style={{ fontSize: "1.2rem", marginBottom: 8 }}>
-              Care plan — <PriceValue>$99/month</PriceValue>
-            </h2>
-            <p style={{ color: "#4b5563", marginBottom: 16 }}>
-              Ongoing monitoring, improvements, and priority support for your
-              agent. Cancel anytime.
-            </p>
-            <CheckoutButton
-              linkKey="carePlan"
-              label={<>Subscribe — $99/month</>}
-            />
+            <a
+              className="btn btn-gold"
+              href={whatsappLink("Hi! I want to discuss my SEORankGulf billing.")}
+              target="_blank"
+              rel="noopener"
+            >
+              Chat on WhatsApp <span aria-hidden="true">→</span>
+            </a>
           </div>
 
           <p className="fine" style={{ marginTop: 24 }}>
-            Payments are processed by Whop. Your AI API usage and WhatsApp
-            Business messaging charges (if used) are billed separately by
-            those providers.
+            Plans: Starter $300/mo · Growth $600/mo · Enterprise $1,200/mo.
           </p>
         </div>
       </section>

@@ -6,7 +6,7 @@ type Theme = "light" | "dark";
 
 function currentTheme(): Theme {
   if (typeof document === "undefined") return "dark";
-  const saved = localStorage.getItem("replypilot-theme");
+  const saved = localStorage.getItem("seorankgulf-theme");
   if (saved === "dark" || saved === "light") return saved;
   return "dark";
 }
@@ -24,7 +24,7 @@ export default function ThemeToggle() {
   useEffect(() => {
     if (!ready) return;
     document.documentElement.dataset.theme = theme;
-    localStorage.setItem("replypilot-theme", theme);
+    localStorage.setItem("seorankgulf-theme", theme);
   }, [theme, ready]);
 
   return (
