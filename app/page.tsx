@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getPublishedPosts } from "@/lib/blog";
 import { whatsappLink } from "@/lib/site-config";
+import MobileNav from "@/components/MobileNav";
 
 /** SEORankGulf homepage — SEO services for Gulf businesses. */
 export const metadata: Metadata = {
@@ -198,6 +199,7 @@ export default async function Home() {
               Free SEO Audit
             </a>
           </nav>
+          <MobileNav />
         </div>
       </header>
 

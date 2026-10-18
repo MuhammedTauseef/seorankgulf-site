@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
+import MobileNav from "@/components/MobileNav";
 
 /**
  * Slim site header for content pages (/blog).
@@ -32,6 +33,7 @@ export default function PageHeader() {
           </Link>
           <ThemeToggle />
         </nav>
+        <MobileNav />
       </div>
     </header>
   );
