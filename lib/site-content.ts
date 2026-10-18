@@ -390,8 +390,8 @@ export async function getSiteContent(): Promise<SiteContent> {
   }
 }
 
-export const WHATSAPP_NUMBER_FALLBACK = "971500000000";
-export const WHATSAPP_DISPLAY_FALLBACK = "+971-50-000-0000";
+export const WHATSAPP_NUMBER_FALLBACK = "923150642491";
+export const WHATSAPP_DISPLAY_FALLBACK = "+92 315 0642491";
 
 /** WhatsApp number (digits only) from DB, with fallback. */
 export async function getWhatsappNumber(): Promise<string> {

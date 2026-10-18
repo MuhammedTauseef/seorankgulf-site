@@ -25,7 +25,7 @@ export default function PageHeader() {
           </Link>
           <Link
             className="nav-cta"
-            href="https://wa.me/971500000000?text=Hi!%20I%20want%20a%20free%20SEO%20audit%20for%20my%20business."
+            href="https://wa.me/923150642491?text=Hi!%20I%20want%20a%20free%20SEO%20audit%20for%20my%20business."
             target="_blank"
             rel="noopener"
           >

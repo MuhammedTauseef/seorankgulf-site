@@ -6,11 +6,11 @@
 
 -- whatsapp_number key (admin replaces the placeholder via /admin/content)
 INSERT INTO site_settings (key, value, label) VALUES
-  ('whatsapp_number', '971500000000', 'WhatsApp number for all CTA buttons (digits only, e.g. 971501234567). REPLACE with the real business number.')
+  ('whatsapp_number', '923150642491', 'WhatsApp number for all CTA buttons (digits only, e.g. 923150642491).')
 ON CONFLICT (key) DO NOTHING;
 
 INSERT INTO site_settings (key, value, label) VALUES
-  ('whatsapp_display', '+971-50-000-0000', 'WhatsApp number as shown in the footer (e.g. +971-50-123-4567).')
+  ('whatsapp_display', '+92 315 0642491', 'WhatsApp number as shown in the footer (e.g. +92 315 0642491).')
 ON CONFLICT (key) DO NOTHING;
 
 -- homepage_content key: seeded empty so the site uses built-in defaults until

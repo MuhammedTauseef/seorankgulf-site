@@ -16,7 +16,7 @@
  * Until replaced, all WhatsApp buttons point at the placeholder below
  * and are clearly non-functional for real customers.
  */
-export const WHATSAPP_NUMBER = "971500000000";
+export const WHATSAPP_NUMBER = "923150642491";
 
 /** Build a wa.me click-to-chat link with a pre-filled message. */
 export function whatsappLink(message: string): string {

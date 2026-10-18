@@ -154,8 +154,8 @@ export async function GET() {
 
   return NextResponse.json({
     content,
-    whatsapp_number: byKey.whatsapp_number || "971500000000",
-    whatsapp_display: byKey.whatsapp_display || "+971-50-000-0000",
+    whatsapp_number: byKey.whatsapp_number || "923150642491",
+    whatsapp_display: byKey.whatsapp_display || "+92 315 0642491",
   });
 }
 
