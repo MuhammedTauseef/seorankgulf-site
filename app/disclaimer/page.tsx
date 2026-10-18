@@ -20,7 +20,7 @@ export const metadata: Metadata = {
         url: "https://seorankgulf.com/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "SEORankGulf — AI Sales Agents for Small Business",
+        alt: "SEORankGulf — SEO Services for Gulf Businesses",
       },
     ],
   }

@@ -38,7 +38,7 @@ const emailWrap = (body: string) => `
   </div>
   ${body}
   <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #9ca3af; text-align: center;">
-    SEORankGulf — AI Automation<br>
+    SEORankGulf — SEO Services<br>
     <a href="https://seorankgulf.com" style="color: #f59e0b;">seorankgulf.com</a>
   </div>
 </div>`;

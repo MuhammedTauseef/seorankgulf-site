@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "About — SEORankGulf",
   description:
-    "SEORankGulf is an AI automation studio by SEORankGulf team — building practical SEO services for Gulf businesses for growing businesses.",
+    "SEORankGulf is an SEO agency run by the SEORankGulf team — helping Gulf businesses rank on Google's first page.",
   alternates: {
     canonical: "https://seorankgulf.com/about",
   },
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
         url: "https://seorankgulf.com/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "SEORankGulf — AI Sales Agents for Small Business",
+        alt: "SEORankGulf — SEO Services for Gulf Businesses",
       },
     ],
   }
@@ -97,7 +97,7 @@ export default async function AboutPage() {
               style={{ width: 90, height: 90, borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(216,189,143,.5)" }}
             />
             <p style={{ color: "#4b5563", margin: 0 }}>
-              SEORankGulf is an AI automation studio run by <strong>SEORankGulf team</strong>.
+              SEORankGulf is an SEO agency run by <strong>SEORankGulf team</strong>.
             </p>
           </div>
 
@@ -119,9 +119,9 @@ export default async function AboutPage() {
                 </div>
               </div>
               <p style={{ margin: "0 0 12px", lineHeight: 1.7 }}>
-                I&apos;m Tauseef, an AI automation specialist. I build practical sales agents,
-                customer-response systems, and workflows that help growing businesses reply
-                faster and convert more enquiries.
+                I&apos;m Tauseef, an SEO specialist. I help Gulf businesses rank on
+                Google&apos;s first page with practical local SEO, technical fixes,
+                and content that actually brings customers.
               </p>
               <p style={{ margin: 0, lineHeight: 1.7 }}>
                 Every SEORankGulf system is built around a real bottleneck — unanswered questions,

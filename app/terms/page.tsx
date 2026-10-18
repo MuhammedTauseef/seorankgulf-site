@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Terms of Service — SEORankGulf",
   description:
-    "The terms for using the SEORankGulf website and engaging SEORankGulf's AI automation services.",
+    "The terms for using the SEORankGulf website and engaging SEORankGulf's SEO services.",
   alternates: {
     canonical: "https://seorankgulf.com/terms",
   },
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
         url: "https://seorankgulf.com/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "SEORankGulf — AI Sales Agents for Small Business",
+        alt: "SEORankGulf — SEO Services for Gulf Businesses",
       },
     ],
   }
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 const fallbackBlocks: Block[] = [
   { type: "p", text: "Last updated: October 14, 2026" },
   { type: "h2", text: "Using this website" },
-  { type: "p", text: "By using this site you agree to these terms. SEORankGulf is an AI automation studio operated by Muhammad Tauseef. If you do not agree, please do not use the site." },
+  { type: "p", text: "By using this site you agree to these terms. SEORankGulf is an SEO agency operated by Muhammad Tauseef. If you do not agree, please do not use the site." },
   { type: "h2", text: "The AI assistant" },
   { type: "p", text: "The on-site chat assistant answers questions about SEORankGulf's services. It can save your contact details as a lead or book a demo slot if you ask it to. It does not give legal, financial, or medical advice, and while it tries to be accurate, you should confirm important details by email at muhammadtauseef714@gmail.com." },
   { type: "h2", text: "Demos" },

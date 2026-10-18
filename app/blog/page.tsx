@@ -5,15 +5,15 @@ import { getPublishedPosts } from "@/lib/blog";
 import { safeJsonLd } from "@/lib/json-ld";
 
 export const metadata: Metadata = {
-  title: "Blog — AI Automation Tips for Small Businesses | SEORankGulf",
+  title: "Blog — SEO Guides for Gulf Businesses | SEORankGulf",
   description:
-    "Practical, education-first guides on AI automation for small businesses: WhatsApp automation, Instagram DM automation, AI chatbots, e-commerce assistants, lead capture, and n8n workflows.",
+    "Practical, education-first SEO guides for Gulf businesses: local SEO, technical SEO, keyword research, Google Business Profile, and content that ranks.",
   keywords: [
-    "AI automation blog",
-    "WhatsApp automation",
-    "Instagram DM automation",
-    "AI chatbot guide",
-    "n8n workflow automation",
+    "SEO blog",
+    "local SEO Dubai",
+    "SEO guides UAE",
+    "keyword research",
+    "Google Business Profile",
     "SEORankGulf",
   ],
   alternates: {
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
         url: "https://seorankgulf.com/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "SEORankGulf — AI Sales Agents for Small Business",
+        alt: "SEORankGulf — SEO Services for Gulf Businesses",
       },
     ],
   },
@@ -41,7 +41,7 @@ export default async function BlogPage() {
     name: "SEORankGulf Blog",
     url: "https://seorankgulf.com/blog",
     description:
-      "Practical guides for small business owners on AI automation — no jargon, no hype, just what works.",
+      "Practical SEO guides for Gulf business owners — no jargon, no hype, just what ranks.",
     inLanguage: "en",
   };
   return (
@@ -62,11 +62,11 @@ export default async function BlogPage() {
               className="hero-statement"
               style={{ fontSize: "clamp(2.4rem,6vw,4.4rem)" }}
             >
-              AI automation, explained simply<span className="dot">.</span>
+              SEO guides, explained simply<span className="dot">.</span>
             </h1>
             <p className="hero-sub" style={{ maxWidth: "38ch" }}>
-              Practical guides for small business owners — no jargon, no hype,
-              just what works.
+              Practical SEO guides for Gulf business owners — no jargon, no hype,
+              just what ranks.
             </p>
           </div>
         </section>

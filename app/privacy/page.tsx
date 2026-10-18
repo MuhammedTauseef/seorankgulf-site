@@ -21,7 +21,7 @@ export const metadata: Metadata = {
         url: "https://seorankgulf.com/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "SEORankGulf — AI Sales Agents for Small Business",
+        alt: "SEORankGulf — SEO Services for Gulf Businesses",
       },
     ],
   }
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 const fallbackBlocks: Block[] = [
   { type: "p", text: "Last updated: October 14, 2026" },
   { type: "h2", text: "Who we are" },
-  { type: "p", text: "SEORankGulf is an AI automation studio run by Muhammad Tauseef. This policy explains what data this website collects, why, and how it is handled. If you have questions, email muhammadtauseef714@gmail.com." },
+  { type: "p", text: "SEORankGulf is an SEO agency run by Muhammad Tauseef. This policy explains what data this website collects, why, and how it is handled. If you have questions, email muhammadtauseef714@gmail.com." },
   { type: "h2", text: "Data we collect" },
   { type: "ul", items: [
       "Contact form: your name, email address, business type, and anything you write in the message field.",

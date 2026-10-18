@@ -210,8 +210,8 @@ function channelFromSlug(slug: string): string {
   // Phone receptionist is a category guide, NOT a SEORankGulf offer —
   // never let the article CTA imply SEORankGulf builds phone agents.
   // (See the qualifier paragraph in the phone-receptionist article.)
-  if (slug.includes("phone")) return "AI automation";
-  return "AI automation";
+  if (slug.includes("phone")) return "SEO guide";
+  return "SEO guide";
 }
 
 /** /blog/[slug] — full article page. */
