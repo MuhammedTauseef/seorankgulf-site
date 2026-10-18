@@ -416,7 +416,7 @@ export default async function Home() {
                 results.
               </p>
             </div>
-            <div className="price-cards" style={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
+            <div className="price-cards">
               {PLANS.map((p) => (
                 <div
                   className="price-card"
