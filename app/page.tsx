@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getPublishedPosts } from "@/lib/blog";
-import { whatsappLink } from "@/lib/site-config";
+import { whatsappLinkFor } from "@/lib/site-config";
+import {
+  getSiteContent,
+  getWhatsappNumber,
+  getWhatsappDisplay,
+} from "@/lib/site-content";
 import MobileNav from "@/components/MobileNav";
 import ThemeToggle from "@/components/ThemeToggle";
 
@@ -23,156 +28,14 @@ export const metadata: Metadata = {
   },
 };
 
-const SERVICES = [
-  {
-    n: "01",
-    title: "Local SEO",
-    text: "Google Business Profile optimization, local citations, and city-specific pages that put you on the map — literally. Built for Dubai, Abu Dhabi, and Sharjah search behavior.",
-    tag: "Google Maps · Local rankings · Citations",
-  },
-  {
-    n: "02",
-    title: "Technical SEO",
-    text: "Full website audit and fixes: page speed, mobile-friendliness, crawlability, schema markup, and Core Web Vitals. The foundation Google rewards with higher rankings.",
-    tag: "Audit · Speed · Schema · Core Web Vitals",
-  },
-  {
-    n: "03",
-    title: "Content SEO",
-    text: "Keyword research and SEO articles written to rank — in-depth, search-intent matched, with FAQs engineered to win featured snippets and AI answers.",
-    tag: "Keywords · Articles · Featured snippets",
-  },
-];
 
-const PROCESS = [
-  {
-    n: "01",
-    title: "Free SEO Audit",
-    text: "We analyze your website, competitors, and market — then send you a clear report of what's holding you back. Free, no strings attached.",
-  },
-  {
-    n: "02",
-    title: "Strategy & Roadmap",
-    text: "You get a plain-language plan: target keywords, technical fixes, and content calendar prioritized by impact.",
-  },
-  {
-    n: "03",
-    title: "Execution",
-    text: "We implement everything — technical fixes, on-page optimization, local citations, and ranking-focused content.",
-  },
-  {
-    n: "04",
-    title: "Report & Refine",
-    text: "Monthly reports show exactly what moved and why. We double down on what works, quarter after quarter.",
-  },
-];
-
-const RESULTS = [
-  {
-    metric: "3–6 mo",
-    title: "Typical ranking window",
-    text: "Most clients see significant ranking gains within 3–6 months of consistent execution.",
-  },
-  {
-    metric: "Page 1",
-    title: "Local pack targeting",
-    text: "We optimize for Google Maps and local results — where Gulf customers actually click.",
-  },
-  {
-    metric: "100%",
-    title: "White-hat only",
-    text: "No link schemes, no keyword stuffing, no shortcuts that risk penalties. Ever.",
-  },
-];
-
-const PLANS = [
-  {
-    name: "Starter",
-    price: "$300",
-    period: "/month",
-    features: [
-      "Local SEO for 1 city",
-      "Google Business Profile setup",
-      "10 keywords tracked",
-      "2 SEO articles / month",
-      "Monthly report",
-    ],
-  },
-  {
-    name: "Growth",
-    price: "$600",
-    period: "/month",
-    features: [
-      "Local SEO for 3 cities",
-      "Technical SEO audit + fixes",
-      "25 keywords tracked",
-      "4 SEO articles / month",
-      "Bi-weekly reports",
-      "Competitor analysis",
-    ],
-    popular: true,
-  },
-  {
-    name: "Enterprise",
-    price: "$1,200",
-    period: "/month",
-    features: [
-      "Multi-city + national SEO",
-      "Full technical overhaul",
-      "50 keywords tracked",
-      "8 SEO articles / month",
-      "Weekly reports + calls",
-      "Dedicated strategist",
-    ],
-  },
-];
-
-const FAQS = [
-  {
-    q: "How long does SEO take to show results?",
-    a: "Most clients see initial improvements in 4-8 weeks (indexing, impressions). Significant ranking gains typically arrive in 3-6 months. SEO is a compounding investment — results grow over time.",
-  },
-  {
-    q: "Do you guarantee first-page rankings?",
-    a: "No honest SEO company can guarantee specific rankings — anyone who does is misleading you. What we guarantee is proven methodology: technical excellence, quality content, and consistent execution that gives you the best possible chance.",
-  },
-  {
-    q: "Why focus on Gulf/UAE businesses?",
-    a: "We specialize in the Gulf market: bilingual search considerations, local search behavior, Google Business Profile for UAE, and directories like Dubizzle and Yellow Pages UAE. Specialization beats generalization.",
-  },
-  {
-    q: "What do you need from me to start?",
-    a: "Just your website URL and business details. We handle the audit, strategy, and execution. You'll get a clear report each month showing exactly what was done and what improved.",
-  },
-  {
-    q: "Can I cancel anytime?",
-    a: "Yes. Our plans are month-to-month with no long-term lock-in. We earn your business every month with results, not contracts.",
-  },
-];
-
-const TESTIMONIALS = [
-  {
-    quote:
-      "Within four months our Google Business Profile started bringing in calls every week. The monthly reports made it easy to see exactly what was working.",
-    name: "Restaurant Owner",
-    role: "Dubai",
-  },
-  {
-    quote:
-      "They explained everything in plain language and never overpromised. Our main service page went from invisible to page one for our area.",
-    name: "Clinic Manager",
-    role: "Sharjah",
-  },
-  {
-    quote:
-      "The free audit alone showed us problems two previous agencies missed. Signing up was an easy decision after that.",
-    name: "Retail Store Owner",
-    role: "Abu Dhabi",
-  },
-];
 
 export default async function Home() {
   const latestPosts = (await getPublishedPosts()).slice(0, 3);
+  const c = await getSiteContent();
+  const waNumber = await getWhatsappNumber();
+  const waDisplay = await getWhatsappDisplay();
+  const wa = (message: string) => whatsappLinkFor(waNumber, message);
 
   return (
     <>
@@ -193,11 +56,11 @@ export default async function Home() {
             <a className="nav-link" href="#faq">FAQ</a>
             <a
               className="nav-cta"
-              href={whatsappLink("Hi! I want a free SEO audit for my business.")}
+              href={wa(c.hero.cta1Message)}
               target="_blank"
               rel="noopener"
             >
-              Free SEO Audit
+              {c.hero.cta1Text}
             </a>
           </nav>
           <ThemeToggle />
@@ -209,39 +72,33 @@ export default async function Home() {
         {/* HERO */}
         <section className="ag-hero" id="top" aria-labelledby="ag-hero-title">
           <div className="wrap ag-hero-inner">
-            <span className="ag-badge">SEO for the Gulf</span>
+            <span className="ag-badge">{c.hero.badge}</span>
             <h1 className="ag-title" id="ag-hero-title">
-              We Rank Gulf Businesses on{" "}
-              <span className="gold">Google&apos;s First Page</span>
+              {c.hero.titleBefore}
+              <span className="gold">{c.hero.titleHighlight}</span>
             </h1>
-            <p className="ag-sub">
-              Local SEO, technical SEO, and content SEO for UAE businesses in
-              Dubai, Abu Dhabi, and Sharjah. No fluff — just rankings that
-              bring customers.
-            </p>
+            <p className="ag-sub">{c.hero.subtitle}</p>
             <div className="ag-actions">
               <a
                 className="ag-btn ag-btn-gold"
-                href={whatsappLink("Hi! I want a free SEO audit for my business.")}
+                href={wa(c.hero.cta1Message)}
                 target="_blank"
                 rel="noopener"
               >
-                Get Free SEO Audit <span aria-hidden="true">→</span>
+                {c.hero.cta1Text} <span aria-hidden="true">→</span>
               </a>
               <a className="ag-btn ag-btn-ghost" href="#pricing">
-                See Pricing
+                {c.hero.cta2Text}
               </a>
             </div>
-            <p className="ag-meta">
-              <b>Dubai</b> · <b>Abu Dhabi</b> · <b>Sharjah</b> · Month-to-month plans
-            </p>
+            <p className="ag-meta">{c.hero.metaLine}</p>
           </div>
         </section>
 
         {/* CLIENT LOGOS */}
         <section className="ag-logos" aria-label="Trusted by businesses across the Gulf">
           <div className="wrap">
-            <p>Trusted by growing businesses across the Gulf</p>
+            <p>{c.logosLabel}</p>
             <div className="ag-logos-row">
               {[1, 2, 3, 4, 5].map((i) => (
                 <div className="ag-logo" key={i}>
@@ -256,22 +113,12 @@ export default async function Home() {
         <section className="ag-sec ag-sec-dark" aria-label="SEORankGulf at a glance" style={{ paddingTop: 56, paddingBottom: 56 }}>
           <div className="wrap">
             <div className="ag-stats">
-              <div className="ag-stat">
-                <strong>50+</strong>
-                <span>Keywords ranked on page one</span>
-              </div>
-              <div className="ag-stat">
-                <strong>3</strong>
-                <span>Emirates served across the UAE</span>
-              </div>
-              <div className="ag-stat">
-                <strong>100%</strong>
-                <span>White-hat methods, no shortcuts</span>
-              </div>
-              <div className="ag-stat">
-                <strong>30-day</strong>
-                <span>First results window for most clients</span>
-              </div>
+              {c.stats.map((st, i) => (
+                <div className="ag-stat" key={i}>
+                  <strong>{st.value}</strong>
+                  <span>{st.label}</span>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -280,19 +127,16 @@ export default async function Home() {
         <section className="ag-sec ag-sec-white" id="services" aria-labelledby="services-title">
           <div className="wrap">
             <div className="ag-head">
-              <div className="kicker">Services</div>
+              <div className="kicker">{c.servicesHeader.kicker}</div>
               <h2 className="display" id="services-title">
-                SEO that actually moves the needle.
+                {c.servicesHeader.title}
               </h2>
-              <p className="section-intro">
-                Three focused services. No bloated packages, no jargon — just
-                the work that gets Gulf businesses found on Google.
-              </p>
+              <p className="section-intro">{c.servicesHeader.intro}</p>
             </div>
             <div className="ag-cards">
-              {SERVICES.map((s) => (
-                <div className="ag-card" key={s.n}>
-                  <div className="num">{s.n}</div>
+              {c.services.map((s, i) => (
+                <div className="ag-card" key={i}>
+                  <div className="num">{String(i + 1).padStart(2, "0")}</div>
                   <h3>{s.title}</h3>
                   <p>{s.text}</p>
                   <p className="tag">{s.tag}</p>
@@ -306,19 +150,16 @@ export default async function Home() {
         <section className="ag-sec ag-sec-light" id="process" aria-labelledby="process-title">
           <div className="wrap">
             <div className="ag-head">
-              <div className="kicker">How it works</div>
+              <div className="kicker">{c.processHeader.kicker}</div>
               <h2 className="display" id="process-title">
-                From audit to rankings in four steps.
+                {c.processHeader.title}
               </h2>
-              <p className="section-intro">
-                A clear, repeatable process — you always know what&apos;s
-                happening and why.
-              </p>
+              <p className="section-intro">{c.processHeader.intro}</p>
             </div>
             <div className="ag-process">
-              {PROCESS.map((p) => (
-                <div className="ag-step" key={p.n}>
-                  <small>STEP {p.n}</small>
+              {c.process.map((p, i) => (
+                <div className="ag-step" key={i}>
+                  <small>STEP {String(i + 1).padStart(2, "0")}</small>
                   <h3>{p.title}</h3>
                   <p>{p.text}</p>
                 </div>
@@ -331,44 +172,16 @@ export default async function Home() {
         <section className="ag-sec ag-sec-white" id="why" aria-labelledby="why-title">
           <div className="wrap">
             <div className="ag-head">
-              <div className="kicker">Why SEORankGulf</div>
+              <div className="kicker">{c.whyHeader.kicker}</div>
               <h2 className="display" id="why-title">
-                Built for the Gulf, not adapted to it.
+                {c.whyHeader.title}
               </h2>
-              <p className="section-intro">
-                Most SEO advice is written for US or UK markets. We work where
-                your customers are — and we know how search works here.
-              </p>
+              <p className="section-intro">{c.whyHeader.intro}</p>
             </div>
             <div className="ag-cards">
-              {[
-                {
-                  n: "01",
-                  title: "Gulf-market focus",
-                  text: "We understand bilingual search behavior, UAE directories, and how Google Business Profile works across the Emirates. You don't have to explain your market to us.",
-                  tag: "Local expertise",
-                },
-                {
-                  n: "02",
-                  title: "Transparent reporting",
-                  text: "Every month you get a plain-language report: what we did, what moved, and what's next. No vanity metrics, no jargon walls.",
-                  tag: "Clear reports",
-                },
-                {
-                  n: "03",
-                  title: "No long contracts",
-                  text: "Month-to-month plans. If we're not delivering value, you walk away — which is exactly why we work hard to deliver it.",
-                  tag: "Flexible terms",
-                },
-                {
-                  n: "04",
-                  title: "Honest about timelines",
-                  text: "We won't promise page one in 30 days. We'll tell you what's realistic, then work the plan until it happens.",
-                  tag: "Realistic expectations",
-                },
-              ].map((w) => (
-                <div className="ag-card" key={w.n}>
-                  <div className="num">{w.n}</div>
+              {c.why.map((w, i) => (
+                <div className="ag-card" key={i}>
+                  <div className="num">{String(i + 1).padStart(2, "0")}</div>
                   <h3>{w.title}</h3>
                   <p>{w.text}</p>
                   <p className="tag">{w.tag}</p>
@@ -382,18 +195,15 @@ export default async function Home() {
         <section className="ag-sec ag-sec-dark" aria-labelledby="results-title">
           <div className="wrap">
             <div className="ag-head">
-              <div className="kicker">What to expect</div>
+              <div className="kicker">{c.resultsHeader.kicker}</div>
               <h2 className="display" id="results-title">
-                Realistic results, honestly communicated.
+                {c.resultsHeader.title}
               </h2>
-              <p className="section-intro">
-                We don&apos;t sell miracles. Here&apos;s what proper SEO
-                delivers for Gulf businesses.
-              </p>
+              <p className="section-intro">{c.resultsHeader.intro}</p>
             </div>
             <div className="ag-results">
-              {RESULTS.map((r) => (
-                <div className="ag-result" key={r.title}>
+              {c.results.map((r, i) => (
+                <div className="ag-result" key={i}>
                   <div className="metric">{r.metric}</div>
                   <h3>{r.title}</h3>
                   <p>{r.text}</p>
@@ -407,17 +217,14 @@ export default async function Home() {
         <section className="ag-sec ag-sec-tint" id="pricing" aria-labelledby="pricing-title">
           <div className="wrap">
             <div className="ag-head">
-              <div className="kicker">Pricing</div>
+              <div className="kicker">{c.pricingHeader.kicker}</div>
               <h2 className="display" id="pricing-title">
-                Simple monthly plans. Cancel anytime.
+                {c.pricingHeader.title}
               </h2>
-              <p className="section-intro">
-                Month-to-month. No long contracts. We earn your business with
-                results.
-              </p>
+              <p className="section-intro">{c.pricingHeader.intro}</p>
             </div>
             <div className="price-cards">
-              {PLANS.map((p) => (
+              {c.pricing.map((p) => (
                 <div
                   className="price-card"
                   key={p.name}
@@ -448,7 +255,7 @@ export default async function Home() {
                   <a
                     className={p.popular ? "btn btn-gold" : "btn btn-navy"}
                     style={{ width: "100%", textAlign: "center", display: "block" }}
-                    href={whatsappLink(`Hi! I'm interested in the ${p.name} plan (${p.price}${p.period}).`)}
+                    href={wa(`Hi! I'm interested in the ${p.name} plan (${p.price}${p.period}).`)}
                     target="_blank"
                     rel="noopener"
                   >
@@ -465,16 +272,14 @@ export default async function Home() {
         <section className="ag-sec ag-sec-white" id="testimonials" aria-labelledby="testimonials-title">
           <div className="wrap">
             <div className="ag-head">
-              <div className="kicker">Client words</div>
+              <div className="kicker">{c.testimonialsHeader.kicker}</div>
               <h2 className="display" id="testimonials-title">
-                What our clients say.
+                {c.testimonialsHeader.title}
               </h2>
-              <p className="section-intro">
-                Real feedback from businesses we&apos;ve helped get found.
-              </p>
+              <p className="section-intro">{c.testimonialsHeader.intro}</p>
             </div>
             <div className="ag-testis">
-              {TESTIMONIALS.map((t, i) => (
+              {c.testimonials.map((t, i) => (
                 <div className="ag-testi" key={i}>
                   <div className="stars" aria-label="5 out of 5 stars">★★★★★</div>
                   <p>&ldquo;{t.quote}&rdquo;</p>
@@ -565,13 +370,13 @@ export default async function Home() {
         <section className="ag-sec ag-sec-white" id="faq" aria-labelledby="faq-title">
           <div className="wrap" style={{ maxWidth: 760 }}>
             <div className="ag-head">
-              <div className="kicker">FAQ</div>
+              <div className="kicker">{c.faqHeader.kicker}</div>
               <h2 className="display" id="faq-title">
-                Straight answers before you decide.
+                {c.faqHeader.title}
               </h2>
             </div>
             <div className="faq" style={{ marginTop: 36 }}>
-              {FAQS.map((f) => (
+              {c.faqs.map((f) => (
                 <details key={f.q}>
                   <summary>{f.q}</summary>
                   <p>{f.a}</p>
@@ -584,28 +389,21 @@ export default async function Home() {
         {/* CONTACT */}
         <section className="ag-sec ag-sec-dark" id="contact" aria-labelledby="contact-title">
           <div className="wrap" style={{ maxWidth: 780, textAlign: "center" }}>
-            <div className="kicker">Get started</div>
+            <div className="kicker">{c.contact.kicker}</div>
             <h2 className="display" id="contact-title">
-              Get your free SEO audit today.
+              {c.contact.title}
             </h2>
-            <p className="contact-sub">
-              We&apos;ll analyze your website and send you a clear report of
-              what&apos;s holding you back — free, no strings attached.
-            </p>
+            <p className="contact-sub">{c.contact.sub}</p>
             <a
               className="ag-btn ag-btn-gold"
               style={{ display: "inline-block", textDecoration: "none" }}
-              href={whatsappLink(
-                "Hi! I want a free SEO audit for my business. My website is: "
-              )}
+              href={wa(c.contact.ctaMessage)}
               target="_blank"
               rel="noopener"
             >
-              Chat on WhatsApp <span aria-hidden="true">→</span>
+              {c.contact.ctaText} <span aria-hidden="true">→</span>
             </a>
-            <p className="contact-note">
-              Serving Dubai, Abu Dhabi, Sharjah &amp; across the Gulf.
-            </p>
+            <p className="contact-note">{c.contact.note}</p>
           </div>
         </section>
       </main>
@@ -617,7 +415,7 @@ export default async function Home() {
               <a className="brand" href="#top" aria-label="SEORankGulf home">
                 <span className="brand-mark">S</span>SEORANKGULF
               </a>
-              <p className="ag-footer-tag">SEO services for Gulf businesses. Dubai · Abu Dhabi · Sharjah.</p>
+              <p className="ag-footer-tag">{c.footer.tagline}</p>
             </div>
             <div className="foot-col">
               <h4>Explore</h4>
@@ -636,34 +434,28 @@ export default async function Home() {
             <div className="foot-col">
               <h4>Contact</h4>
               <a
-                href="https://wa.me/971500000000"
+                href={wa("Hi! I have a question about SEORankGulf.")}
                 target="_blank"
                 rel="noopener"
                 style={{ fontSize: ".85rem" }}
               >
-                WhatsApp: +971-50-000-0000
+                WhatsApp: {waDisplay}
               </a>
               <p className="ag-footer-note">
-                Mon–Sat, 9am–6pm GST
+                {c.footer.hours}
               </p>
             </div>
           </div>
           <div className="ag-offices">
-            <div className="ag-office">
-              <h5>Dubai</h5>
-              <p>Serving businesses across Dubai — Deira to JBR, Business Bay to Marina.</p>
-            </div>
-            <div className="ag-office">
-              <h5>Abu Dhabi</h5>
-              <p>Local SEO for the capital — Corniche to Yas Island and beyond.</p>
-            </div>
-            <div className="ag-office">
-              <h5>Sharjah</h5>
-              <p>Helping Sharjah businesses get found on Google Maps and search.</p>
-            </div>
+            {c.footer.offices.map((o, i) => (
+              <div className="ag-office" key={i}>
+                <h5>{o.city}</h5>
+                <p>{o.text}</p>
+              </div>
+            ))}
           </div>
           <div className="foot-base">
-            <span>© 2026 SEORankGulf. All rights reserved.</span>
+            <span>{c.footer.copyright}</span>
           </div>
         </div>
       </footer>

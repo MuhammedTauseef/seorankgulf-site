@@ -22,3 +22,9 @@ export const WHATSAPP_NUMBER = "971500000000";
 export function whatsappLink(message: string): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
+
+/** Build a wa.me link for a specific number (used with the DB-configured number). */
+export function whatsappLinkFor(number: string, message: string): string {
+  const digits = number.replace(/\D/g, "") || WHATSAPP_NUMBER;
+  return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
+}

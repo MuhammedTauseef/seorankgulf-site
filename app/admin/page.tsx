@@ -414,6 +414,9 @@ export default function AdminPage() {
           <a href="/admin/blog" style={{ color: "var(--muted)", textDecoration: "none", fontSize: ".9rem" }}>
             Blog posts →
           </a>
+          <a href="/admin/content" style={{ color: "var(--muted)", textDecoration: "none", fontSize: ".9rem", fontWeight: 700 }}>
+            Site Content →
+          </a>
           <a href="/admin/videos" style={{ color: "var(--muted)", textDecoration: "none", fontSize: ".9rem" }}>
             Videos →
           </a>
