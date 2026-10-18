@@ -1,0 +1,1 @@
+Vercel redeploy trigger - hero-3d.webp should be live after this deploy. 2026-10-18T13:20Z
