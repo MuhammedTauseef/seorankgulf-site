@@ -96,7 +96,7 @@ export default async function Home() {
             </div>
             <div className="ag-hero-media">
               <img
-                src="/images/hero-3d.webp"
+                src="/images/hero-3d.svg"
                 alt="3D illustration of SEO growth"
                 width="560"
                 height="373"
