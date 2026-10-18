@@ -3,71 +3,63 @@ import Link from "next/link";
 import { safeJsonLd } from "@/lib/json-ld";
 
 export const metadata: Metadata = {
-  title: "FAQ — AI Automation Questions Answered | ReplyPilot",
+  title: "FAQ — SEO Questions Answered | SEORankGulf",
   description:
-    "Common questions about AI sales agents, WhatsApp automation, Instagram DM automation, and workflow automation for small businesses — answered simply.",
+    "Common questions about SEO services for Gulf businesses — local SEO, pricing, timelines, and what to expect. Answered simply.",
   keywords: [
-    "AI agent FAQ",
-    "WhatsApp automation questions",
-    "AI chatbot for business FAQ",
-    "ReplyPilot FAQ",
+    "SEO FAQ",
+    "SEO services questions",
+    "local SEO Dubai FAQ",
+    "SEORankGulf FAQ",
   ],
   alternates: {
     canonical: "https://seorankgulf.com/faq",
   },
   openGraph: {
     url: "https://seorankgulf.com/faq",
-    images: [
-      {
-        url: "https://seorankgulf.com/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "ReplyPilot — AI Sales Agents for Small Business",
-      },
-    ],
-  }
+  },
 };
 
 const faqs = [
   {
-    q: "What is an AI sales agent?",
-    a: "An AI sales agent is a smart chatbot that talks to your customers on WhatsApp, Instagram, or your website. It answers questions, books appointments, and captures leads — even at 2 AM when you're asleep. Think of it as a super-helpful employee who never takes a day off.",
+    q: "How long does SEO take to show results?",
+    a: "Most clients see initial improvements in 4-8 weeks (better indexing, more impressions). Significant ranking gains typically arrive in 3-6 months. SEO compounds — results grow over time.",
   },
   {
-    q: "How does WhatsApp automation work?",
-    a: "When a customer messages your business on WhatsApp, the AI reads the message and replies instantly — just like a real person would. It can share prices, book appointments, answer common questions, and send the details to you. You only step in when a human touch is needed.",
+    q: "Do you guarantee first-page rankings?",
+    a: "No honest SEO company can guarantee specific rankings. What we guarantee is proven methodology: technical excellence, quality content, and consistent execution that gives you the best possible chance.",
   },
   {
-    q: "Do I need technical skills to use it?",
-    a: "No. We build everything for you. You just tell us about your business — your services, prices, and common questions — and we set up the AI agent. Most businesses are live within 48 hours.",
+    q: "What is local SEO and do I need it?",
+    a: "Local SEO helps your business appear in Google Maps and local search results — critical if customers visit your location or you serve a specific area. For Dubai, Abu Dhabi, and Sharjah businesses, it's usually the highest-ROI starting point.",
   },
   {
-    q: "Will customers know they're talking to AI?",
-    a: "The AI talks naturally, like a friendly team member. But we're always honest — if a customer asks, the agent says it's an AI assistant. Most customers care about getting quick, helpful answers, not who's typing them.",
+    q: "How much do your SEO plans cost?",
+    a: "Starter is $300/month (1 city), Growth is $600/month (3 cities, most popular), and Enterprise is $1,200/month. All plans are month-to-month with no long-term contracts.",
   },
   {
-    q: "What happens if the AI can't answer something?",
-    a: "The AI is trained on your business, so it handles most questions. For anything tricky, it politely hands the conversation to you with a summary — so you jump in already knowing the full context.",
+    q: "What do you need from me to start?",
+    a: "Just your website URL and business details. We handle the audit, strategy, and execution. You'll get a clear monthly report showing what was done and what improved.",
   },
   {
-    q: "Can it work on Instagram too?",
-    a: "Yes. The same AI can handle Instagram DMs — replying to enquiries, booking appointments, and answering FAQs. Many businesses use it on WhatsApp, Instagram, and their website all at once.",
+    q: "Can I cancel anytime?",
+    a: "Yes. All plans are month-to-month. If we're not delivering value, you walk away — which is exactly why we work hard to deliver it.",
   },
   {
-    q: "How much does it cost?",
-    a: "Pricing is shared after you create a free account and log in. We keep it simple: a one-time build fee and a monthly care plan that keeps your agent improving.",
+    q: "Do you work with businesses outside the UAE?",
+    a: "Our specialty is the Gulf market, but the SEO fundamentals we apply work anywhere. Contact us to discuss your specific situation.",
   },
   {
-    q: "How long does setup take?",
-    a: "Most builds go live within 48 hours. We study your business, build the agent, test it with you, and then launch. You'll see a working demo before anything goes live.",
+    q: "Will you change my website's design?",
+    a: "We make technical and on-page SEO changes, which are usually invisible to visitors. We won't redesign your site without discussing it with you first.",
   },
   {
-    q: "What if I want changes later?",
-    a: "That's what the monthly care plan is for. As your business grows — new services, new prices, new questions — we update your agent so it always stays accurate.",
+    q: "How is SEORankGulf different from other agencies?",
+    a: "We specialize in the Gulf market, report in plain language, charge honest month-to-month pricing, and never overpromise. Our free audit shows you our quality before you pay anything.",
   },
   {
-    q: "Is my customer data safe?",
-    a: "Yes. Your data is stored securely and never sold or shared. You own your data — your customers, your conversations, your business information.",
+    q: "Is my business data safe with you?",
+    a: "Yes. Your data is stored securely and never sold or shared. You own your data — your website, your rankings, your business information.",
   },
 ];
 
@@ -93,10 +85,10 @@ export default function FaqPage() {
         <div className="wrap" style={{ maxWidth: 760 }}>
           <span className="eyebrow">FAQ</span>
           <h1 className="display" style={{ marginBottom: 12 }}>
-            Questions? Answered simply.
+            SEO questions? Answered simply.
           </h1>
           <p style={{ color: "#4b5563", marginBottom: 32 }}>
-            Everything business owners ask us about AI agents — in plain
+            Everything Gulf business owners ask us about SEO — in plain
             language.
           </p>
 
@@ -111,8 +103,9 @@ export default function FaqPage() {
 
           <div style={{ marginTop: 40 }}>
             <p>
-              Still curious? <Link href="/demo">Try a live demo</Link> or{" "}
-              <Link href="/contact">contact us</Link>.
+              Still curious?{" "}
+              <Link href="/#contact">Get a free SEO audit</Link> or{" "}
+              <Link href="/blog">read our SEO guides</Link>.
             </p>
           </div>
         </div>

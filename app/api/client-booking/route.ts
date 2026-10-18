@@ -93,7 +93,7 @@ export async function POST(req: NextRequest) {
 
     const supabase = await createClient();
 
-    // The business must be a real ReplyPilot client.
+    // The business must be a real SEORankGulf client.
     const { data: client } = await supabase
       .from("clients")
       .select("id, business_name")

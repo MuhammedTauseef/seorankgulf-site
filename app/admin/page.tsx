@@ -154,7 +154,7 @@ function TranscriptsTable({ rows }: { rows: Transcript[] }) {
           <tr key={t.id}>
             <td style={{ whiteSpace: "nowrap" }}>{formatDate(t.created_at)}</td>
             <td>{transcriptName(t)}</td>
-            <td>{t.persona_name || "ReplyPilot"}</td>
+            <td>{t.persona_name || "SEORankGulf"}</td>
             <td className="msg">
               <details>
                 <summary style={{ cursor: "pointer", color: "var(--accent, #f59e0b)" }}>
