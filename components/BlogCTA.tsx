@@ -119,11 +119,10 @@ export function MidArticleCTA({ ctx }: { ctx: CtaContext }) {
         Want this for {nichePossessive}?
       </p>
       <p style={{ margin: "0 0 18px", color: "#b9c6e2", maxWidth: "60ch" }}>
-        ReplyPilot builds a custom {ctx.channel.toLowerCase()} setup for{" "}
-        {nichePossessive} — answering customer questions instantly, taking
-        orders and bookings, and handing off to you when a human is needed.
+        SEORankGulf ranks {nichePossessive} on Google&apos;s first page —
+        with local SEO, technical fixes, and content that brings customers.
       </p>
-      <WhatsAppButton ctx={ctx} label="Ask on WhatsApp — it's free" />
+      <WhatsAppButton ctx={ctx} label="Get a free SEO audit" />
     </div>
   );
 }
@@ -138,11 +137,11 @@ export function EndOfArticleCTA({ ctx }: { ctx: CtaContext }) {
   return (
     <div className="article-cta">
       <div>
-        <h3>Want this working in {nichePossessive}?</h3>
+        <h3>Want this working for {nichePossessive}?</h3>
         <p>
-          ReplyPilot builds custom {ctx.channel.toLowerCase()} around your
-          services, your FAQs, and your booking flow — with a free custom
-          demo before you decide.
+          SEORankGulf builds SEO around your business — local rankings,
+          technical fixes, and content — with a free SEO audit before you
+          decide.
         </p>
       </div>
       <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
@@ -152,9 +151,9 @@ export function EndOfArticleCTA({ ctx }: { ctx: CtaContext }) {
           variant="link"
           className="btn btn-gold"
           eventName="demo_request"
-          eventParams={{ cta_location: "blog", cta_text: "Get a free demo" }}
+          eventParams={{ cta_location: "blog", cta_text: "Get a free SEO audit" }}
         >
-          Get a free demo
+          Get a free SEO audit
         </TrackedLink>
       </div>
     </div>

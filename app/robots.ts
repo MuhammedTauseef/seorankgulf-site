@@ -5,7 +5,7 @@ import type { MetadataRoute } from "next";
  * layer (the layouts also emit noindex meta tags).
  *
  * AI crawlers (GPTBot, ClaudeBot, Google-Extended, etc.) are explicitly
- * allowed so ChatGPT, Claude, and Gemini can cite ReplyPilot content.
+ * allowed so ChatGPT, Claude, and Gemini can cite SEORankGulf content.
  */
 export default function robots(): MetadataRoute.Robots {
   return {
