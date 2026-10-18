@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { getPublishedPosts } from "@/lib/blog";
 import { whatsappLinkFor } from "@/lib/site-config";
@@ -71,27 +72,39 @@ export default async function Home() {
       <main id="main">
         {/* HERO */}
         <section className="ag-hero" id="top" aria-labelledby="ag-hero-title">
-          <div className="wrap ag-hero-inner">
-            <span className="ag-badge">{c.hero.badge}</span>
-            <h1 className="ag-title" id="ag-hero-title">
-              {c.hero.titleBefore}
-              <span className="gold">{c.hero.titleHighlight}</span>
-            </h1>
-            <p className="ag-sub">{c.hero.subtitle}</p>
-            <div className="ag-actions">
-              <a
-                className="ag-btn ag-btn-gold"
-                href={wa(c.hero.cta1Message)}
-                target="_blank"
-                rel="noopener"
-              >
-                {c.hero.cta1Text} <span aria-hidden="true">→</span>
-              </a>
-              <a className="ag-btn ag-btn-ghost" href="#pricing">
-                {c.hero.cta2Text}
-              </a>
+          <div className="wrap ag-hero-inner ag-hero-split">
+            <div className="ag-hero-copy">
+              <span className="ag-badge">{c.hero.badge}</span>
+              <h1 className="ag-title" id="ag-hero-title">
+                {c.hero.titleBefore}
+                <span className="gold">{c.hero.titleHighlight}</span>
+              </h1>
+              <p className="ag-sub">{c.hero.subtitle}</p>
+              <div className="ag-actions">
+                <a
+                  className="ag-btn ag-btn-gold"
+                  href={wa(c.hero.cta1Message)}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  {c.hero.cta1Text} <span aria-hidden="true">→</span>
+                </a>
+                <a className="ag-btn ag-btn-ghost" href="#pricing">
+                  {c.hero.cta2Text}
+                </a>
+              </div>
+              <p className="ag-meta">{c.hero.metaLine}</p>
             </div>
-            <p className="ag-meta">{c.hero.metaLine}</p>
+            <div className="ag-hero-media">
+              <Image
+                src="/images/hero-3d.webp"
+                alt="3D illustration of SEO growth"
+                width={560}
+                height={560}
+                priority
+                className="ag-hero-img"
+              />
+            </div>
           </div>
         </section>
 

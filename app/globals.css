@@ -535,6 +535,37 @@ background:linear-gradient(160deg,#060b18 0%,#0a1830 55%,#0c1c38 100%)}
 background:linear-gradient(90deg,transparent,rgba(230,57,70,.5),transparent)}
 .ag-hero-inner{position:relative;z-index:2;max-width:780px;margin:0 auto;
 padding:clamp(72px,10vw,124px) 20px clamp(60px,8vw,96px)}
+/* Split hero: text left, 3D image right on desktop; stacked on mobile */
+.ag-hero-split{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,4vw,56px);
+align-items:center;max-width:1180px;text-align:left}
+.ag-hero-copy{min-width:0}
+.ag-hero-split .ag-actions{justify-content:flex-start}
+.ag-hero-split .ag-sub{margin-left:0;margin-right:0}
+.ag-hero-media{display:flex;justify-content:center}
+.ag-hero-img{width:100%;height:auto;max-width:520px;border-radius:24px;
+box-shadow:0 30px 80px -20px rgba(230,57,70,.35),0 12px 32px rgba(0,0,0,.45);
+border:1px solid rgba(230,57,70,.25);
+animation:hero-float 4s ease-in-out infinite,hero-enter .9s cubic-bezier(.22,.9,.3,1) backwards;
+will-change:transform;transition:transform .35s ease,box-shadow .35s ease}
+.ag-hero-media:hover .ag-hero-img{transform:scale(1.03) rotate(-1deg);
+box-shadow:0 40px 90px -20px rgba(230,57,70,.45),0 16px 36px rgba(0,0,0,.5)}
+@keyframes hero-float{
+0%,100%{translate:0 0}
+50%{translate:0 -14px}}
+@keyframes hero-enter{
+from{opacity:0;transform:translateY(36px)}
+to{opacity:1;transform:translateY(0)}}
+@media (prefers-reduced-motion:reduce){
+.ag-hero-img{animation:none;transition:none}
+.ag-hero-media:hover .ag-hero-img{transform:none}}
+html:not([data-theme="dark"]) .ag-hero-img{
+box-shadow:0 30px 70px -18px rgba(230,57,70,.28),0 12px 28px rgba(10,22,40,.12)}
+@media (max-width:860px){
+.ag-hero-split{grid-template-columns:1fr;text-align:center;max-width:780px}
+.ag-hero-split .ag-actions{justify-content:center}
+.ag-hero-split .ag-sub{margin-left:auto;margin-right:auto}
+.ag-hero-media{order:2;margin-top:8px}
+.ag-hero-img{max-width:440px}}
 .ag-badge{display:inline-block;font-size:11px;letter-spacing:3px;text-transform:uppercase;
 color:#E63946;border:1px solid rgba(230,57,70,.4);padding:8px 18px;border-radius:100px;margin-bottom:26px;
 background:rgba(230,57,70,.06)}
