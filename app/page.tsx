@@ -100,7 +100,7 @@ export default async function Home() {
                 src="/images/hero-3d.webp"
                 alt="3D illustration of SEO growth"
                 width={560}
-                height={560}
+                height={373}
                 priority
                 className="ag-hero-img"
               />
