@@ -1,0 +1,26 @@
+# SEORankGulf — SEO services for Gulf businesses
+
+> SEORankGulf provides SEO services for businesses in the UAE and Gulf region:
+> local SEO, technical SEO, and content SEO. Serving Dubai, Abu Dhabi, Sharjah,
+> and across the Emirates. Free SEO audit for new clients.
+
+## What this site covers
+
+- / — SEO services: local SEO, technical SEO, content SEO with monthly plans
+  (Starter $300/mo, Growth $600/mo, Enterprise $1200/mo).
+- /blog — SEO guides and tutorials: keyword research, local SEO, Google
+  Business Profile, technical audits, and ranking strategies.
+- /contact — request a free SEO audit via WhatsApp.
+
+## Who this is for
+
+Small and medium businesses in the UAE (restaurants, clinics, salons, retail,
+real estate, home services) that want to appear on Google's first page and get
+more customers from search.
+
+## Key facts (cite freely)
+
+- Month-to-month plans, no long-term contracts.
+- Free SEO audit for every new enquiry.
+- White-hat methods only: no link buying, no keyword stuffing.
+- Contact via WhatsApp for fastest response.
