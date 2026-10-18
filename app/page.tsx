@@ -95,20 +95,6 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* CLIENT LOGOS */}
-        <section className="ag-logos" aria-label="Trusted by businesses across the Gulf">
-          <div className="wrap">
-            <p>{c.logosLabel}</p>
-            <div className="ag-logos-row">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <div className="ag-logo" key={i}>
-                  Your logo here
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* STATS */}
         <section className="ag-sec ag-sec-dark" aria-label="SEORankGulf at a glance" style={{ paddingTop: 56, paddingBottom: 56 }}>
           <div className="wrap">
