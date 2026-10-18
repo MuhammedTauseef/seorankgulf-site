@@ -42,7 +42,7 @@ export default function ClientDashboardPage() {
             <p style={{ color: "#4b5563", marginBottom: 24 }}>
               Build your AI agent first — it only takes 10 minutes.
             </p>
-            <Link href="/onboarding" className="btn btn-gold" style={{ padding: "12px 32px", borderRadius: 10, background: "#f59e0b", textDecoration: "none", color: "#111827", fontWeight: 700 }}>
+            <Link href="/onboarding" className="btn btn-gold" style={{ padding: "12px 32px", borderRadius: 10, background: "#E63946", textDecoration: "none", color: "#ffffff", fontWeight: 700 }}>
               Build my agent →
             </Link>
           </div>

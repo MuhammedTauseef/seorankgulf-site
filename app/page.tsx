@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getPublishedPosts } from "@/lib/blog";
 import { whatsappLink } from "@/lib/site-config";
 import MobileNav from "@/components/MobileNav";
+import ThemeToggle from "@/components/ThemeToggle";
 
 /** SEORankGulf homepage — SEO services for Gulf businesses. */
 export const metadata: Metadata = {
@@ -199,6 +200,7 @@ export default async function Home() {
               Free SEO Audit
             </a>
           </nav>
+          <ThemeToggle />
           <MobileNav />
         </div>
       </header>
@@ -421,7 +423,7 @@ export default async function Home() {
                   key={p.name}
                   style={
                     p.popular
-                      ? { border: "2px solid #d4af37" }
+                      ? { border: "2px solid #E63946" }
                       : undefined
                   }
                 >
@@ -586,7 +588,7 @@ export default async function Home() {
             <h2 className="display" id="contact-title">
               Get your free SEO audit today.
             </h2>
-            <p style={{ marginTop: 16, marginBottom: 32, color: "#a9b6cc" }}>
+            <p className="contact-sub">
               We&apos;ll analyze your website and send you a clear report of
               what&apos;s holding you back — free, no strings attached.
             </p>
@@ -601,24 +603,24 @@ export default async function Home() {
             >
               Chat on WhatsApp <span aria-hidden="true">→</span>
             </a>
-            <p style={{ marginTop: 24, fontSize: ".9rem", color: "#7d8aa3" }}>
+            <p className="contact-note">
               Serving Dubai, Abu Dhabi, Sharjah &amp; across the Gulf.
             </p>
           </div>
         </section>
       </main>
 
-      <footer style={{ background: "#060b18", color: "#a9b6cc" }}>
+      <footer className="ag-footer">
         <div className="wrap" style={{ paddingTop: 56, paddingBottom: 32 }}>
           <div className="foot-grid">
             <div className="foot-brand">
-              <a className="brand" href="#top" aria-label="SEORankGulf home" style={{ color: "#f2f5fa" }}>
+              <a className="brand" href="#top" aria-label="SEORankGulf home">
                 <span className="brand-mark">S</span>SEORANKGULF
               </a>
-              <p style={{ color: "#7d8aa3" }}>SEO services for Gulf businesses. Dubai · Abu Dhabi · Sharjah.</p>
+              <p className="ag-footer-tag">SEO services for Gulf businesses. Dubai · Abu Dhabi · Sharjah.</p>
             </div>
             <div className="foot-col">
-              <h4 style={{ color: "#f2f5fa" }}>Explore</h4>
+              <h4>Explore</h4>
               <a href="#services">Services</a>
               <a href="#process">Process</a>
               <a href="#pricing">Pricing</a>
@@ -626,13 +628,13 @@ export default async function Home() {
               <a href="#faq">FAQ</a>
             </div>
             <div className="foot-col">
-              <h4 style={{ color: "#f2f5fa" }}>Legal</h4>
+              <h4>Legal</h4>
               <a href="/privacy">Privacy</a>
               <a href="/terms">Terms</a>
               <a href="/disclaimer">Disclaimer</a>
             </div>
             <div className="foot-col">
-              <h4 style={{ color: "#f2f5fa" }}>Contact</h4>
+              <h4>Contact</h4>
               <a
                 href="https://wa.me/971500000000"
                 target="_blank"
@@ -641,7 +643,7 @@ export default async function Home() {
               >
                 WhatsApp: +971-50-000-0000
               </a>
-              <p style={{ fontSize: ".85rem", color: "#7d8aa3", margin: "8px 0 0" }}>
+              <p className="ag-footer-note">
                 Mon–Sat, 9am–6pm GST
               </p>
             </div>
@@ -660,8 +662,8 @@ export default async function Home() {
               <p>Helping Sharjah businesses get found on Google Maps and search.</p>
             </div>
           </div>
-          <div className="foot-base" style={{ borderTop: "1px solid rgba(255,255,255,.1)", marginTop: 28, paddingTop: 20 }}>
-            <span style={{ color: "#7d8aa3" }}>© 2026 SEORankGulf. All rights reserved.</span>
+          <div className="foot-base">
+            <span>© 2026 SEORankGulf. All rights reserved.</span>
           </div>
         </div>
       </footer>

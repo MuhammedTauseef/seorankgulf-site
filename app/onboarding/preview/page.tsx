@@ -81,7 +81,7 @@ export default function PreviewPage() {
               {messages.map((m, i) => (
                 <div key={i} style={{
                   alignSelf: m.role === "user" ? "flex-end" : "flex-start",
-                  background: m.role === "user" ? "#f59e0b" : "#f3f4f6",
+                  background: m.role === "user" ? "#E63946" : "#f3f4f6",
                   color: m.role === "user" ? "#111827" : "#1f2937",
                   padding: "10px 16px", borderRadius: 16, maxWidth: "80%",
                 }}>
@@ -99,7 +99,7 @@ export default function PreviewPage() {
                 placeholder="Ask something a customer would ask..."
                 style={{ flex: 1, border: "none", padding: "14px 20px", fontSize: "1rem", outline: "none" }}
               />
-              <button onClick={send} disabled={loading} style={{ border: "none", background: "#f59e0b", padding: "0 28px", fontWeight: 700, cursor: "pointer" }}>
+              <button onClick={send} disabled={loading} style={{ border: "none", background: "#E63946", padding: "0 28px", fontWeight: 700, cursor: "pointer" }}>
                 Send
               </button>
             </div>
@@ -109,7 +109,7 @@ export default function PreviewPage() {
             <Link href="/onboarding" className="btn" style={{ padding: "12px 24px", borderRadius: 10, border: "1px solid #d1d5db", textDecoration: "none", color: "#374151", fontWeight: 600 }}>
               ← Edit details
             </Link>
-            <Link href="/checkout" className="btn btn-gold" style={{ padding: "12px 32px", borderRadius: 10, background: "#f59e0b", textDecoration: "none", color: "#111827", fontWeight: 700 }}>
+            <Link href="/checkout" className="btn btn-gold" style={{ padding: "12px 32px", borderRadius: 10, background: "#E63946", textDecoration: "none", color: "#ffffff", fontWeight: 700 }}>
               Looks good — continue to payment →
             </Link>
           </div>

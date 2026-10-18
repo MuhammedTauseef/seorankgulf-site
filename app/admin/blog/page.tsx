@@ -71,7 +71,7 @@ export default function AdminBlogPage() {
           </Link>
           <Link
             href="/admin/blog/new"
-            style={{ background: "#f59e0b", color: "#111827", padding: "10px 20px", borderRadius: 10, fontWeight: 700, textDecoration: "none" }}
+            style={{ background: "#E63946", color: "#ffffff", padding: "10px 20px", borderRadius: 10, fontWeight: 700, textDecoration: "none" }}
           >
             + New post
           </Link>

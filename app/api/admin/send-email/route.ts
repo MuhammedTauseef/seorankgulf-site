@@ -27,7 +27,7 @@ const wrap = (body: string) => `
   ${body}
   <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #9ca3af; text-align: center;">
     SEORankGulf — SEO Services<br>
-    <a href="https://seorankgulf.com" style="color: #f59e0b;">seorankgulf.com</a>
+    <a href="https://seorankgulf.com" style="color: #E63946;">seorankgulf.com</a>
   </div>
 </div>`;
 
