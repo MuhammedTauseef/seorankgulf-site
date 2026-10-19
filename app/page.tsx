@@ -53,6 +53,7 @@ export default async function Home() {
             <a className="nav-link" href="#process">Process</a>
             <a className="nav-link" href="#pricing">Pricing</a>
             <a className="nav-link" href="/blog">Blog</a>
+            <a className="nav-link" href="/about">About</a>
             <a className="nav-link" href="#faq">FAQ</a>
             <a
               className="nav-cta"
@@ -437,6 +438,7 @@ export default async function Home() {
               <a href="#process">Process</a>
               <a href="#pricing">Pricing</a>
               <a href="/blog">Blog</a>
+              <a href="/about">About</a>
               <a href="#faq">FAQ</a>
             </div>
             <div className="foot-col">

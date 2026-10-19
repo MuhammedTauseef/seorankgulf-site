@@ -24,6 +24,7 @@ export default function MobileNav() {
     { label: "Process", href: sec("#process") },
     { label: "Pricing", href: sec("#pricing") },
     { label: "Blog", href: "/blog" },
+    { label: "About", href: "/about" },
     { label: "FAQ", href: sec("#faq") },
     { label: "Contact", href: sec("#contact") },
   ];
