@@ -109,6 +109,140 @@ export default async function Home() {
           </div>
         </section>
 
+        {/* LATEST ARTICLES — fresh guides right below the hero */}
+        {latestPosts.length > 0 && (
+          <section
+            className="ag-sec ag-sec-white"
+            id="latest"
+            aria-labelledby="latest-title"
+          >
+            <div className="wrap">
+              <div className="ag-head">
+                <div className="kicker">Fresh this week</div>
+                <h2 className="display" id="latest-title">
+                  Latest SEO guides.
+                </h2>
+                <p className="section-intro">
+                  Practical SEO knowledge — the same methods we use for clients.
+                </p>
+              </div>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns:
+                    "repeat(auto-fit, minmax(260px, 1fr))",
+                  gap: 20,
+                  marginTop: 36,
+                }}
+              >
+                {latestPosts.map((p) => (
+                  <Link
+                    key={p.slug}
+                    href={`/blog/${p.slug}`}
+                    style={{
+                      border: "1px solid var(--line)",
+                      borderRadius: 14,
+                      overflow: "hidden",
+                      textDecoration: "none",
+                      color: "inherit",
+                      background: "var(--paper-2)",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    {p.cover_image ? (
+                      <img
+                        src={p.cover_image}
+                        alt={p.title}
+                        loading="lazy"
+                        style={{
+                          width: "100%",
+                          height: 168,
+                          objectFit: "cover",
+                          display: "block",
+                        }}
+                      />
+                    ) : (
+                      <div
+                        aria-hidden="true"
+                        style={{
+                          width: "100%",
+                          height: 168,
+                          background:
+                            "linear-gradient(135deg, #0A1628 0%, #E63946 135%)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontWeight: 800,
+                          fontSize: "2.2rem",
+                          color: "#fff",
+                        }}
+                      >
+                        S
+                      </div>
+                    )}
+                    <div
+                      style={{
+                        padding: 18,
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 6,
+                        flex: 1,
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: ".75rem",
+                          color: "var(--faint)",
+                        }}
+                      >
+                        {p.date}
+                      </div>
+                      <strong style={{ display: "block" }}>{p.title}</strong>
+                      {p.excerpt && (
+                        <span
+                          style={{
+                            fontSize: ".85rem",
+                            color: "var(--muted)",
+                            display: "block",
+                          }}
+                        >
+                          {p.excerpt.length > 120
+                            ? p.excerpt.slice(0, 120) + "…"
+                            : p.excerpt}
+                        </span>
+                      )}
+                      <span
+                        style={{
+                          marginTop: "auto",
+                          paddingTop: 10,
+                          fontSize: ".88rem",
+                          fontWeight: 700,
+                          color: "var(--gold)",
+                        }}
+                      >
+                        Read more →
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <div style={{ marginTop: 20, textAlign: "center" }}>
+                <a
+                  href="/blog"
+                  style={{
+                    fontSize: ".92rem",
+                    fontWeight: 700,
+                    color: "var(--gold)",
+                  }}
+                >
+                  All articles →
+                </a>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* STATS */}
         <section className="ag-sec ag-sec-dark" aria-label="SEORankGulf at a glance" style={{ paddingTop: 56, paddingBottom: 56 }}>
           <div className="wrap">
@@ -290,81 +424,6 @@ export default async function Home() {
             </div>
           </div>
         </section>
-
-        {/* LATEST ARTICLES */}
-        {latestPosts.length > 0 && (
-          <section className="ag-sec ag-sec-light" id="latest" aria-labelledby="latest-title">
-            <div className="wrap">
-              <div className="ag-head">
-                <div className="kicker">Fresh this week</div>
-                <h2 className="display" id="latest-title">
-                  Latest SEO guides.
-                </h2>
-                <p className="section-intro">
-                  Practical SEO knowledge — the same methods we use for clients.
-                </p>
-              </div>
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-                  gap: 16,
-                  marginTop: 36,
-                }}
-              >
-                {latestPosts.map((p) => (
-                  <Link
-                    key={p.slug}
-                    href={`/blog/${p.slug}`}
-                    style={{
-                      border: "1px solid var(--line)",
-                      borderRadius: 12,
-                      padding: 16,
-                      textDecoration: "none",
-                      color: "inherit",
-                      background: "var(--paper-2)",
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontSize: ".75rem",
-                        color: "var(--faint)",
-                        marginBottom: 6,
-                      }}
-                    >
-                      {new Date(p.created_at).toLocaleDateString("en-GB", {
-                        day: "numeric",
-                        month: "short",
-                        year: "numeric",
-                      })}
-                    </div>
-                    <strong style={{ display: "block", marginBottom: 6 }}>
-                      {p.title}
-                    </strong>
-                    {p.excerpt && (
-                      <span
-                        style={{
-                          fontSize: ".85rem",
-                          color: "var(--muted)",
-                          display: "block",
-                        }}
-                      >
-                        {p.excerpt.length > 110
-                          ? p.excerpt.slice(0, 110) + "…"
-                          : p.excerpt}
-                      </span>
-                    )}
-                  </Link>
-                ))}
-              </div>
-              <div style={{ marginTop: 16, textAlign: "center" }}>
-                <a href="/blog" style={{ fontSize: ".9rem" }}>
-                  All articles →
-                </a>
-              </div>
-            </div>
-          </section>
-        )}
 
         {/* FAQ */}
         <section className="ag-sec ag-sec-white" id="faq" aria-labelledby="faq-title">
