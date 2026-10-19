@@ -1,1 +1,1 @@
-Redeploy trigger — 2026-10-19. Static pages (generateStaticParams, no revalidation) need a rebuild to pick up the newly uploaded Article 2 cover image. Safe to delete.
+Redeploy trigger — 2026-10-19 15:20 PKT. An IMAGE content block was added to Article 2 (How Much Does Local SEO Cost in Abu Dhabi?) via admin panel. Static pages (generateStaticParams, no revalidation) need a rebuild to show the hero image. Safe to delete.
