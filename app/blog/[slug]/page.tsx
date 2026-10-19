@@ -444,6 +444,24 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
         </section>
 
+        {post.cover_image && (
+          <section className="block" style={{ paddingTop: 0, paddingBottom: 0 }}>
+            <div className="wrap" style={{ maxWidth: 860 }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={post.cover_image}
+                alt={post.title}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  borderRadius: 16,
+                  display: "block",
+                }}
+              />
+            </div>
+          </section>
+        )}
+
         <section className="block" style={{ paddingTop: 56 }}>
           <div className="wrap" style={{ maxWidth: 760 }}>
             <article className="article-body">
