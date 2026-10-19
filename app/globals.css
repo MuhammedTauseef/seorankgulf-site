@@ -567,6 +567,8 @@ box-shadow:0 30px 70px -18px rgba(230,57,70,.28),0 12px 28px rgba(10,22,40,.12)}
 .ag-hero-media{order:2;margin-top:8px}
 .ag-hero-img{max-width:440px}}
 .ag-badge{display:inline-block;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+color:#E63946;border:1px solid rgba(230,57,70,.4);padding:8px 18px;border-radius:100px;margin-bottom:26px;
+background:rgba(230,57,70,.06)}
 
 /* Clean professional hero — single 3D visual, subtle float */
 .ag-hero-media{display:flex;justify-content:center;align-items:center}
@@ -576,8 +578,6 @@ animation:hero-float 5s ease-in-out infinite;will-change:transform}
 @keyframes hero-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 @media (prefers-reduced-motion:reduce){.ag-hero-img{animation:none}}
 @media (max-width:860px){.ag-hero-media{margin-top:12px}.ag-hero-img{max-width:440px}}
-color:#E63946;border:1px solid rgba(230,57,70,.4);padding:8px 18px;border-radius:100px;margin-bottom:26px;
-background:rgba(230,57,70,.06)}
 .ag-title{font-size:clamp(2.1rem,6.5vw,3.8rem);line-height:1.12;font-weight:800;
 color:#f2f5fa;margin:0 0 20px;letter-spacing:-.5px}
 .ag-title .gold{color:#E63946}
