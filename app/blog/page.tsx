@@ -73,6 +73,23 @@ export default async function BlogPage() {
 
         <section className="block" style={{ paddingTop: 64 }}>
           <div className="wrap">
+            {posts.length === 0 ? (
+              <div
+                style={{
+                  textAlign: "center",
+                  padding: "64px 24px",
+                  color: "var(--muted, #94a3b8)",
+                }}
+              >
+                <p style={{ fontSize: "1.15rem", marginBottom: 8 }}>
+                  No articles yet — fresh SEO guides are on the way.
+                </p>
+                <p style={{ fontSize: "0.95rem" }}>
+                  Check back soon for practical, research-backed guides for Gulf
+                  business owners.
+                </p>
+              </div>
+            ) : (
             <div className="blog-grid">
               {posts.map((post, i) => {
                 const imgBlock = post.content.find((b) => b.type === "img");
@@ -115,6 +132,7 @@ export default async function BlogPage() {
                 );
               })}
             </div>
+            )}
           </div>
         </section>
       </main>
