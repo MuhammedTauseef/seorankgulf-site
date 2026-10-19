@@ -1,0 +1,1 @@
+Redeploy trigger — 2026-10-19. Static pages (generateStaticParams, no revalidation) need a rebuild to pick up the newly uploaded Article 2 cover image. Safe to delete.
