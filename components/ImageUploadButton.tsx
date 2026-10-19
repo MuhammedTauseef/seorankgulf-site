@@ -53,7 +53,7 @@ export default function ImageUploadButton({
         <input
           type="file"
           accept="image/jpeg,image/png,image/webp,image/gif"
-          style={{ display: "none" }}
+          style={{ display: "block", marginTop: 8, fontSize: ".8rem" }}
           disabled={uploading}
           onChange={(e) => {
             const f = e.target.files?.[0];
