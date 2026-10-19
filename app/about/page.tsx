@@ -90,12 +90,14 @@ export default async function AboutPage() {
             Practical AI for real businesses.
           </h1>
           <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20 }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/founder.jpg"
-              alt="SEORankGulf team, founder of SEORankGulf"
-              style={{ width: 90, height: 90, borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(216,189,143,.5)" }}
-            />
+            {/* Initials avatar — replaces /founder.jpg which failed to load as a circle */}
+            <div
+              aria-label="MT, founder of SEORankGulf"
+              role="img"
+              style={{ width: 90, height: 90, borderRadius: "50%", background: "#0A1628", color: "#fff", border: "2px solid #E63946", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: "1.75rem", letterSpacing: "1px" }}
+            >
+              MT
+            </div>
             <p style={{ color: "#4b5563", margin: 0 }}>
               SEORankGulf is an SEO agency run by <strong>SEORankGulf team</strong>.
             </p>
@@ -107,12 +109,14 @@ export default async function AboutPage() {
             {/* Founder & CEO section */}
             <div style={{ marginTop: 40, padding: 24, background: "var(--card)", borderRadius: 16, border: "1px solid rgba(216,189,143,.25)" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 18, marginBottom: 16 }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/founder.jpg"
-                  alt="SEORankGulf team, Founder & CEO of SEORankGulf"
-                  style={{ width: 100, height: 100, borderRadius: "50%", objectFit: "cover", objectPosition: "top center", border: "2px solid rgba(216,189,143,.5)", flexShrink: 0 }}
-                />
+                {/* Initials avatar — replaces /founder.jpg which failed to load as a circle */}
+                <div
+                  aria-label="MT, Founder & CEO of SEORankGulf"
+                  role="img"
+                  style={{ width: 100, height: 100, borderRadius: "50%", background: "#0A1628", color: "#fff", border: "2px solid #E63946", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: "2rem", letterSpacing: "1px" }}
+                >
+                  MT
+                </div>
                 <div>
                   <h3 style={{ margin: "0 0 4px", fontSize: "1.25rem" }}>SEORankGulf team</h3>
                   <p style={{ margin: 0, color: "var(--gold)", fontSize: ".95rem", fontWeight: 600 }}>Founder & CEO, SEORankGulf</p>
