@@ -83,13 +83,35 @@ function EditPostForm() {
     marginBottom: 12, boxSizing: "border-box",
   };
 
+  async function onDelete() {
+    if (!window.confirm(`Delete "${title || "this post"}"? This cannot be undone.`)) return;
+    setSaving(true);
+    try {
+      const res = await fetch(`/api/admin/blog?id=${id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Delete failed.");
+      router.push("/admin/blog");
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Delete failed.");
+      setSaving(false);
+    }
+  }
+
   if (loading) return <main className="admin-wrap"><p>Loading…</p></main>;
 
   return (
     <main className="admin-wrap" style={{ maxWidth: 800 }}>
-      <Link href="/admin/blog" style={{ color: "var(--muted)", textDecoration: "none", fontSize: ".9rem" }}>
-        ← All posts
-      </Link>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <Link href="/admin/blog" style={{ color: "var(--muted)", textDecoration: "none", fontSize: ".9rem" }}>
+          ← All posts
+        </Link>
+        <button
+          onClick={onDelete}
+          disabled={saving}
+          style={{ color: "#b3261e", background: "none", border: "1px solid #b3261e", borderRadius: 8, padding: "6px 14px", cursor: "pointer", fontSize: ".85rem", fontWeight: 600 }}
+        >
+          Delete post
+        </button>
+      </div>
       <h1 style={{ margin: "12px 0 20px" }}>Edit post</h1>
 
       {error && <p style={{ color: "#b3261e" }}>{error}</p>}
