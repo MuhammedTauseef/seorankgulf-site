@@ -93,10 +93,11 @@ export async function POST(req: NextRequest) {
     .slice(0, 50) || "upload";
   const filename = `${Date.now()}-${safeName}.${ext}`;
 
-  // Upload to Supabase Storage
+  // Upload to Supabase Storage — videos go to "videos" bucket, images to "blog-images"
+  const bucket = isVideo ? "videos" : "blog-images";
   const arrayBuffer = await file.arrayBuffer();
   const { error: uploadError } = await supabase.storage
-    .from("videos")
+    .from(bucket)
     .upload(filename, arrayBuffer, {
       contentType: file.type,
       upsert: false,
@@ -111,7 +112,7 @@ export async function POST(req: NextRequest) {
   }
 
   // Get public URL
-  const { data: urlData } = supabase.storage.from("videos").getPublicUrl(filename);
+  const { data: urlData } = supabase.storage.from(bucket).getPublicUrl(filename);
 
   return NextResponse.json({ url: urlData.publicUrl, filename });
 }
