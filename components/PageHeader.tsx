@@ -14,17 +14,20 @@ export default function PageHeader() {
           <span className="brand-mark">S</span>SEORANKGULF
         </Link>
         <nav className="site-nav" aria-label="Primary navigation">
+          <Link className="nav-link" href="/seo-services">
+            Services
+          </Link>
+          <Link className="nav-link" href="/seo-audit">
+            Free Audit
+          </Link>
           <Link className="nav-link" href="/blog">
             Blog
           </Link>
           <Link className="nav-link" href="/about">
             About
           </Link>
-          <Link className="nav-link" href="/#services">
-            Services
-          </Link>
-          <Link className="nav-link" href="/#pricing">
-            Pricing
+          <Link className="nav-link" href="/contact">
+            Contact
           </Link>
           <Link
             className="nav-cta"

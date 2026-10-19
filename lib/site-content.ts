@@ -30,6 +30,7 @@ export interface ServiceItem {
   title: string;
   text: string;
   tag: string;
+  link?: string;
 }
 
 export interface SectionHeader {
@@ -127,10 +128,10 @@ export const DEFAULT_CONTENT: SiteContent = {
   },
   logosLabel: "Trusted by growing businesses across the Gulf",
   stats: [
-    { value: "50+", label: "Keywords ranked on page one" },
-    { value: "3", label: "Emirates served across the UAE" },
+    { value: "3", label: "Monthly plans: $300 / $600 / $1,200" },
+    { value: "0", label: "Long-term contracts — cancel anytime" },
     { value: "100%", label: "White-hat methods, no shortcuts" },
-    { value: "30-day", label: "First results window for most clients" },
+    { value: "Free", label: "SEO audit before you pay anything" },
   ],
   servicesHeader: {
     kicker: "Services",
@@ -143,16 +144,19 @@ export const DEFAULT_CONTENT: SiteContent = {
       title: "Local SEO",
       text: "Google Business Profile optimization, local citations, and city-specific pages that put you on the map — literally. Built for Dubai, Abu Dhabi, and Sharjah search behavior.",
       tag: "Google Maps · Local rankings · Citations",
+      link: "/local-seo",
     },
     {
       title: "Technical SEO",
       text: "Full website audit and fixes: page speed, mobile-friendliness, crawlability, schema markup, and Core Web Vitals. The foundation Google rewards with higher rankings.",
       tag: "Audit · Speed · Schema · Core Web Vitals",
+      link: "/technical-seo",
     },
     {
       title: "Content SEO",
       text: "Keyword research and SEO articles written to rank — in-depth, search-intent matched, with FAQs engineered to win featured snippets and AI answers.",
       tag: "Keywords · Articles · Featured snippets",
+      link: "/seo-services",
     },
   ],
   processHeader: {
@@ -280,28 +284,28 @@ export const DEFAULT_CONTENT: SiteContent = {
     },
   ],
   testimonialsHeader: {
-    kicker: "Client words",
-    title: "What our clients say.",
-    intro: "Real feedback from businesses we've helped get found.",
+    kicker: "Our commitments",
+    title: "What you can expect from us.",
+    intro: "No fake reviews, no inflated claims — just the standards we hold ourselves to.",
   },
   testimonials: [
     {
       quote:
-        "Within four months our Google Business Profile started bringing in calls every week. The monthly reports made it easy to see exactly what was working.",
-      name: "Restaurant Owner",
-      role: "Dubai",
+        "Plain-language monthly reports. You will always know exactly what was done, what improved, and what comes next — no jargon, no mystery.",
+      name: "Transparent reporting",
+      role: "Every month",
     },
     {
       quote:
-        "They explained everything in plain language and never overpromised. Our main service page went from invisible to page one for our area.",
-      name: "Clinic Manager",
-      role: "Sharjah",
+        "Month-to-month plans with no lock-in. If we are not delivering value, you walk away — which is exactly why we work hard to deliver it.",
+      name: "No long contracts",
+      role: "Cancel anytime",
     },
     {
       quote:
-        "The free audit alone showed us problems two previous agencies missed. Signing up was an easy decision after that.",
-      name: "Retail Store Owner",
-      role: "Abu Dhabi",
+        "You own everything: your Google Business Profile, your website, your analytics. We never hold your accounts or data hostage.",
+      name: "You own your assets",
+      role: "Always",
     },
   ],
   faqHeader: {

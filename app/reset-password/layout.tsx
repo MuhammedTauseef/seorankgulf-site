@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description:
     "Set a new password for your SEORankGulf account using your reset link.",
   alternates: {
-    canonical: "https://seorankgulf.com/reset-password",
+    canonical: "https://seorankgulf-site.vercel.app/reset-password",
   },
   robots: { index: false, follow: false },
 };

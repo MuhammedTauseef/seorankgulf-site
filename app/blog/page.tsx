@@ -20,13 +20,13 @@ export const metadata: Metadata = {
     "SEORankGulf",
   ],
   alternates: {
-    canonical: "https://seorankgulf.com/blog",
+    canonical: "https://seorankgulf-site.vercel.app/blog",
   },
   openGraph: {
-    url: "https://seorankgulf.com/blog",
+    url: "https://seorankgulf-site.vercel.app/blog",
     images: [
       {
-        url: "https://seorankgulf.com/og-image.jpg",
+        url: "https://seorankgulf-site.vercel.app/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "SEORankGulf — SEO Services for Gulf Businesses",
@@ -42,7 +42,7 @@ export default async function BlogPage() {
     "@context": "https://schema.org",
     "@type": "Blog",
     name: "SEORankGulf Blog",
-    url: "https://seorankgulf.com/blog",
+    url: "https://seorankgulf-site.vercel.app/blog",
     description:
       "Practical SEO guides for Gulf business owners — no jargon, no hype, just what ranks.",
     inLanguage: "en",

@@ -9,15 +9,15 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Contact — SEORankGulf",
   description:
-    "Contact SEORankGulf — email us about SEO services for your business for your business.",
+    "Contact SEORankGulf — email or WhatsApp us about SEO services for your Gulf business. Free SEO audit available.",
   alternates: {
-    canonical: "https://seorankgulf.com/contact",
+    canonical: "https://seorankgulf-site.vercel.app/contact",
   },
   openGraph: {
-    url: "https://seorankgulf.com/contact",
+    url: "https://seorankgulf-site.vercel.app/contact",
     images: [
       {
-        url: "https://seorankgulf.com/og-image.jpg",
+        url: "https://seorankgulf-site.vercel.app/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "SEORankGulf — SEO Services for Gulf Businesses",
@@ -29,8 +29,10 @@ export const metadata: Metadata = {
 const fallbackBlocks: Block[] = [
   { type: "h2", text: "Email" },
   { type: "p", text: "muhammadtauseef714@gmail.com" },
+  { type: "h2", text: "WhatsApp" },
+  { type: "p", text: "+92 315 0642491 — the fastest way to reach us. Message us for a free SEO audit of your business." },
   { type: "h2", text: "What to include" },
-  { type: "p", text: "Tell us a little about your business and what you'd like to automate." },
+  { type: "p", text: "Tell us a little about your business, your website URL, and what you'd like to rank for on Google." },
 ];
 
 function renderBlock(block: Block, i: number) {
@@ -66,8 +68,15 @@ export default async function ContactPage() {
             Let&apos;s talk about your business.
           </h1>
           <p style={{ color: "#4b5563" }}>
-            The fastest way to reach us is email. We reply within one business
-            day.
+            The fastest way to reach us is WhatsApp at{" "}
+            <a
+              href="https://wa.me/923150642491?text=Hi!%20I%20want%20a%20free%20SEO%20audit%20for%20my%20business."
+              target="_blank"
+              rel="noopener"
+            >
+              +92 315 0642491
+            </a>
+            . We reply within one business day.
           </p>
 
           <div className="legal-body">

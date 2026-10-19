@@ -14,7 +14,7 @@ import { createClient } from "@supabase/supabase-js";
  *
  * Setup:
  * 1. Whop Dashboard → Developer → Webhooks → Create webhook
- *    URL: https://seorankgulf.com/api/webhooks/whop
+ *    URL: https://seorankgulf-site.vercel.app/api/webhooks/whop
  *    Events: payment.succeeded, payment.failed, membership.activated,
  *            membership.deactivated, invoice.paid
  * 2. Copy the webhook secret → Vercel env var WHOP_WEBHOOK_SECRET
@@ -39,7 +39,7 @@ const emailWrap = (body: string) => `
   ${body}
   <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #9ca3af; text-align: center;">
     SEORankGulf — SEO Services<br>
-    <a href="https://seorankgulf.com" style="color: #f59e0b;">seorankgulf.com</a>
+    <a href="https://seorankgulf-site.vercel.app" style="color: #f59e0b;">seorankgulf-site.vercel.app</a>
   </div>
 </div>`;
 
@@ -50,7 +50,7 @@ async function sendEmail(to: string, subject: string, htmlBody: string): Promise
     console.log(`[EMAIL:DEV-MODE] NOT SENT (no RESEND_API_KEY) | To: ${to} | Subject: ${subject}`);
     return { status: "dev-mode", detail: "No RESEND_API_KEY — logged, not sent." };
   }
-  const from = process.env.RESEND_FROM || "SEORankGulf <hello@seorankgulf.com>";
+  const from = process.env.RESEND_FROM || "SEORankGulf <muhammadtauseef714@gmail.com>";
   try {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -340,7 +340,7 @@ export async function POST(request: NextRequest) {
           <tr><td style="padding:8px;border-bottom:1px solid #eee;"><strong>Client linked</strong></td><td style="padding:8px;border-bottom:1px solid #eee;">${clientId ? "✅ Yes (auto-activated)" : "⚠️ No — manual review needed"}</td></tr>
           <tr><td style="padding:8px;"><strong>Whop ID</strong></td><td style="padding:8px;font-family:monospace;font-size:.85em;">${whopPaymentId}</td></tr>
         </table>
-        <p><a href="https://seorankgulf.com/admin/payments" style="background:#f59e0b;color:#111827;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:700;">View in Admin →</a></p>`
+        <p><a href="https://seorankgulf-site.vercel.app/admin/payments" style="background:#f59e0b;color:#111827;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:700;">View in Admin →</a></p>`
       );
       // 2. Confirm to the client
       if (buyerEmail) {
@@ -397,7 +397,7 @@ export async function POST(request: NextRequest) {
           <tr><td style="padding:8px;border-bottom:1px solid #eee;"><strong>Amount</strong></td><td style="padding:8px;border-bottom:1px solid #eee;">${failAmountStr}</td></tr>
           <tr><td style="padding:8px;"><strong>Event</strong></td><td style="padding:8px;font-family:monospace;font-size:.85em;">${normalizedType}</td></tr>
         </table>
-        <p><a href="https://seorankgulf.com/admin/payments" style="background:#f59e0b;color:#111827;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:700;">View in Admin →</a></p>`
+        <p><a href="https://seorankgulf-site.vercel.app/admin/payments" style="background:#f59e0b;color:#111827;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:700;">View in Admin →</a></p>`
       );
       // Notify the buyer too
       if (buyerEmail) {

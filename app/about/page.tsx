@@ -12,13 +12,13 @@ export const metadata: Metadata = {
   description:
     "SEORankGulf is an SEO agency run by the SEORankGulf team — helping Gulf businesses rank on Google's first page.",
   alternates: {
-    canonical: "https://seorankgulf.com/about",
+    canonical: "https://seorankgulf-site.vercel.app/about",
   },
   openGraph: {
-    url: "https://seorankgulf.com/about",
+    url: "https://seorankgulf-site.vercel.app/about",
     images: [
       {
-        url: "https://seorankgulf.com/og-image.jpg",
+        url: "https://seorankgulf-site.vercel.app/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "SEORankGulf — SEO Services for Gulf Businesses",
@@ -30,9 +30,9 @@ export const metadata: Metadata = {
 /** Fallback content if DB is unavailable. */
 const fallbackBlocks: Block[] = [
   { type: "h2", text: "What we do" },
-  { type: "p", text: "We build SEO services for Gulf businesses that help small and growing businesses respond faster, capture more leads, and save hours every week." },
+  { type: "p", text: "We provide SEO services for Gulf businesses — local SEO, technical SEO, and content that helps small and growing businesses in Dubai, Abu Dhabi, Sharjah, and across the UAE get found on Google." },
   { type: "h2", text: "How we work" },
-  { type: "p", text: "Every build starts with understanding your business. Then we design, build, and launch a custom AI agent, usually within 48 hours." },
+  { type: "p", text: "Every engagement starts with a free SEO audit of your website and Google presence. Then we fix what is broken, target the keywords your customers actually search, and report every month in plain language — no jargon, no lock-in contracts." },
 ];
 
 function renderBlock(block: Block, i: number) {
@@ -87,7 +87,7 @@ export default async function AboutPage() {
         <div className="wrap" style={{ maxWidth: 760 }}>
           <span className="eyebrow">About</span>
           <h1 className="display" style={{ marginBottom: 12 }}>
-            Practical AI for real businesses.
+            SEO that puts Gulf businesses on Google&apos;s first page.
           </h1>
           <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20 }}>
             {/* Initials avatar — replaces /founder.jpg which failed to load as a circle */}
@@ -128,9 +128,9 @@ export default async function AboutPage() {
                 and content that actually brings customers.
               </p>
               <p style={{ margin: 0, lineHeight: 1.7 }}>
-                Every SEORankGulf system is built around a real bottleneck — unanswered questions,
-                missed leads, or repetitive follow-up. One person builds it, tests it, and
-                supports it: no agency layers, no templates pretending to be custom.
+                Every SEORankGulf engagement is built around a real bottleneck — low Google
+                visibility, a broken website, or competitors outranking you. One person audits it,
+                fixes it, and reports on it: no agency layers, no jargon, no long lock-in contracts.
               </p>
             </div>
 

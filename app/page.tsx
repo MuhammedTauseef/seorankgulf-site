@@ -13,7 +13,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 /** SEORankGulf homepage — SEO services for Gulf businesses. */
 export const metadata: Metadata = {
   alternates: {
-    canonical: "https://seorankgulf.com",
+    canonical: "https://seorankgulf-site.vercel.app",
   },
   title: "SEORankGulf — We Rank Gulf Businesses on Google's First Page",
   description:
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     description:
       "SEO services for UAE & Gulf businesses. Local SEO, technical SEO, content SEO. Free SEO audit.",
     type: "website",
-    url: "https://seorankgulf.com",
+    url: "https://seorankgulf-site.vercel.app",
     siteName: "SEORankGulf",
   },
 };
@@ -50,8 +50,8 @@ export default async function Home() {
           </a>
           <nav className="site-nav" aria-label="Primary navigation">
             <a className="nav-link" href="/">Home</a>
-            <a className="nav-link" href="#services">Services</a>
-            <a className="nav-link" href="#process">Process</a>
+            <a className="nav-link" href="/seo-services">Services</a>
+            <a className="nav-link" href="/seo-audit">Free Audit</a>
             <a className="nav-link" href="#pricing">Pricing</a>
             <a className="nav-link" href="/blog">Blog</a>
             <a className="nav-link" href="/about">About</a>
@@ -269,12 +269,13 @@ export default async function Home() {
             </div>
             <div className="ag-cards">
               {c.services.map((s, i) => (
-                <div className="ag-card" key={i}>
+                <a className="ag-card" key={i} href={s.link || "#services"} style={{ textDecoration: "none", color: "inherit", display: "block" }}>
                   <div className="num">{String(i + 1).padStart(2, "0")}</div>
                   <h3>{s.title}</h3>
                   <p>{s.text}</p>
                   <p className="tag">{s.tag}</p>
-                </div>
+                  <span style={{ fontWeight: 700, color: "var(--gold)" }}>Learn more →</span>
+                </a>
               ))}
             </div>
           </div>
@@ -415,7 +416,6 @@ export default async function Home() {
             <div className="ag-testis">
               {c.testimonials.map((t, i) => (
                 <div className="ag-testi" key={i}>
-                  <div className="stars" aria-label="5 out of 5 stars">★★★★★</div>
                   <p>&ldquo;{t.quote}&rdquo;</p>
                   <strong>{t.name}</strong>
                   <span className="role">{t.role}</span>
@@ -494,9 +494,10 @@ export default async function Home() {
             </div>
             <div className="foot-col">
               <h4>Explore</h4>
-              <a href="#services">Services</a>
-              <a href="#process">Process</a>
-              <a href="#pricing">Pricing</a>
+              <a href="/seo-services">SEO Services</a>
+              <a href="/local-seo">Local SEO</a>
+              <a href="/technical-seo">Technical SEO</a>
+              <a href="/seo-audit">Free SEO Audit</a>
               <a href="/blog">Blog</a>
               <a href="/about">About</a>
               <a href="#faq">FAQ</a>

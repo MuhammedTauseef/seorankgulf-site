@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: post.excerpt,
     keywords: post.keywords,
     alternates: {
-      canonical: `https://seorankgulf.com/blog/${post.slug}`,
+      canonical: `https://seorankgulf-site.vercel.app/blog/${post.slug}`,
     },
     openGraph: {
       title: post.title,
@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         if (firstImg && firstImg.type === "img") {
           const src = firstImg.src.startsWith("http")
             ? firstImg.src
-            : `https://seorankgulf.com${firstImg.src}`;
+            : `https://seorankgulf-site.vercel.app${firstImg.src}`;
           return [{ url: src, alt: firstImg.alt || post.title }];
         }
         return [];
@@ -284,30 +284,30 @@ export default async function BlogPostPage({ params }: Props) {
     const imgBlock = (post.content || []).find((b) => b.type === "img");
     if (!imgBlock || imgBlock.type !== "img") return undefined;
     const src = imgBlock.src;
-    return src.startsWith("http") ? src : `https://seorankgulf.com${src}`;
+    return src.startsWith("http") ? src : `https://seorankgulf-site.vercel.app${src}`;
   })();
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
     description: post.excerpt,
-    url: `https://seorankgulf.com/blog/${post.slug}`,
+    url: `https://seorankgulf-site.vercel.app/blog/${post.slug}`,
     // ISO 8601 datetime (was: display date like "13 October 2026").
     datePublished: post.created_at || post.date,
     ...(postImage ? { image: postImage } : {}),
     author: {
       "@type": "Organization",
       name: "SEORankGulf",
-      url: "https://seorankgulf.com",
+      url: "https://seorankgulf-site.vercel.app",
     },
     publisher: {
       "@type": "Organization",
       name: "SEORankGulf",
-      url: "https://seorankgulf.com",
+      url: "https://seorankgulf-site.vercel.app",
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://seorankgulf.com/blog/${post.slug}`,
+      "@id": `https://seorankgulf-site.vercel.app/blog/${post.slug}`,
     },
   };
 
@@ -320,19 +320,19 @@ export default async function BlogPostPage({ params }: Props) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://seorankgulf.com/",
+        item: "https://seorankgulf-site.vercel.app/",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Blog",
-        item: "https://seorankgulf.com/blog",
+        item: "https://seorankgulf-site.vercel.app/blog",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: post.title,
-        item: `https://seorankgulf.com/blog/${post.slug}`,
+        item: `https://seorankgulf-site.vercel.app/blog/${post.slug}`,
       },
     ],
   };
@@ -382,7 +382,7 @@ export default async function BlogPostPage({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: post.title,
-    url: `https://seorankgulf.com/blog/${post.slug}`,
+    url: `https://seorankgulf-site.vercel.app/blog/${post.slug}`,
     speakable: {
       "@type": "SpeakableSpecification",
       cssSelector: [".quick-answer-box", ".article-body > p:first-of-type"],

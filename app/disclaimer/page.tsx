@@ -11,13 +11,13 @@ export const metadata: Metadata = {
   description:
     "SEORankGulf disclaimer — educational content, no guarantees, affiliate and advertising disclosure.",
   alternates: {
-    canonical: "https://seorankgulf.com/disclaimer",
+    canonical: "https://seorankgulf-site.vercel.app/disclaimer",
   },
   openGraph: {
-    url: "https://seorankgulf.com/disclaimer",
+    url: "https://seorankgulf-site.vercel.app/disclaimer",
     images: [
       {
-        url: "https://seorankgulf.com/og-image.jpg",
+        url: "https://seorankgulf-site.vercel.app/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "SEORankGulf — SEO Services for Gulf Businesses",

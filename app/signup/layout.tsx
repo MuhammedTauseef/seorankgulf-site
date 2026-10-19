@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description:
     "Create a SEORankGulf account to track your enquiries and manage your AI agent.",
   alternates: {
-    canonical: "https://seorankgulf.com/signup",
+    canonical: "https://seorankgulf-site.vercel.app/signup",
   },
   robots: { index: false, follow: false },
 };

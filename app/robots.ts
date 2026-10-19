@@ -25,10 +25,7 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "Applebot-Extended", allow: "/" },
     ],
     sitemap: [
-      "https://seorankgulf.com/sitemap.xml",
-      // Video entries for /videos (a static file in public/).
-      // Submit in Search Console too: Sitemaps → Add /videos-sitemap.xml.
-      "https://seorankgulf.com/videos-sitemap.xml",
+      "https://seorankgulf-site.vercel.app/sitemap.xml",
     ],
   };
 }

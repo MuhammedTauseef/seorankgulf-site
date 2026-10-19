@@ -20,13 +20,15 @@ export default function MobileNav() {
   const sec = (hash: string) => (onHome ? hash : `/${hash}`);
 
   const links = [
-    { label: "Services", href: sec("#services") },
-    { label: "Process", href: sec("#process") },
+    { label: "Services", href: "/seo-services" },
+    { label: "Local SEO", href: "/local-seo" },
+    { label: "Technical SEO", href: "/technical-seo" },
+    { label: "Free Audit", href: "/seo-audit" },
     { label: "Pricing", href: sec("#pricing") },
     { label: "Blog", href: "/blog" },
     { label: "About", href: "/about" },
     { label: "FAQ", href: sec("#faq") },
-    { label: "Contact", href: sec("#contact") },
+    { label: "Contact", href: "/contact" },
   ];
 
   useEffect(() => {

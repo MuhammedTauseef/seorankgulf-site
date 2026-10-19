@@ -27,7 +27,7 @@ interface EmailParams {
 
 async function sendEmail({ to, subject, html }: EmailParams): Promise<EmailResult> {
   const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.RESEND_FROM || "SEORankGulf <hello@seorankgulf.com>";
+  const from = process.env.RESEND_FROM || "SEORankGulf <muhammadtauseef714@gmail.com>";
 
   // Dev/test mode: no API key → log honestly, never claim delivery
   if (!apiKey) {
@@ -64,7 +64,7 @@ const wrap = (body: string) => `
   ${body}
   <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #9ca3af; text-align: center;">
     SEORankGulf — SEO Services by Muhammad Tauseef<br>
-    <a href="https://seorankgulf.com" style="color: #f59e0b;">seorankgulf.com</a>
+    <a href="https://seorankgulf-site.vercel.app" style="color: #f59e0b;">seorankgulf-site.vercel.app</a>
   </div>
 </div>`;
 
@@ -78,7 +78,7 @@ export const emails = {
         <p>Your account for <strong>${businessName}</strong> is ready.</p>
         <p>Next step: complete your 10-minute onboarding and watch your AI agent come to life.</p>
         <p style="text-align: center; margin: 28px 0;">
-          <a href="https://seorankgulf.com/onboarding" style="background: #f59e0b; color: #111827; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: bold;">Build my agent →</a>
+          <a href="https://seorankgulf-site.vercel.app/onboarding" style="background: #f59e0b; color: #111827; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: bold;">Build my agent →</a>
         </p>
         <p>Questions? Just reply to this email.</p>
       `),
@@ -93,7 +93,7 @@ export const emails = {
         <p>Your AI agent for <strong>${businessName}</strong> has been generated and tested.</p>
         <p>Chat with it, tweak the details, and when you're happy — go live!</p>
         <p style="text-align: center; margin: 28px 0;">
-          <a href="https://seorankgulf.com/onboarding/preview" style="background: #f59e0b; color: #111827; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: bold;">Preview my agent →</a>
+          <a href="https://seorankgulf-site.vercel.app/onboarding/preview" style="background: #f59e0b; color: #111827; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: bold;">Preview my agent →</a>
         </p>
       `),
     }),
@@ -124,7 +124,7 @@ export const emails = {
         </ul>
         <p>Your agent never sleeps — and neither do your results.</p>
         <p style="text-align: center; margin: 28px 0;">
-          <a href="https://seorankgulf.com/dashboard/client" style="background: #1e3a5f; color: white; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: bold;">View dashboard →</a>
+          <a href="https://seorankgulf-site.vercel.app/dashboard/client" style="background: #1e3a5f; color: white; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: bold;">View dashboard →</a>
         </p>
       `),
     }),
@@ -138,7 +138,7 @@ export const emails = {
         <p>I noticed you tried our AI demo. What did you think?</p>
         <p>I'd love to build a <strong>free custom demo</strong> for your business — no strings attached.</p>
         <p style="text-align: center; margin: 28px 0;">
-          <a href="https://seorankgulf.com/#contact" style="background: #f59e0b; color: #111827; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: bold;">Get my free demo →</a>
+          <a href="https://seorankgulf-site.vercel.app/#contact" style="background: #f59e0b; color: #111827; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: bold;">Get my free demo →</a>
         </p>
         <p>— Tauseef, SEORankGulf</p>
       `),

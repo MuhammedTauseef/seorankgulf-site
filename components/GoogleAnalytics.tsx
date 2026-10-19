@@ -7,6 +7,11 @@ import { usePathname, useSearchParams } from "next/navigation";
 /**
  * Google Analytics 4 loader with Consent Mode v2.
  *
+ * GA4 Measurement ID: PENDING FROM OWNER.
+ * Set NEXT_PUBLIC_GA_MEASUREMENT_ID in Vercel (Production + Preview) once
+ * the owner provides a valid GA4 property ID. Until then this component
+ * renders nothing (safe no-op).
+ *
  * - Reads the Measurement ID from NEXT_PUBLIC_GA_MEASUREMENT_ID.
  * - Renders NOTHING until that env var is set (safe no-op for local dev).
  * - Sets consent defaults from the visitor's stored cookie choice

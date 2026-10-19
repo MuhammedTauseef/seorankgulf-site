@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description:
     "Request a secure password-reset link for your SEORankGulf account.",
   alternates: {
-    canonical: "https://seorankgulf.com/forgot-password",
+    canonical: "https://seorankgulf-site.vercel.app/forgot-password",
   },
   robots: { index: false, follow: false },
 };

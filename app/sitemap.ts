@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getPublishedPosts } from "@/lib/blog";
 
-const BASE = "https://seorankgulf.com";
+const BASE = "https://seorankgulf-site.vercel.app";
 
 /**
  * Public routes for search engines. Auth-gated pages stay out.
@@ -17,6 +17,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const routes: { path: string; lastModified?: Date; priority: number }[] = [
     { path: "/", priority: 1 },
     { path: "/blog", priority: 0.9 },
+    { path: "/seo-services", priority: 0.9 },
+    { path: "/local-seo", priority: 0.8 },
+    { path: "/technical-seo", priority: 0.8 },
+    { path: "/seo-audit", priority: 0.8 },
     ...posts.map((p) => ({
       path: `/blog/${p.slug}`,
       lastModified: new Date(p.updated_at || p.created_at),

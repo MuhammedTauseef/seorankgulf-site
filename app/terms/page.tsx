@@ -12,13 +12,13 @@ export const metadata: Metadata = {
   description:
     "The terms for using the SEORankGulf website and engaging SEORankGulf's SEO services.",
   alternates: {
-    canonical: "https://seorankgulf.com/terms",
+    canonical: "https://seorankgulf-site.vercel.app/terms",
   },
   openGraph: {
-    url: "https://seorankgulf.com/terms",
+    url: "https://seorankgulf-site.vercel.app/terms",
     images: [
       {
-        url: "https://seorankgulf.com/og-image.jpg",
+        url: "https://seorankgulf-site.vercel.app/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "SEORankGulf — SEO Services for Gulf Businesses",
@@ -28,37 +28,33 @@ export const metadata: Metadata = {
 };
 
 const fallbackBlocks: Block[] = [
-  { type: "p", text: "Last updated: October 14, 2026" },
+  { type: "p", text: "Last updated: October 19, 2026" },
   { type: "h2", text: "Using this website" },
-  { type: "p", text: "By using this site you agree to these terms. SEORankGulf is an SEO agency operated by Muhammad Tauseef. If you do not agree, please do not use the site." },
-  { type: "h2", text: "The AI assistant" },
-  { type: "p", text: "The on-site chat assistant answers questions about SEORankGulf's services. It can save your contact details as a lead or book a demo slot if you ask it to. It does not give legal, financial, or medical advice, and while it tries to be accurate, you should confirm important details by email at muhammadtauseef714@gmail.com." },
-  { type: "h2", text: "Demos" },
-  { type: "p", text: "The demo businesses and demo conversations shown on this site are fictional samples that show what SEORankGulf can build. They are not real clients, real results, or performance claims." },
+  { type: "p", text: "By using this site you agree to these terms. SEORankGulf is an SEO agency operated by Muhammad Tauseef, providing search engine optimization services for Gulf-region businesses. If you do not agree, please do not use the site." },
   { type: "h2", text: "Services and pricing" },
+  { type: "p", text: "SEORankGulf offers monthly SEO service plans. Current plans are: Starter at $300/month, Growth at $600/month, and Enterprise at $1,200/month. A free SEO audit is offered before any paid engagement so you can judge the quality of our work first." },
   { type: "ul", items: [
-      "Setup: $249 one-time per AI agent, with 50% ($125) due upfront and 50% ($124) on go-live.",
-      "Ongoing care: $99/month for hosting, updates, and support, cancellable anytime.",
-      "Delivery: first build targeted within 48 hours of the upfront payment; you approve before go-live.",
-      "Risk reversal: the second 50% is only due once the agent is live and working as agreed."
+      "Plans are billed monthly and are month-to-month — you can cancel any time.",
+      "Exact scope and deliverables for your business are confirmed in writing before work starts.",
+      "We do not guarantee specific Google rankings. No honest SEO company can. We commit to proven methodology: technical fixes, quality content, and consistent execution.",
+      "You keep full ownership of your Google Business Profile, website, domain, and analytics accounts at all times."
     ] },
-  { type: "p", text: "Exact scope, timelines, and any third-party costs (for example WhatsApp or platform fees, paid directly by the client to those providers) are confirmed in writing before work starts. Your agent may also use third-party services that bill you directly, such as AI model API usage and WhatsApp Business API conversation charges; those are explained before you commit." },
-  { type: "h2", text: "Demo bookings" },
-  { type: "p", text: "Demo calls booked through the site are 30 minutes. A booking is stored as pending until confirmed. If a slot is taken before your booking is saved, you will be offered another time." },
+  { type: "h2", text: "Free SEO audit" },
+  { type: "p", text: "The free SEO audit is a no-obligation checkup of your website and Google presence with honest recommendations. Requesting an audit does not commit you to any paid plan." },
   { type: "h2", text: "Acceptable use" },
   { type: "ul", items: [
-      "Do not abuse the contact form, chat, or booking tools.",
+      "Do not abuse the contact form or other tools on this site.",
       "Do not attempt to break, overload, or bypass this site's security.",
-      "Do not use the demos or content here to misrepresent SEORankGulf's work as your own."
+      "Do not copy, republish, or claim SEORankGulf's content as your own without permission."
     ] },
   { type: "h2", text: "Intellectual property" },
-  { type: "p", text: "The content on this site, including text, images, videos, and demos, belongs to SEORankGulf. You may read and share links to it, but you may not copy, republish, or claim it as your own without permission." },
+  { type: "p", text: "The content on this site, including text, images, and videos, belongs to SEORankGulf. You may read and share links to it, but you may not copy, republish, or claim it as your own without permission." },
   { type: "h2", text: "Liability" },
-  { type: "p", text: "This site and its demos are provided as is. To the extent allowed by law, SEORankGulf is not liable for indirect or consequential losses from using the site. Nothing here limits rights you have under applicable consumer law." },
+  { type: "p", text: "This site is provided as is. To the extent allowed by law, SEORankGulf is not liable for indirect or consequential losses from using the site. Nothing here limits rights you have under applicable consumer law." },
   { type: "h2", text: "Changes" },
   { type: "p", text: "These terms may be updated occasionally; the date at the top shows the latest version. Continued use of the site after changes means you accept them." },
   { type: "h2", text: "Contact" },
-  { type: "p", text: "Questions about these terms: email muhammadtauseef714@gmail.com." },
+  { type: "p", text: "Questions about these terms: email muhammadtauseef714@gmail.com or message us on WhatsApp at +92 315 0642491." },
 ];
 
 function renderBlock(block: Block, i: number) {

@@ -27,7 +27,7 @@ const wrap = (body: string) => `
   ${body}
   <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #9ca3af; text-align: center;">
     SEORankGulf — SEO Services<br>
-    <a href="https://seorankgulf.com" style="color: #E63946;">seorankgulf.com</a>
+    <a href="https://seorankgulf-site.vercel.app" style="color: #E63946;">seorankgulf-site.vercel.app</a>
   </div>
 </div>`;
 
@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const from = process.env.RESEND_FROM || "SEORankGulf <hello@seorankgulf.com>";
+  const from = process.env.RESEND_FROM || "SEORankGulf <muhammadtauseef714@gmail.com>";
   const html = wrap(
     `<div style="white-space: pre-wrap; line-height: 1.6;">${message
       .replace(/&/g, "&amp;")

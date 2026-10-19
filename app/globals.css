@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;600;700;800;900&display=swap");
-
 :root{
   --navy:#0a172a; --navy-2:#071426; --navy-3:#0d1f3a; --blue:#14315c;
   --gold:#E63946; --gold-soft:#ef6a76; --gold-deep:#b91c28;
@@ -64,7 +62,7 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
-  font-family:"Red Hat Display","Avenir Next",Avenir,"Segoe UI",system-ui,-apple-system,sans-serif}
+  font-family:var(--font-redhat),"Avenir Next",Avenir,"Segoe UI",system-ui,-apple-system,sans-serif}
 h1,h2,h3,p{margin-top:0}
 a{color:inherit}
 img{display:block;max-width:100%}

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Red_Hat_Display } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import CookieConsent from "@/components/CookieConsent";
@@ -6,8 +7,16 @@ import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { safeJsonLd } from "@/lib/json-ld";
 import "./globals.css";
 
+// Self-hosted via next/font — no render-blocking Google Fonts @import.
+const redHat = Red_Hat_Display({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-redhat",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://seorankgulf.com"),
+  metadataBase: new URL("https://seorankgulf-site.vercel.app"),
   title: "SEORankGulf — We Rank Gulf Businesses on Google's First Page",
   description:
     "SEO services for UAE & Gulf businesses. Local SEO, technical SEO, and content SEO. Free SEO audit. Dubai, Abu Dhabi, Sharjah.",
@@ -25,7 +34,7 @@ export const metadata: Metadata = {
     description:
       "SEO services for UAE & Gulf businesses. Local SEO, technical SEO, content SEO. Free SEO audit.",
     type: "website",
-    url: "https://seorankgulf.com",
+    url: "https://seorankgulf-site.vercel.app",
     siteName: "SEORankGulf",
   },
   twitter: {
@@ -45,7 +54,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={redHat.variable}>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -61,7 +70,7 @@ export default function RootLayout({
                 {
                   "@type": "Organization",
                   name: "SEORankGulf",
-                  url: "https://seorankgulf.com/",
+                  url: "https://seorankgulf-site.vercel.app/",
                   description:
                     "SEORankGulf provides SEO services for Gulf businesses: local SEO, technical SEO, and content SEO for companies in Dubai, Abu Dhabi, Sharjah, and across the UAE.",
                   knowsAbout: [
@@ -75,7 +84,7 @@ export default function RootLayout({
                 {
                   "@type": "WebSite",
                   name: "SEORankGulf",
-                  url: "https://seorankgulf.com/",
+                  url: "https://seorankgulf-site.vercel.app/",
                   inLanguage: "en",
                 },
               ],

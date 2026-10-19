@@ -13,10 +13,10 @@ export const metadata: Metadata = {
     "SEORankGulf FAQ",
   ],
   alternates: {
-    canonical: "https://seorankgulf.com/faq",
+    canonical: "https://seorankgulf-site.vercel.app/faq",
   },
   openGraph: {
-    url: "https://seorankgulf.com/faq",
+    url: "https://seorankgulf-site.vercel.app/faq",
   },
 };
 
