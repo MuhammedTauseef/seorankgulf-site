@@ -532,6 +532,7 @@ export default async function Home() {
           </div>
           <div className="foot-base">
             <span>{c.footer.copyright}</span>
+            <a href="/admin" className="foot-admin-link">Admin</a>
           </div>
         </div>
       </footer>

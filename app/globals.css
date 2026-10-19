@@ -354,6 +354,9 @@ footer{background:var(--navy-2);color:#aeb9d4;padding:64px 0 34px}
 .foot-legal{display:flex;gap:18px;flex-wrap:wrap}
 .foot-legal a{opacity:.85}
 .foot-legal a:hover{opacity:1;color:var(--gold-soft)}
+.foot-admin-link{font-size:.72rem;color:#5b6a86;opacity:.55;text-decoration:none}
+.foot-admin-link:hover{opacity:1;color:var(--gold-soft)}
+html:not([data-theme="dark"]) .foot-admin-link{color:var(--faint)}
 
 /* ---------- legal pages ---------- */
 .legal-body{margin-top:34px;display:grid;gap:6px}
