@@ -97,7 +97,9 @@ export default async function BlogPage() {
               {posts.map((post, i) => {
                 const imgBlock = post.content.find((b) => b.type === "img");
                 const thumb =
-                  imgBlock && imgBlock.type === "img" ? imgBlock.src : null;
+                  (imgBlock && imgBlock.type === "img" ? imgBlock.src : null) ||
+                  post.cover_image ||
+                  null;
                 return (
                   <Link
                     key={post.slug}
