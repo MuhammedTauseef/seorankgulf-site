@@ -1,18 +1,25 @@
--- ReplyPilot blog CMS — blog_posts table.
--- Run in Supabase SQL Editor. Safe to re-run.
+-- SEORankGulf blog CMS — blog_posts table.
+-- Run in Supabase SQL Editor (project: seorankgulf). Safe to re-run.
+--
+-- NOTE: schema.sql + phase2-migration.sql must be run first (they define
+-- public.is_admin() and update_updated_at()).
 
 CREATE TABLE IF NOT EXISTS blog_posts (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   slug TEXT UNIQUE NOT NULL,
   title TEXT NOT NULL,
-  excerpt TEXT NOT NULL DEFAULT '',
+  excerpt TEXT,
   content JSONB NOT NULL DEFAULT '[]'::jsonb,
   keywords TEXT[] DEFAULT '{}',
   cover_image TEXT,
+  read_time TEXT,
   published BOOLEAN DEFAULT TRUE,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+-- In case the table was created by an older version of this file without read_time.
+ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS read_time TEXT;
 
 ALTER TABLE blog_posts ENABLE ROW LEVEL SECURITY;
 
