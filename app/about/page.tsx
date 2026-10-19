@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "About — SEORankGulf",
   description:
-    "SEORankGulf is an SEO agency run by the SEORankGulf team — helping Gulf businesses rank on Google's first page.",
+    "SEORankGulf is an SEO agency run by Muhammad Tauseef — helping Gulf businesses rank on Google's first page.",
   alternates: {
     canonical: "https://seorankgulf-site.vercel.app/about",
   },
@@ -99,7 +99,7 @@ export default async function AboutPage() {
               MT
             </div>
             <p style={{ color: "#4b5563", margin: 0 }}>
-              SEORankGulf is an SEO agency run by <strong>SEORankGulf team</strong>.
+              SEORankGulf is an SEO agency run by <strong>Muhammad Tauseef</strong>.
             </p>
           </div>
 
@@ -118,7 +118,7 @@ export default async function AboutPage() {
                   MT
                 </div>
                 <div>
-                  <h3 style={{ margin: "0 0 4px", fontSize: "1.25rem" }}>SEORankGulf team</h3>
+                  <h3 style={{ margin: "0 0 4px", fontSize: "1.25rem" }}>Muhammad Tauseef</h3>
                   <p style={{ margin: 0, color: "var(--gold)", fontSize: ".95rem", fontWeight: 600 }}>Founder & CEO, SEORankGulf</p>
                 </div>
               </div>

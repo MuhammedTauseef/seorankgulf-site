@@ -36,6 +36,14 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://seorankgulf-site.vercel.app",
     siteName: "SEORankGulf",
+    images: [
+      {
+        url: "https://seorankgulf-site.vercel.app/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "SEORankGulf — SEO Services for Gulf Businesses",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
