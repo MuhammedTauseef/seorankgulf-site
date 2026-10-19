@@ -45,10 +45,11 @@ export default async function Home() {
 
       <header className="site-header">
         <div className="wrap">
-          <a className="brand" href="#top" aria-label="SEORankGulf home">
+          <a className="brand" href="/" aria-label="SEORankGulf home">
             <span className="brand-mark">S</span>SEORANKGULF
           </a>
           <nav className="site-nav" aria-label="Primary navigation">
+            <a className="nav-link" href="/">Home</a>
             <a className="nav-link" href="#services">Services</a>
             <a className="nav-link" href="#process">Process</a>
             <a className="nav-link" href="#pricing">Pricing</a>
