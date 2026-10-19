@@ -131,9 +131,9 @@ export default async function AboutPage() {
             </div>
 
             <p style={{ marginTop: 24 }}>
-              Want to see what an AI agent could do for your business?{" "}
-              <Link href="/contact">Contact us</Link> or try a{" "}
-              <Link href="/demo">live demo</Link> — it takes two minutes.
+              Want to rank higher on Google?{" "}
+              <Link href="/contact">Contact us</Link> for a free SEO audit
+              — it takes two minutes.
             </p>
           </div>
         </div>
