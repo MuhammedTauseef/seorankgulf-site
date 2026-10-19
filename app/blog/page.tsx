@@ -4,6 +4,9 @@ import PageHeader from "@/components/PageHeader";
 import { getPublishedPosts } from "@/lib/blog";
 import { safeJsonLd } from "@/lib/json-ld";
 
+// Revalidate every 60 seconds — content changes in admin show without redeploy
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Blog — SEO Guides for Gulf Businesses | SEORankGulf",
   description:

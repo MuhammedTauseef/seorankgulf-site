@@ -13,6 +13,9 @@ import {
 import { safeJsonLd } from "@/lib/json-ld";
 import { getPublishedPosts, getPostBySlug, type Block } from "@/lib/blog";
 
+// Revalidate every 60 seconds — content changes in admin show without redeploy
+export const revalidate = 60;
+
 interface Props {
   params: Promise<{ slug: string }>;
 }
