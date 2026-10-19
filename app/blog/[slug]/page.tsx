@@ -41,7 +41,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: (() => {
         const firstImg = (post.content || []).find((b) => b.type === "img");
         if (firstImg && firstImg.type === "img") {
-          return [{ url: `https://seorankgulf.com${firstImg.src}`, alt: firstImg.alt || post.title }];
+          const src = firstImg.src.startsWith("http")
+            ? firstImg.src
+            : `https://seorankgulf.com${firstImg.src}`;
+          return [{ url: src, alt: firstImg.alt || post.title }];
         }
         return [];
       })(),
@@ -276,8 +279,9 @@ export default async function BlogPostPage({ params }: Props) {
   // Article schema — Neil Patel 2026 rule: schema markup so AI can scrape and cite content
   const postImage = (() => {
     const imgBlock = (post.content || []).find((b) => b.type === "img");
-    const src = imgBlock && imgBlock.type === "img" ? imgBlock.src : undefined;
-    return src ? `https://seorankgulf.com${src}` : undefined;
+    if (!imgBlock || imgBlock.type !== "img") return undefined;
+    const src = imgBlock.src;
+    return src.startsWith("http") ? src : `https://seorankgulf.com${src}`;
   })();
   const articleSchema = {
     "@context": "https://schema.org",
