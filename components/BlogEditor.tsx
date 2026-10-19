@@ -19,6 +19,26 @@ export default function BlogEditor({
   saving: boolean;
 }) {
   const [blocks, setBlocks] = useState<Block[]>(initial);
+  const [uploading, setUploading] = useState<number | null>(null);
+  const [uploadError, setUploadError] = useState("");
+
+  async function uploadImage(i: number, file: File, b: Extract<Block, { type: "img" }>) {
+    setUploading(i);
+    setUploadError("");
+    try {
+      const form = new FormData();
+      form.append("file", file);
+      form.append("kind", "poster"); // image upload path
+      const res = await fetch("/api/admin/upload", { method: "POST", body: form });
+      const d = await res.json();
+      if (!res.ok) throw new Error(d.error || "Upload failed.");
+      update(i, { ...b, src: d.url });
+    } catch (e) {
+      setUploadError(e instanceof Error ? e.message : "Upload failed.");
+    } finally {
+      setUploading(null);
+    }
+  }
 
   const update = (i: number, b: Block) => {
     const next = [...blocks];
@@ -83,6 +103,41 @@ export default function BlogEditor({
                 value={b.src}
                 onChange={(e) => update(i, { ...b, src: e.target.value })}
               />
+              <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 8 }}>
+                <label
+                  style={{
+                    background: "#f59e0b",
+                    color: "#111827",
+                    padding: "8px 16px",
+                    borderRadius: 8,
+                    fontWeight: 600,
+                    cursor: uploading === i ? "wait" : "pointer",
+                    fontSize: ".85rem",
+                    opacity: uploading === i ? 0.6 : 1,
+                  }}
+                >
+                  {uploading === i ? "Uploading…" : "📤 Upload image"}
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,image/gif"
+                    style={{ display: "none" }}
+                    disabled={uploading === i}
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      if (f) uploadImage(i, f, b);
+                      e.target.value = "";
+                    }}
+                  />
+                </label>
+                {uploadError && <span style={{ color: "#b3261e", fontSize: ".8rem" }}>{uploadError}</span>}
+              </div>
+              {b.src && (
+                <img
+                  src={b.src}
+                  alt={b.alt || "preview"}
+                  style={{ maxWidth: "100%", maxHeight: 200, borderRadius: 8, marginBottom: 8 }}
+                />
+              )}
               <input
                 style={input}
                 placeholder="Alt text (describe the image for SEO)"

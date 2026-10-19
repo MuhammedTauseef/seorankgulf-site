@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import BlogEditor, { type Block } from "@/components/BlogEditor";
+import ImageUploadButton from "@/components/ImageUploadButton";
 
 /** /admin/blog/new — write a new post with the block editor. */
 export default function NewPostPage() {
@@ -68,6 +69,14 @@ export default function NewPostPage() {
       <textarea style={{ ...input, minHeight: 70 }} placeholder="Excerpt — short summary for SEO & previews" value={excerpt} onChange={(e) => setExcerpt(e.target.value)} />
       <input style={input} placeholder="Keywords (comma separated)" value={keywords} onChange={(e) => setKeywords(e.target.value)} />
       <input style={input} placeholder="Cover image URL (optional)" value={cover} onChange={(e) => setCover(e.target.value)} />
+      <ImageUploadButton onUploaded={setCover} label="📤 Upload cover image" />
+      {cover.trim() && (
+        <img
+          src={cover.trim()}
+          alt="cover preview"
+          style={{ maxWidth: "100%", maxHeight: 220, borderRadius: 8, marginBottom: 12 }}
+        />
+      )}
       <label style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 20 }}>
         <input type="checkbox" checked={published} onChange={(e) => setPublished(e.target.checked)} />
         Published (uncheck to save as draft)
