@@ -34,6 +34,9 @@ export const metadata: Metadata = {
     description:
       "SEO services for UAE & Gulf businesses. Free SEO audit.",
   },
+  verification: {
+    google: "jXx7jWarPskM3UN7e2YihwpzUjZAzKJim_fvKRz-kw8",
+  },
 };
 
 export default function RootLayout({
