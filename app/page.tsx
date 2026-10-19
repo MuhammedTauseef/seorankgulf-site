@@ -71,7 +71,7 @@ export default async function Home() {
       <main id="main">
         {/* HERO */}
         <section className="ag-hero" id="top" aria-labelledby="ag-hero-title">
-          <div className="wrap ag-hero-inner">
+          <div className="wrap ag-hero-inner ag-hero-split">
             <div className="ag-hero-copy">
               <span className="ag-badge">{c.hero.badge}</span>
               <h1 className="ag-title" id="ag-hero-title">
@@ -94,25 +94,17 @@ export default async function Home() {
               </div>
               <p className="ag-meta">{c.hero.metaLine}</p>
             </div>
-          {/* 3D scrolling image marquee — left to right */}
-          <div className="ag-marquee" aria-hidden="true">
-            <div className="ag-marquee-track">
-              {[0, 1].flatMap((dup) =>
-                [1, 2, 3, 4].map((n) => (
-                  <div className="ag-marquee-card" key={`${dup}-${n}`}>
-                    <img
-                      src={`/images/hero-3d/hero-3d-${n}.webp`}
-                      alt=""
-                      width="480"
-                      height="320"
-                      loading={dup === 0 ? "eager" : "lazy"}
-                    />
-                  </div>
-                ))
-              )}
+            <div className="ag-hero-media">
+              <img
+                src="/images/hero-3d/hero-3d-1.webp"
+                alt="3D illustration of SEO analytics dashboard with rising rankings"
+                width="560"
+                height="373"
+                className="ag-hero-img"
+                fetchPriority="high"
+              />
             </div>
           </div>
-        </div>
         </section>
 
         {/* STATS */}
