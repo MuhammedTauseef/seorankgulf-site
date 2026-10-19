@@ -115,15 +115,15 @@ export interface SiteContent {
 
 export const DEFAULT_CONTENT: SiteContent = {
   hero: {
-    badge: "SEO for the Gulf",
-    titleBefore: "We Rank Gulf Businesses on ",
+    badge: "SEO for UAE Businesses",
+    titleBefore: "We Rank UAE Businesses on ",
     titleHighlight: "Google's First Page",
     subtitle:
-      "Local SEO, technical SEO, and content SEO for UAE businesses in Dubai, Abu Dhabi, and Sharjah. No fluff — just rankings that bring customers.",
+      "Local SEO, technical SEO, and content SEO for UAE businesses — Dubai, Abu Dhabi, Sharjah and beyond. Serving clients worldwide. No fluff — just rankings that bring customers.",
     cta1Text: "Get Free SEO Audit",
     cta1Message: "Hi! I want a free SEO audit for my business.",
     cta2Text: "See Pricing",
-    metaLine: "Dubai · Abu Dhabi · Sharjah · Month-to-month plans",
+    metaLine: "UAE-focused · Serving clients worldwide · Month-to-month plans",
   },
   logosLabel: "Trusted by growing businesses across the Gulf",
   stats: [
