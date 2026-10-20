@@ -26,6 +26,25 @@ export async function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
 }
 
+const SITE_URL = "https://seorankgulf-site.vercel.app";
+
+/** Prefer the admin-set cover_image; fall back to the first content image block. */
+function getPostImage(post: {
+  cover_image?: string | null;
+  content?: Array<{ type: string; src?: string }>;
+}): string | undefined {
+  if (post.cover_image) {
+    return post.cover_image.startsWith("http")
+      ? post.cover_image
+      : `${SITE_URL}${post.cover_image}`;
+  }
+  const firstImg = (post.content || []).find((b) => b.type === "img");
+  if (firstImg && firstImg.src) {
+    return firstImg.src.startsWith("http") ? firstImg.src : `${SITE_URL}${firstImg.src}`;
+  }
+  return undefined;
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
@@ -45,14 +64,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.excerpt,
       type: "article",
       images: (() => {
-        const firstImg = (post.content || []).find((b) => b.type === "img");
-        if (firstImg && firstImg.type === "img") {
-          const src = firstImg.src.startsWith("http")
-            ? firstImg.src
-            : `https://seorankgulf-site.vercel.app${firstImg.src}`;
-          return [{ url: src, alt: firstImg.alt || post.title }];
-        }
-        return [];
+        const imgUrl = getPostImage(post);
+        return imgUrl ? [{ url: imgUrl, alt: post.title }] : [];
+      })(),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: (() => {
+        const imgUrl = getPostImage(post);
+        return imgUrl ? [imgUrl] : [];
       })(),
     },
   };
@@ -296,12 +318,7 @@ export default async function BlogPostPage({ params }: Props) {
   })();
 
   // Article schema — Neil Patel 2026 rule: schema markup so AI can scrape and cite content
-  const postImage = (() => {
-    const imgBlock = (post.content || []).find((b) => b.type === "img");
-    if (!imgBlock || imgBlock.type !== "img") return undefined;
-    const src = imgBlock.src;
-    return src.startsWith("http") ? src : `https://seorankgulf-site.vercel.app${src}`;
-  })();
+  const postImage = getPostImage(post);
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -310,6 +327,9 @@ export default async function BlogPostPage({ params }: Props) {
     url: `https://seorankgulf-site.vercel.app/blog/${post.slug}`,
     // ISO 8601 datetime (was: display date like "13 October 2026").
     datePublished: post.created_at || post.date,
+    ...(post.updated_at && post.updated_at !== post.created_at
+      ? { dateModified: post.updated_at }
+      : {}),
     ...(postImage ? { image: postImage } : {}),
     author: {
       "@type": "Organization",
