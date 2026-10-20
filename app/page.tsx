@@ -9,6 +9,7 @@ import {
 } from "@/lib/site-content";
 import MobileNav from "@/components/MobileNav";
 import ThemeToggle from "@/components/ThemeToggle";
+import { safeJsonLd } from "@/lib/json-ld";
 
 /** SEORankGulf homepage — SEO services for Gulf businesses. */
 export const metadata: Metadata = {
@@ -25,6 +26,21 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://seorankgulf-site.vercel.app",
     siteName: "SEORankGulf",
+    images: [
+      {
+        url: "https://seorankgulf-site.vercel.app/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "SEORankGulf — SEO Services for Gulf Businesses",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SEORankGulf — We Rank Gulf Businesses on Google's First Page",
+    description:
+      "SEO services for UAE & Gulf businesses. Free SEO audit.",
+    images: ["https://seorankgulf-site.vercel.app/og-image.jpg"],
   },
 };
 
@@ -39,6 +55,65 @@ export default async function Home() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: safeJsonLd({
+            "@context": "https://schema.org",
+            "@type": "ProfessionalService",
+            name: "SEORankGulf",
+            url: "https://seorankgulf-site.vercel.app/",
+            description:
+              "SEO services for UAE & Gulf businesses: local SEO, technical SEO, content SEO, and SEO audits. Plans from $300 per month.",
+            founder: {
+              "@type": "Person",
+              name: "Muhammad Tauseef",
+            },
+            contactPoint: {
+              "@type": "ContactPoint",
+              contactType: "sales",
+              telephone: "+92 315 0642491",
+              availableLanguage: "en",
+            },
+            areaServed: [
+              "United Arab Emirates",
+              "Australia",
+              "Canada",
+              "United States",
+              "United Kingdom",
+              "New Zealand",
+            ],
+            makesOffer: {
+              "@type": "OfferCatalog",
+              name: "SEO service plans",
+              itemListElement: [
+                {
+                  "@type": "Offer",
+                  name: "Starter",
+                  price: "300",
+                  priceCurrency: "USD",
+                  description: "Monthly SEO plan for small local businesses.",
+                },
+                {
+                  "@type": "Offer",
+                  name: "Growth",
+                  price: "600",
+                  priceCurrency: "USD",
+                  description: "Monthly SEO plan for growing businesses.",
+                },
+                {
+                  "@type": "Offer",
+                  name: "Enterprise",
+                  price: "1200",
+                  priceCurrency: "USD",
+                  description:
+                    "Monthly SEO plan for competitive industries and multi-location businesses.",
+                },
+              ],
+            },
+          }),
+        }}
+      />
       <a className="skip-link" href="#main">
         Skip to content
       </a>

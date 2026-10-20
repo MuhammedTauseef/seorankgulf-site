@@ -31,7 +31,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getPostBySlug(slug);
   if (!post) return { title: "Post not found — SEORankGulf" };
   return {
-    title: `${post.title} | SEORankGulf Blog`,
+    title:
+      `${post.title} | SEORankGulf`.length <= 60
+        ? `${post.title} | SEORankGulf`
+        : post.title,
     description: post.excerpt,
     keywords: post.keywords,
     alternates: {
@@ -337,33 +340,47 @@ export default async function BlogPostPage({ params }: Props) {
     ],
   };
 
-  // FAQ schema — extract Q&A pairs from FAQ section for Google rich snippets.
-  // Robust: every h3 inside the FAQ section is a question, with or without
-  // a trailing "?" (5 articles have FAQ headings without "?"), and the
-  // answer is ALL consecutive <p> blocks until the next heading/block.
-  // The old extractor silently dropped questions that lacked "?" or whose
-  // answer spanned more than one paragraph.
+  // FAQ schema — extract Q&A pairs from the FAQ section for Google rich snippets.
+  // Robust across every admin-publish format, because the editor has no FAQ
+  // block type and different articles store questions differently:
+  //   - h3 question headings (Sharjah article),
+  //   - h2 question headings ending with "?" (Abu Dhabi article),
+  //   - fully-bold paragraph questions like "**How much does it cost?**"
+  //     followed by answer paragraphs (the two Dubai articles).
+  // The answer to a question is ALL consecutive non-question <p> blocks.
+  // An h2 that does NOT look like a question (e.g. "Get Your Free Audit")
+  // ends the FAQ section. Only visible on-page content is used — nothing invented.
   const faqSchema = (() => {
     const blocks = post.content || [];
     const faqIdx = blocks.findIndex(
       (b) => (b.type === "h2" || b.type === "h3") && /frequently asked questions/i.test(b.text)
     );
     if (faqIdx === -1) return null;
+    const isQuestion = (b: Block) => {
+      const t = ((b as { text?: string }).text || "").trim();
+      if (!t) return false;
+      if (b.type === "h3") return true;
+      if (b.type === "h2" && /\?\s*$/.test(t)) return true;
+      if (b.type === "p" && /^\*\*[\s\S]*?\?\s*\*\*$/.test(t)) return true;
+      return false;
+    };
+    const cleanQuestion = (b: Block) =>
+      (((b as { text?: string }).text || "").trim().replace(/^\*\*\s*|\s*\*\*$/g, ""));
     const questions: { "@type": string; name: string; acceptedAnswer: { "@type": string; text: string } }[] = [];
     for (let i = faqIdx + 1; i < blocks.length; i++) {
       const b = blocks[i];
-      if (b.type === "h2") break; // FAQ section ended
-      if (b.type === "h3") {
+      if ((b.type === "h2" || b.type === "h3") && !isQuestion(b)) break; // FAQ section ended
+      if (isQuestion(b)) {
         const answerParts: string[] = [];
         for (let j = i + 1; j < blocks.length; j++) {
           const ab = blocks[j];
-          if (ab.type === "p") answerParts.push(ab.text.trim());
-          else break; // next heading / list / media ends this answer
+          if (ab.type === "p" && !isQuestion(ab)) answerParts.push((ab.text || "").trim());
+          else break; // next question / heading / list / media ends this answer
         }
         if (answerParts.length) {
           questions.push({
             "@type": "Question",
-            name: b.text.trim(),
+            name: cleanQuestion(b),
             acceptedAnswer: { "@type": "Answer", text: answerParts.join("\n\n") },
           });
         }
