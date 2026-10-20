@@ -58,7 +58,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-/** Render paragraph/list text with [label](url) converted to real links.
+/** Render bold `**text**` spans inside a plain-text segment.
+ * Bold-parse runs AFTER link-parse (see renderInline), so it never touches URLs. */
+function renderBold(text: string, keyPrefix: string) {
+  const parts = text.split(/(\*\*[^*\n]+\*\*)/g);
+  return parts.map((part, j) => {
+    const m = part.match(/^\*\*([^*]+)\*\*$/);
+    if (m) {
+      return <strong key={`${keyPrefix}-b${j}`}>{m[1]}</strong>;
+    }
+    return <span key={`${keyPrefix}-t${j}`}>{part}</span>;
+  });
+}
+
+/** Render paragraph/list text with [label](url) converted to real links
+ * and **bold** converted to <strong>. Link parsing runs first so that
+ * `**` inside URLs is never touched; bold parsing applies to link labels
+ * and all remaining text segments.
  * SEC-006 fix (2026-10-16): allowlist href protocols to block javascript: URLs. */
 function renderInline(text: string, keyPrefix: string) {
   const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g);
@@ -68,7 +84,7 @@ function renderInline(text: string, keyPrefix: string) {
       const href = m[2];
       // Only allow safe protocols — drop anything else (e.g. javascript:)
       if (!/^(https?:\/\/|\/|#|mailto:)/.test(href)) {
-        return <span key={`${keyPrefix}-${j}`}>{m[1]}</span>;
+        return <span key={`${keyPrefix}-${j}`}>{renderBold(m[1], `${keyPrefix}-l${j}`)}</span>;
       }
       const external = /^https?:\/\//.test(href);
       return (
@@ -79,11 +95,11 @@ function renderInline(text: string, keyPrefix: string) {
             ? { target: "_blank", rel: "noopener noreferrer" }
             : {})}
         >
-          {m[1]}
+          {renderBold(m[1], `${keyPrefix}-l${j}`)}
         </a>
       );
     }
-    return <span key={`${keyPrefix}-${j}`}>{part}</span>;
+    return <span key={`${keyPrefix}-${j}`}>{renderBold(part, `${keyPrefix}-s${j}`)}</span>;
   });
 }
 
