@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import {
+  createSupabaseQueueMutationStore,
+  deleteQueuedItem,
+  slugifyQueueSlug,
+  updateQueuedItem,
+} from "@/lib/buffer-queue";
 
 /**
  * Buffer queue admin API — how finished articles enter the buffer.
@@ -9,6 +15,11 @@ import { createClient } from "@/lib/supabase/server";
  *        the auto-publisher later creates it via POST /api/admin/blog
  *        (the panel's own publish action) when the date comes due.
  * GET    /api/admin/blog/queue — list queue rows (status readout).
+ * GET    /api/admin/blog/queue?id=... — one full queue row (for editing).
+ * PUT    /api/admin/blog/queue — edit / reschedule a QUEUED row
+ *        (title, slug, excerpt, content, keywords, cover_image,
+ *        publish_at). Only status 'queued' may be changed — enforced
+ *        in lib/buffer-queue.ts by status check + conditional write.
  * DELETE /api/admin/blog/queue?id=... — remove a still-queued row.
  *
  * Admin session required, same requireAdmin pattern as /api/admin/blog.
@@ -32,18 +43,25 @@ async function requireAdmin() {
 }
 
 function slugify(s: string): string {
-  return s
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9\s-]/g, "")
-    .replace(/\s+/g, "-")
-    .replace(/-+/g, "-")
-    .slice(0, 80);
+  return slugifyQueueSlug(s);
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   const auth = await requireAdmin();
   if ("error" in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
+
+  // Single full row for the buffer edit page: /api/admin/blog/queue?id=...
+  const id = new URL(req.url).searchParams.get("id");
+  if (id) {
+    const { data, error } = await auth.supabase
+      .from("blog_buffer_queue")
+      .select("*")
+      .eq("id", id)
+      .maybeSingle();
+    if (error) return NextResponse.json({ error: "Failed to load queue item." }, { status: 500 });
+    if (!data) return NextResponse.json({ error: "Queue item not found." }, { status: 404 });
+    return NextResponse.json({ item: data });
+  }
 
   const { data, error } = await auth.supabase
     .from("blog_buffer_queue")
@@ -114,6 +132,31 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ ok: true, queued: data });
 }
 
+/** PUT /api/admin/blog/queue — edit / reschedule a QUEUED row only. */
+export async function PUT(req: NextRequest) {
+  const auth = await requireAdmin();
+  if ("error" in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
+
+  let body: Record<string, unknown>;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON." }, { status: 400 });
+  }
+
+  const id = String(body.id ?? "");
+  if (!id) return NextResponse.json({ error: "ID required." }, { status: 400 });
+
+  const store = createSupabaseQueueMutationStore(auth.supabase);
+  const result = await updateQueuedItem(store, id, body);
+  if (!result.ok) {
+    return NextResponse.json({ error: result.error }, { status: result.status });
+  }
+
+  const item = await store.getById(id);
+  return NextResponse.json({ ok: true, item });
+}
+
 export async function DELETE(req: NextRequest) {
   const auth = await requireAdmin();
   if ("error" in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
@@ -122,17 +165,12 @@ export async function DELETE(req: NextRequest) {
   if (!id) return NextResponse.json({ error: "ID required." }, { status: 400 });
 
   // Only still-queued rows may be removed — publishing/published/failed
-  // rows are the audit trail and stay.
-  const { error, count } = await auth.supabase
-    .from("blog_buffer_queue")
-    .delete({ count: "exact" })
-    .eq("id", id)
-    .eq("status", "queued");
-  if (error || count === 0) {
-    return NextResponse.json(
-      { error: "Delete failed (only queued rows can be removed)." },
-      { status: 400 }
-    );
+  // rows are the audit trail and stay. Enforced by status check +
+  // conditional delete in lib/buffer-queue.ts.
+  const store = createSupabaseQueueMutationStore(auth.supabase);
+  const result = await deleteQueuedItem(store, id);
+  if (!result.ok) {
+    return NextResponse.json({ error: result.error }, { status: result.status });
   }
   return NextResponse.json({ ok: true });
 }
