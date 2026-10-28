@@ -5,13 +5,12 @@ import { usePathname } from "next/navigation";
 
 /**
  * Client dashboard navigation — rendered by app/dashboard/layout.tsx so
- * every signed-in client page (home, conversations, billing, profile)
- * carries the same links. Before this, the sub-pages existed but were
- * unreachable from the dashboard UI.
+ * every signed-in client page (home, billing, profile) carries the same
+ * links. Before this, the sub-pages existed but were unreachable from
+ * the dashboard UI.
  */
 const LINKS = [
   { href: "/dashboard", label: "Dashboard" },
-  { href: "/dashboard/client/conversations", label: "Conversations" },
   { href: "/dashboard/client/billing", label: "Billing" },
   { href: "/dashboard/client/profile", label: "Profile" },
   { href: "/", label: "Back to website" },

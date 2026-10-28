@@ -40,10 +40,6 @@ check("Users API protects last admin (demote)", usersApi.includes("Cannot demote
 check("Users API blocks self-delete", usersApi.includes("cannot delete yourself"));
 check("Users API protects last admin (delete)", usersApi.includes("Cannot delete the last admin"));
 
-const convApi = readFileSync("app/api/conversations/route.ts", "utf-8");
-check("Conversations filtered by user_id", convApi.includes('.eq("user_id", user.id)'));
-check("Conversations require auth", convApi.includes("Not signed in"));
-
 console.log("\n=== Registered Users — Admin-Only Guards ===\n");
 check("Users API rejects signed-out callers (401)", usersApi.includes('"Not signed in."') && usersApi.includes("status: 401"));
 check("Users API rejects non-admins (403)", usersApi.includes('"Admins only."') && usersApi.includes("status: 403"));
