@@ -111,7 +111,7 @@ async function DashboardContent() {
       <div className="admin-top">
         <div>
           <h1>Welcome{name ? `, ${name}` : ""}</h1>
-          <p style={{ color: "#4b5563", margin: "6px 0 0" }}>
+          <p style={{ color: "var(--muted)", margin: "6px 0 0" }}>
             {rows.length} enquir{rows.length === 1 ? "y" : "ies"} submitted from
             your account.
           </p>
@@ -129,31 +129,31 @@ async function DashboardContent() {
       >
         <div className="price-card" style={{ padding: 26 }}>
           <div className="service-num">Enquiries</div>
-          <div style={{ fontSize: "2.2rem", fontWeight: 800, color: "#1b2653" }}>
+          <div style={{ fontSize: "2.2rem", fontWeight: 800, color: "var(--ink)" }}>
             {rows.length}
           </div>
         </div>
         <div className="price-card" style={{ padding: 26 }}>
           <div className="service-num">Plan</div>
-          <div style={{ fontSize: "1.3rem", fontWeight: 800, color: "#1b2653" }}>
+          <div style={{ fontSize: "1.3rem", fontWeight: 800, color: "var(--ink)" }}>
             {hasActivePlan ? "Active SEO plan" : "No active SEO plan"}
           </div>
           {hasActivePlan ? (
-            <p style={{ color: "#4b5563", fontSize: ".9rem", margin: "8px 0 0" }}>
+            <p style={{ color: "var(--muted)", fontSize: ".9rem", margin: "8px 0 0" }}>
               Your SEO plan is active. Plan changes and billing are handled
               directly with our team — message us any time about your
               campaign.
             </p>
           ) : (
             <>
-              <p style={{ color: "#4b5563", fontSize: ".9rem", margin: "8px 0 0" }}>
+              <p style={{ color: "var(--muted)", fontSize: ".9rem", margin: "8px 0 0" }}>
                 SEO plans: Starter $300/mo · Growth $600/mo · Enterprise
                 $1,200/mo.
               </p>
               <div style={{ marginTop: 12 }}>
                 <Link
                   href="/#pricing"
-                  style={{ color: "#1b2653", fontWeight: 700, fontSize: ".92rem", textDecoration: "underline" }}
+                  style={{ color: "var(--ink)", fontWeight: 700, fontSize: ".92rem", textDecoration: "underline" }}
                 >
                   See plans &amp; pricing
                 </Link>
@@ -177,7 +177,7 @@ async function DashboardContent() {
               )}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "#1b2653", fontWeight: 700, fontSize: ".92rem", textDecoration: "underline" }}
+              style={{ color: "var(--ink)", fontWeight: 700, fontSize: ".92rem", textDecoration: "underline" }}
             >
               💬 Chat with us on WhatsApp
             </a>
@@ -185,7 +185,7 @@ async function DashboardContent() {
         </div>
       </div>
 
-      <h2 style={{ fontSize: "1.4rem", color: "#1b2653", marginBottom: 16 }}>
+      <h2 style={{ fontSize: "1.4rem", color: "var(--ink)", marginBottom: 16 }}>
         Your enquiries
       </h2>
 
@@ -230,7 +230,7 @@ async function DashboardContent() {
  */
 export default function DashboardPage() {
   return (
-    <main className="admin-wrap">
+    <main className="admin-wrap dash-shell">
       <Suspense fallback={<div className="empty">Loading your dashboard…</div>}>
         <DashboardContent />
       </Suspense>
