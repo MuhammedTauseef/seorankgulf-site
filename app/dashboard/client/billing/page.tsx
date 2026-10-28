@@ -8,7 +8,7 @@ export default function BillingPage() {
       <section className="block">
         <div className="wrap" style={{ maxWidth: 720 }}>
           <Link
-            href="/dashboard/client"
+            href="/dashboard"
             style={{ color: "#6b7280", textDecoration: "none", fontSize: ".9rem" }}
           >
             ← Back to dashboard
