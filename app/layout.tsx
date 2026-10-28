@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Red_Hat_Display } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
+import BackHomeNav from "@/components/BackHomeNav";
 import CookieConsent from "@/components/CookieConsent";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { safeJsonLd } from "@/lib/json-ld";
@@ -101,6 +102,9 @@ export default function RootLayout({
         />
       </head>
       <body>
+        {/* Back / Home bar on every public page (self-hides on /, /admin,
+            /dashboard, /auth and on blog pages, which render their own). */}
+        <BackHomeNav />
         {children}
         <GoogleAnalytics />
         <CookieConsent />
