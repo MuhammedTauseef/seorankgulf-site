@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { notFound } from "next/navigation";
 import PageHeader from "@/components/PageHeader";
+import BackHomeNav from "@/components/BackHomeNav";
 import {
   MidArticleCTA,
   EndOfArticleCTA,
@@ -460,6 +461,7 @@ export default async function BlogPostPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: safeJsonLd(speakableSchema) }}
       />
       <PageHeader />
+      <BackHomeNav inPage />
       <main>
         <section className="article-hero">
           <div
