@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServiceClient } from "@/lib/supabase/service";
-import { mintAdminSession } from "@/lib/admin-session";
+import { mintAdminSession, bufferAdminEmail } from "@/lib/admin-session";
 import {
   createSupabaseQueueStore,
   publishNextQueuedArticle,
@@ -66,8 +66,7 @@ export async function GET(req: NextRequest) {
           cron_secret_configured: true,
           service_role_configured: true,
           deploy_hook_configured: deployHookConfigured,
-          admin_email:
-            process.env.BUFFER_ADMIN_EMAIL || "tauseefrock456@gmail.com",
+          admin_email: bufferAdminEmail(),
         },
       });
     }

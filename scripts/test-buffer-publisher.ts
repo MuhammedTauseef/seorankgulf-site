@@ -5,7 +5,8 @@
  * Covers the publish-once contract of lib/buffer-publisher.ts:
  * due-pick order, one article per run, claim idempotency (a second run
  * can never publish the same article twice), duplicate-slug recovery,
- * session-failure release, and attempt/terminal failure handling.
+ * session-failure release, and attempt/terminal failure handling —
+ * plus the publisher's fallback admin identity (lib/admin-session.ts).
  */
 import {
   publishNextQueuedArticle,
@@ -15,6 +16,7 @@ import {
   type QueuedArticle,
   type RunLogEntry,
 } from "../lib/buffer-publisher";
+import { bufferAdminEmail } from "../lib/admin-session";
 
 let passed = 0,
   failed = 0;
@@ -399,6 +401,27 @@ async function main() {
     const r = await publishNextQueuedArticle(store, netFlake, liveYes, true, NOW);
     check("outcome published", r.outcome === "published");
     check("admin API called twice", calls === 2);
+  }
+
+  console.log("\n16. Fallback admin identity (the account the publisher acts as):");
+  {
+    const saved = process.env.BUFFER_ADMIN_EMAIL;
+    try {
+      delete process.env.BUFFER_ADMIN_EMAIL;
+      check(
+        "unset BUFFER_ADMIN_EMAIL falls back to the owner's current admin email",
+        bufferAdminEmail() === "muhammadtauseef714@gmail.com",
+        bufferAdminEmail()
+      );
+      process.env.BUFFER_ADMIN_EMAIL = "override@example.com";
+      check(
+        "BUFFER_ADMIN_EMAIL override is honoured",
+        bufferAdminEmail() === "override@example.com"
+      );
+    } finally {
+      if (saved === undefined) delete process.env.BUFFER_ADMIN_EMAIL;
+      else process.env.BUFFER_ADMIN_EMAIL = saved;
+    }
   }
 
   console.log(`\n=== ${passed} passed, ${failed} failed ===\n`);

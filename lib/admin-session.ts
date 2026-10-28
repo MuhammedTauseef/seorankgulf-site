@@ -40,6 +40,18 @@ function errText(err: unknown): string {
   return msg.slice(0, 300);
 }
 
+/**
+ * The account the buffer auto-publisher acts as. BUFFER_ADMIN_EMAIL
+ * overrides it; the fallback is the owner's current admin account.
+ * The named account must exist in auth.users with
+ * profiles.role = 'admin' — the admin routes still verify that on
+ * every call, so a stale fallback fails closed (session mints, admin
+ * check rejects) rather than publishing as the wrong identity.
+ */
+export function bufferAdminEmail(): string {
+  return process.env.BUFFER_ADMIN_EMAIL || "muhammadtauseef714@gmail.com";
+}
+
 export async function mintAdminSession(): Promise<AdminSessionResult> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -53,7 +65,7 @@ export async function mintAdminSession(): Promise<AdminSessionResult> {
     };
   }
 
-  const email = process.env.BUFFER_ADMIN_EMAIL || "tauseefrock456@gmail.com";
+  const email = bufferAdminEmail();
 
   const service = createSupabaseClient(url, serviceKey, {
     auth: { persistSession: false, autoRefreshToken: false },
