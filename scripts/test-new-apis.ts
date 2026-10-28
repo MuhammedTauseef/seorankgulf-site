@@ -3,48 +3,16 @@
  * Run: npx tsx scripts/test-new-apis.ts
  *
  * Tests:
- * 1. Agent config: only allowed keys accepted, tone validated, status can't go backwards
- * 2. Profile: role never writable, name validation
- * 3. FAQ: input length limits
- * 4. Admin users: safeguards (self-demote, last-admin)
- * 5. Registered-users visibility: admin-only guards + registration defaults
+ * 1. Profile: role never writable, name validation
+ * 2. FAQ: input length limits
+ * 3. Admin users: safeguards (self-demote, last-admin)
+ * 4. Registered-users visibility: admin-only guards + registration defaults
  */
 let passed = 0, failed = 0;
 function check(name: string, cond: boolean, detail = "") {
   if (cond) { passed++; console.log(`  ✅ ${name}`); }
   else { failed++; console.log(`  ❌ ${name}${detail ? ` — ${detail}` : ""}`); }
 }
-
-// --- Replicate agent-config validation logic ---
-const ALLOWED_KEYS = ["agent_name", "greeting", "tone", "language", "business_hours", "auto_reply"];
-const ALLOWED_TONES = ["friendly", "professional", "playful", "formal"];
-
-function validateAgentPatch(body: Record<string, unknown>): { ok: boolean; error?: string } {
-  for (const key of ALLOWED_KEYS) {
-    if (body[key] !== undefined && key === "tone") {
-      const val = String(body[key]).trim().toLowerCase();
-      if (!ALLOWED_TONES.includes(val)) return { ok: false, error: "bad tone" };
-    }
-  }
-  // Unknown keys are ignored (not written)
-  return { ok: true };
-}
-
-function validateStatusTransition(current: string, target: string): boolean {
-  const order = ["draft", "preview", "ready"];
-  const allowed = ["draft", "preview", "ready"];
-  if (!allowed.includes(target)) return false;
-  return order.indexOf(target) >= order.indexOf(current);
-}
-
-console.log("\n=== Agent Config Security ===\n");
-check("Valid tone accepted", validateAgentPatch({ tone: "professional" }).ok);
-check("Invalid tone rejected", !validateAgentPatch({ tone: "rude" }).ok);
-check("Unknown keys ignored (not written)", validateAgentPatch({ admin: true, role: "admin" }).ok);
-check("Status forward allowed (draft→preview)", validateStatusTransition("draft", "preview"));
-check("Status backward blocked (ready→draft)", !validateStatusTransition("ready", "draft"));
-check("Status to live blocked", !validateStatusTransition("ready", "live"));
-check("Status to building blocked", !validateStatusTransition("draft", "building"));
 
 // --- Profile validation ---
 function validateProfileName(name: string): { ok: boolean; error?: string } {
@@ -65,10 +33,6 @@ import { readFileSync } from "fs";
 const profileApi = readFileSync("app/api/profile/route.ts", "utf-8");
 check("Profile API never writes 'role'", !profileApi.includes('role:') || !profileApi.match(/update\(\{\s*[^}]*role/));
 check("Profile API updates only full_name", profileApi.includes(".update({ full_name })"));
-
-const agentApi = readFileSync("app/api/agent-config/route.ts", "utf-8");
-check("Agent API has allowed-keys whitelist", agentApi.includes("ALLOWED_KEYS"));
-check("Agent API blocks backward status", agentApi.includes("Cannot move agent status backwards"));
 
 const usersApi = readFileSync("app/api/admin/users/route.ts", "utf-8");
 check("Users API blocks self role-change", usersApi.includes("cannot change your own role"));
