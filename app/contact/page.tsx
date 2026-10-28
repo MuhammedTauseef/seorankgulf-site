@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getStaticPage } from "@/lib/pages";
+import { CONTACT_EMAIL, emailLink } from "@/lib/site-config";
 import type { Block } from "@/lib/blog";
 
 export const dynamic = "force-dynamic";
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
 
 const fallbackBlocks: Block[] = [
   { type: "h2", text: "Email" },
-  { type: "p", text: "muhammadtauseef714@gmail.com" },
+  { type: "p", text: CONTACT_EMAIL },
   { type: "h2", text: "WhatsApp" },
   { type: "p", text: "+92 315 0642491 — the fastest way to reach us. Message us for a free SEO audit of your business." },
   { type: "h2", text: "What to include" },
@@ -49,8 +50,18 @@ function renderBlock(block: Block, i: number) {
       );
     case "img":
       return null; // images not used on static pages
-    default:
-      return <p key={i}>{(block as { text: string }).text}</p>;
+    default: {
+      const text = (block as { text: string }).text;
+      // The standalone email paragraph renders as a tappable mailto link.
+      if (text.trim() === CONTACT_EMAIL) {
+        return (
+          <p key={i}>
+            <a href={emailLink()}>{CONTACT_EMAIL}</a>
+          </p>
+        );
+      }
+      return <p key={i}>{text}</p>;
+    }
   }
 }
 
