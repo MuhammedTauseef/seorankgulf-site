@@ -70,7 +70,7 @@ export default function SignupPage() {
     <main className="admin-wrap">
       <div className="admin-card">
         <h1>Create your account</h1>
-        <p>Sign up to track your enquiries and manage your AI agent.</p>
+        <p>Sign up to track your enquiries, free SEO audit and campaign progress.</p>
 
         <GoogleSignInButton onError={setError} />
 
