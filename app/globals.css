@@ -393,6 +393,19 @@ html:not([data-theme="dark"]) .foot-admin-link{color:var(--faint)}
 .dash-nav-link.active{background:var(--gold);border-color:var(--gold);color:#fff}
 [data-theme="dark"] .dash-nav-link:hover{color:var(--gold-soft)}
 [data-theme="dark"] .dash-nav-link.active{color:#fff}
+/* Back / Home bar — public pages, rendered by components/BackHomeNav.tsx.
+   Same pill language as .dash-nav-link: paper-2 surface, line border,
+   ink text; gold on hover (gold-deep on light, gold-soft on dark so the
+   text stays legible in both themes). Static in-flow bar — never floats,
+   so it cannot collide with the WhatsApp float button. */
+.back-home-wrap{padding-top:14px}
+.back-home-nav{display:flex;flex-wrap:wrap;gap:8px}
+.back-home-btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;
+  padding:9px 18px;border:1px solid var(--line);border-radius:999px;background:var(--paper-2);
+  color:var(--ink);font-size:.9rem;font-weight:600;text-decoration:none;white-space:nowrap;
+  cursor:pointer;font-family:inherit}
+.back-home-btn:hover{border-color:var(--gold);color:var(--gold-deep)}
+[data-theme="dark"] .back-home-btn:hover{color:var(--gold-soft)}
 /* Form controls + buttons + badges for the client dashboard and admin
    screens. These classes were referenced in the markup but never defined,
    so inputs and the profile Save button rendered as browser defaults. */
