@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServiceClient } from "@/lib/supabase/service";
-import { getAdminCookieHeader } from "@/lib/admin-session";
+import { mintAdminSession } from "@/lib/admin-session";
 import {
   createSupabaseQueueStore,
   publishNextQueuedArticle,
@@ -72,44 +72,120 @@ export async function GET(req: NextRequest) {
       });
     }
 
+    // Health probe — exercises the admin-session mint + a READ-ONLY
+    // admin API call (GET /api/admin/blog) without touching the queue
+    // or publishing anything. Exists so the session path that failed
+    // silently on 2026-10-28 (bare "HTTP 401" in the run log) can be
+    // checked on demand and after deploys.
+    if (req.nextUrl.searchParams.get("probe") === "1") {
+      const session = await mintAdminSession();
+      if (!session.ok) {
+        return NextResponse.json({
+          ok: false,
+          probe: true,
+          session_step_failed: session.step,
+          error: session.error,
+        });
+      }
+      try {
+        const res = await fetch(`${req.nextUrl.origin}/api/admin/blog`, {
+          method: "GET",
+          headers: { cookie: session.cookieHeader },
+        });
+        let adminError: string | null = null;
+        try {
+          const json = (await res.json()) as { error?: unknown };
+          adminError = typeof json.error === "string" ? json.error : null;
+        } catch {
+          adminError = "non-JSON response body";
+        }
+        return NextResponse.json({
+          ok: res.ok,
+          probe: true,
+          admin_email: session.email,
+          admin_get_status: res.status,
+          admin_get_error: res.ok ? null : adminError,
+        });
+      } catch (err) {
+        return NextResponse.json({
+          ok: false,
+          probe: true,
+          admin_email: session.email,
+          error: `Admin API fetch failed: ${
+            err instanceof Error ? err.message : String(err)
+          }`,
+        });
+      }
+    }
+
     // Publish path — everything goes through the admin API.
     const publishViaAdmin = async (
       article: QueuedArticle
     ): Promise<AdminPublishResult> => {
-      const session = await getAdminCookieHeader();
-      if (!session) {
+      const session = await mintAdminSession();
+      if (!session.ok) {
         return {
           ok: false,
           httpStatus: 0,
           postId: null,
           slug: null,
           duplicateSlug: false,
+          sessionFailed: true,
           error: "admin_session_failed",
+          detail: `Admin session minting failed at step "${session.step}": ${session.error}`,
         };
       }
-      const res = await fetch(`${req.nextUrl.origin}/api/admin/blog`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          cookie: session.cookieHeader,
-        },
-        body: JSON.stringify({
-          title: article.title,
-          slug: article.slug,
-          excerpt: article.excerpt,
-          content: article.content,
-          keywords: article.keywords,
-          cover_image: article.cover_image ?? undefined,
-          published: true,
-        }),
-      });
+      let res: Response;
+      try {
+        res = await fetch(`${req.nextUrl.origin}/api/admin/blog`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            cookie: session.cookieHeader,
+          },
+          body: JSON.stringify({
+            title: article.title,
+            slug: article.slug,
+            excerpt: article.excerpt,
+            content: article.content,
+            keywords: article.keywords,
+            cover_image: article.cover_image ?? undefined,
+            published: true,
+          }),
+        });
+      } catch (err) {
+        // Network-level failure (no response at all). Report it as a
+        // result instead of throwing — a throw would strand the queue
+        // row in 'publishing' with no run log.
+        return {
+          ok: false,
+          httpStatus: 0,
+          postId: null,
+          slug: null,
+          duplicateSlug: false,
+          error: "admin_fetch_failed",
+          detail: `Admin API fetch failed before any response: ${
+            err instanceof Error ? err.message : String(err)
+          }`,
+        };
+      }
+      const rawBody = await res.text().catch(() => "");
       let json: { post?: { id?: string; slug?: string }; error?: string } = {};
       try {
-        json = await res.json();
+        json = JSON.parse(rawBody) as typeof json;
       } catch {
-        // Non-JSON response — status below still describes the failure.
+        // Non-JSON response — diagnostics below describe what came back.
       }
       const errorText = typeof json.error === "string" ? json.error : null;
+      // When the admin route's own JSON error is absent, the response
+      // did not come from the admin route's auth check (which always
+      // returns {"error": ...}). Record what it actually was — status,
+      // content type, routing headers, body excerpt — so the run log
+      // identifies the responding layer instead of a bare "HTTP 401".
+      const detail =
+        !res.ok && !errorText
+          ? `HTTP ${res.status} without the admin route's JSON error (content-type: ${res.headers.get("content-type") ?? "unknown"}; x-matched-path: ${res.headers.get("x-matched-path") ?? "unknown"}; x-vercel-id: ${res.headers.get("x-vercel-id") ?? "unknown"}; body starts: "${rawBody.slice(0, 120).replace(/\s+/g, " ")}")`
+          : null;
       return {
         ok: res.ok,
         httpStatus: res.status,
@@ -120,6 +196,7 @@ export async function GET(req: NextRequest) {
           !!errorText &&
           /already exists/i.test(errorText),
         error: res.ok ? null : (errorText ?? `HTTP ${res.status}`),
+        detail,
       };
     };
 
