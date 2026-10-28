@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import LogoutButton from "@/components/LogoutButton";
+import { whatsappLink } from "@/lib/site-config";
 
 type Lead = {
   id: string;
@@ -53,6 +54,49 @@ async function DashboardContent() {
   if (typed?.role === "admin") redirect("/admin");
   const name = typed?.full_name?.split(" ")[0] ?? "";
 
+  // Plan state, read with the same RLS-scoped pattern as /api/dashboard:
+  // the user's own clients row, its latest subscription, and whether any
+  // payment of theirs has succeeded. SEORankGulf plans are arranged
+  // directly with the client (no self-serve checkout), so the stored
+  // subscription/payment records are the only source of truth here.
+  // Their stored plan keys are legacy values with no SEORankGulf tier
+  // equivalent, so an active client is shown the generic "Active SEO
+  // plan" — never an invented tier name or price.
+  const { data: clientRow } = await supabase
+    .from("clients")
+    .select("id, subscription_status")
+    .eq("user_id", user.id)
+    .maybeSingle();
+
+  const client = clientRow as {
+    id?: string;
+    subscription_status?: string;
+  } | null;
+
+  let hasActivePlan = client?.subscription_status === "active";
+  if (client?.id) {
+    const { data: subRow } = await supabase
+      .from("subscriptions")
+      .select("status")
+      .eq("client_id", client.id)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    const sub = subRow as { status?: string } | null;
+    if (sub?.status === "active" || sub?.status === "trialing") {
+      hasActivePlan = true;
+    }
+    if (!hasActivePlan) {
+      const { data: paidRows } = await supabase
+        .from("payments")
+        .select("id")
+        .eq("client_id", client.id)
+        .eq("status", "succeeded")
+        .limit(1);
+      if ((paidRows ?? []).length > 0) hasActivePlan = true;
+    }
+  }
+
   const { data: leads, error } = await supabase
     .from("leads")
     .select("id, name, email, business_type, message, created_at")
@@ -92,28 +136,51 @@ async function DashboardContent() {
         <div className="price-card" style={{ padding: 26 }}>
           <div className="service-num">Plan</div>
           <div style={{ fontSize: "1.3rem", fontWeight: 800, color: "#1b2653" }}>
-            Free demo
+            {hasActivePlan ? "Active SEO plan" : "No active SEO plan"}
           </div>
-          <p style={{ color: "#4b5563", fontSize: ".9rem", margin: "8px 0 0" }}>
-            Your AI agent setup is <strong>$249</strong> one-time.
-          </p>
+          {hasActivePlan ? (
+            <p style={{ color: "#4b5563", fontSize: ".9rem", margin: "8px 0 0" }}>
+              Your SEO plan is active. Plan changes and billing are handled
+              directly with our team — message us any time about your
+              campaign.
+            </p>
+          ) : (
+            <>
+              <p style={{ color: "#4b5563", fontSize: ".9rem", margin: "8px 0 0" }}>
+                SEO plans: Starter $300/mo · Growth $600/mo · Enterprise
+                $1,200/mo.
+              </p>
+              <div style={{ marginTop: 12 }}>
+                <Link
+                  href="/#pricing"
+                  style={{ color: "#1b2653", fontWeight: 700, fontSize: ".92rem", textDecoration: "underline" }}
+                >
+                  See plans &amp; pricing
+                </Link>
+              </div>
+            </>
+          )}
         </div>
         <div className="price-card" style={{ padding: 26 }}>
           <div className="service-num">Next step</div>
           <Link
-            href="/#contact"
+            href="/seo-audit"
             className="btn btn-gold"
             style={{ minHeight: 46, padding: "0 18px", fontSize: ".92rem" }}
           >
-            Request your AI agent
+            Request your free SEO audit
           </Link>
           <div style={{ marginTop: 12 }}>
-            <Link
-              href="/dashboard/client/billing"
+            <a
+              href={whatsappLink(
+                "Hi SEORankGulf, I'd like a free SEO audit for my business."
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
               style={{ color: "#1b2653", fontWeight: 700, fontSize: ".92rem", textDecoration: "underline" }}
             >
-              💳 Billing — pay $124 / $99 plan
-            </Link>
+              💬 Chat with us on WhatsApp
+            </a>
           </div>
         </div>
       </div>
