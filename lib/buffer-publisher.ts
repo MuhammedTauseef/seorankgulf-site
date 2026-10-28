@@ -78,6 +78,32 @@ export interface AdminPublishResult {
   /** The admin session could not be established; nothing was attempted. */
   sessionFailed?: boolean;
   error: string | null;
+  /**
+   * Optional diagnostics for the run log (which minting step failed,
+   * or what a non-JSON error response actually contained). Never
+   * carries token material.
+   */
+  detail?: string | null;
+}
+
+/**
+ * A failed admin attempt is worth ONE in-run retry with a fresh
+ * session when the failure looks transient: an auth rejection
+ * (401/403 — e.g. a session the API would not accept), a rate limit,
+ * a network-level failure (status 0), or a server error. Client
+ * errors like a 400 validation failure will fail identically on
+ * retry, so they are not retried.
+ */
+export function isRetryableAdminFailure(result: AdminPublishResult): boolean {
+  if (result.ok || result.sessionFailed || result.duplicateSlug) return false;
+  return (
+    result.httpStatus === 0 ||
+    result.httpStatus === 401 ||
+    result.httpStatus === 403 ||
+    result.httpStatus === 408 ||
+    result.httpStatus === 429 ||
+    result.httpStatus >= 500
+  );
 }
 
 /** Publishes one article through the admin API (injected; faked in tests). */
@@ -143,7 +169,23 @@ export async function publishNextQueuedArticle(
     };
   }
 
-  const admin = await publishViaAdmin(due);
+  let admin = await publishViaAdmin(due);
+
+  // One in-run retry with a FRESH admin session for transient-looking
+  // failures (observed 2026-10-28: a cron run's admin POST was
+  // rejected with a bare HTTP 401 while the identical call succeeded
+  // hours later). publishViaAdmin mints a new session per call, so
+  // the retry never reuses the rejected session. The retry does not
+  // burn an extra queue attempt — the run still counts as one.
+  let firstAttemptStatus: number | null = null;
+  if (isRetryableAdminFailure(admin)) {
+    firstAttemptStatus = admin.httpStatus;
+    admin = await publishViaAdmin(due);
+  }
+  const retryNote =
+    firstAttemptStatus !== null
+      ? ` First attempt in this run returned HTTP ${firstAttemptStatus}; retried once with a fresh admin session.`
+      : "";
 
   if (admin.sessionFailed) {
     // Infrastructure failure, not the article's fault: release the
@@ -156,7 +198,8 @@ export async function publishNextQueuedArticle(
       deploy_hook_configured: deployHookConfigured,
       live_verified: null,
       detail:
-        "Could not establish an admin session server-side; nothing was published and no attempt was recorded.",
+        "Could not establish an admin session server-side; nothing was published and no attempt was recorded." +
+        (admin.detail ? ` Minting diagnostics: ${admin.detail}` : ""),
     });
     return {
       outcome: "admin_session_failed",
@@ -179,9 +222,11 @@ export async function publishNextQueuedArticle(
       slug: due.slug,
       deploy_hook_configured: deployHookConfigured,
       live_verified: live,
-      detail: live
-        ? "Published via POST /api/admin/blog (admin session); public URL verified live."
-        : "Published via POST /api/admin/blog (admin session); public URL not live yet within the check window (deploy may still be propagating).",
+      detail:
+        (live
+          ? "Published via POST /api/admin/blog (admin session); public URL verified live."
+          : "Published via POST /api/admin/blog (admin session); public URL not live yet within the check window (deploy may still be propagating).") +
+        retryNote,
     });
     return { outcome, article: due, admin, liveVerified: live, runLogged };
   }
@@ -209,7 +254,9 @@ export async function publishNextQueuedArticle(
 
   const attempts = due.attempts + 1;
   const terminal = attempts >= MAX_PUBLISH_ATTEMPTS;
-  const message = admin.error ?? `Admin publish failed (HTTP ${admin.httpStatus}).`;
+  const message =
+    (admin.detail ?? admin.error ?? `Admin publish failed (HTTP ${admin.httpStatus}).`) +
+    retryNote;
   await store.fail(due.id, attempts, message, terminal);
   const runLogged = await store.logRun({
     outcome: "publish_failed",
