@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getPublishedPosts } from "@/lib/blog";
-import { whatsappLinkFor } from "@/lib/site-config";
+import { whatsappLinkFor, CONTACT_EMAIL, emailLink } from "@/lib/site-config";
 import {
   getSiteContent,
   getWhatsappNumber,
@@ -574,6 +574,9 @@ export default async function Home() {
                 style={{ fontSize: ".85rem" }}
               >
                 WhatsApp: {waDisplay}
+              </a>
+              <a href={emailLink()} style={{ fontSize: ".85rem" }}>
+                Email: {CONTACT_EMAIL}
               </a>
               <p className="ag-footer-note">
                 {c.footer.hours}
