@@ -96,35 +96,6 @@ export const emails = {
       `),
     }),
 
-  demoFollowup: (to: string, name: string) =>
-    sendEmail({
-      to,
-      subject: `${name}, saw you tried our demo 👀`,
-      html: wrap(`
-        <h2>Hi ${name}!</h2>
-        <p>I noticed you tried our AI demo. What did you think?</p>
-        <p>I'd love to build a <strong>free custom demo</strong> for your business — no strings attached.</p>
-        <p style="text-align: center; margin: 28px 0;">
-          <a href="https://seorankgulf-site.vercel.app/#contact" style="background: #f59e0b; color: #111827; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: bold;">Get my free demo →</a>
-        </p>
-        <p>— Tauseef, SEORankGulf</p>
-      `),
-    }),
-
-  bookingConfirmed: (to: string, name: string, date: string, time: string, businessName: string) =>
-    sendEmail({
-      to,
-      subject: `Booking confirmed — ${businessName} 📅`,
-      html: wrap(`
-        <h2>Hi ${name}!</h2>
-        <p>Your appointment with <strong>${businessName}</strong> is confirmed:</p>
-        <p style="font-size: 1.2rem; text-align: center; margin: 20px 0;">
-          <strong>${date}</strong> at <strong>${time}</strong> (Pakistan time)
-        </p>
-        <p>We'll send you a reminder before your slot. Need to reschedule? Just reply to this email.</p>
-        <p>— ${businessName} (powered by SEORankGulf)</p>
-      `),
-    }),
 };
 
 export { sendEmail };
