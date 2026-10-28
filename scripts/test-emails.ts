@@ -3,7 +3,7 @@
  * Run: npx tsx scripts/test-emails.ts
  * 
  * Tests:
- * 1. All 6 templates render without crashing
+ * 1. All 4 templates render without crashing
  * 2. Dev-mode (no API key) returns honest 'dev-mode' status, never 'sent'
  * 3. HTML output contains expected content
  * 4. No unhandled exceptions when provider unavailable
@@ -38,19 +38,9 @@ async function main() {
   } catch (e) { check("welcome renders", false, String(e)); }
 
   try {
-    results.push(await emails.agentReady("test@example.com", "Test Salon"));
-    check("agentReady renders", true);
-  } catch (e) { check("agentReady renders", false, String(e)); }
-
-  try {
     results.push(await emails.paymentReceipt("test@example.com", "$125.00", "Build Deposit"));
     check("paymentReceipt renders", true);
   } catch (e) { check("paymentReceipt renders", false, String(e)); }
-
-  try {
-    results.push(await emails.monthlyReport("test@example.com", "Test Salon", { chats: 42, leads: 8, bookings: 3 }));
-    check("monthlyReport renders", true);
-  } catch (e) { check("monthlyReport renders", false, String(e)); }
 
   try {
     results.push(await emails.demoFollowup("test@example.com", "Ahmed"));
