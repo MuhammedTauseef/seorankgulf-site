@@ -8,7 +8,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Create your account — SEORankGulf",
   description:
-    "Create a SEORankGulf account to track your enquiries and manage your AI agent.",
+    "Create a SEORankGulf account to track your enquiries, request a free SEO audit and follow your campaign progress.",
   alternates: {
     canonical: "https://seorankgulf-site.vercel.app/signup",
   },
