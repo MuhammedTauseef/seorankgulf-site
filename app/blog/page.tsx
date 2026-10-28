@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
+import BackHomeNav from "@/components/BackHomeNav";
 import { getPublishedPosts } from "@/lib/blog";
 import { safeJsonLd } from "@/lib/json-ld";
 
@@ -54,6 +55,7 @@ export default async function BlogPage() {
         dangerouslySetInnerHTML={{ __html: safeJsonLd(blogSchema) }}
       />
       <PageHeader />
+      <BackHomeNav inPage />
       <main>
         <section className="hero" style={{ padding: 0 }}>
           <div
