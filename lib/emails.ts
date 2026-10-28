@@ -75,26 +75,12 @@ export const emails = {
       subject: `Welcome to SEORankGulf, ${name}! 🎉`,
       html: wrap(`
         <h2>Hi ${name}!</h2>
-        <p>Your account for <strong>${businessName}</strong> is ready.</p>
-        <p>Next step: complete your 10-minute onboarding and watch your AI agent come to life.</p>
+        <p>Your SEORankGulf account for <strong>${businessName}</strong> is ready. From your dashboard you can track your enquiries and follow your SEO campaign progress.</p>
+        <p>Next step: request your free SEO audit — we analyse your website and Google presence and send you a clear report of what is holding you back. Free, no strings attached.</p>
         <p style="text-align: center; margin: 28px 0;">
-          <a href="https://seorankgulf-site.vercel.app/onboarding" style="background: #f59e0b; color: #111827; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: bold;">Build my agent →</a>
+          <a href="https://seorankgulf-site.vercel.app/seo-audit" style="background: #f59e0b; color: #111827; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: bold;">Get my free SEO audit →</a>
         </p>
         <p>Questions? Just reply to this email.</p>
-      `),
-    }),
-
-  agentReady: (to: string, businessName: string) =>
-    sendEmail({
-      to,
-      subject: `Your AI agent for ${businessName} is ready! 🤖`,
-      html: wrap(`
-        <h2>Great news!</h2>
-        <p>Your AI agent for <strong>${businessName}</strong> has been generated and tested.</p>
-        <p>Chat with it, tweak the details, and when you're happy — go live!</p>
-        <p style="text-align: center; margin: 28px 0;">
-          <a href="https://seorankgulf-site.vercel.app/onboarding/preview" style="background: #f59e0b; color: #111827; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: bold;">Preview my agent →</a>
-        </p>
       `),
     }),
 
@@ -106,26 +92,7 @@ export const emails = {
         <h2>Thank you!</h2>
         <p>We've received your payment of <strong>${amount}</strong> for <strong>${type}</strong>.</p>
         <p>A detailed invoice is available in your Whop receipt.</p>
-        <p>Your agent keeps working for you 24/7. 🚀</p>
-      `),
-    }),
-
-  monthlyReport: (to: string, businessName: string, stats: { chats: number; leads: number; bookings: number }) =>
-    sendEmail({
-      to,
-      subject: `Your ${businessName} monthly report 📊`,
-      html: wrap(`
-        <h2>Monthly report</h2>
-        <p>Here's what your AI agent did this month for <strong>${businessName}</strong>:</p>
-        <ul>
-          <li>💬 <strong>${stats.chats}</strong> chats handled</li>
-          <li>🎯 <strong>${stats.leads}</strong> leads captured</li>
-          <li>📅 <strong>${stats.bookings}</strong> bookings made</li>
-        </ul>
-        <p>Your agent never sleeps — and neither do your results.</p>
-        <p style="text-align: center; margin: 28px 0;">
-          <a href="https://seorankgulf-site.vercel.app/dashboard/client" style="background: #1e3a5f; color: white; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: bold;">View dashboard →</a>
-        </p>
+        <p>Questions about your plan? Just reply to this email — we reply personally.</p>
       `),
     }),
 
