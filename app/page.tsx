@@ -9,6 +9,7 @@ import {
 } from "@/lib/site-content";
 import MobileNav from "@/components/MobileNav";
 import ThemeToggle from "@/components/ThemeToggle";
+import AuthNav from "@/components/AuthNav";
 import { safeJsonLd } from "@/lib/json-ld";
 
 /** SEORankGulf homepage — SEO services for Gulf businesses. */
@@ -132,6 +133,7 @@ export default async function Home() {
             <a className="nav-link" href="/about">About</a>
             <a className="nav-link" href="#faq">FAQ</a>
             <a className="nav-link" href="/contact">Contact</a>
+            <AuthNav />
             <a
               className="nav-cta"
               href={wa(c.hero.cta1Message)}
@@ -594,7 +596,6 @@ export default async function Home() {
           </div>
           <div className="foot-base">
             <span>{c.footer.copyright}</span>
-            <a href="/admin" className="foot-admin-link">Admin</a>
           </div>
         </div>
       </footer>
