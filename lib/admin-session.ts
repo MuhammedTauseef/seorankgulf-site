@@ -21,40 +21,87 @@ import { createClient as createSupabaseClient } from "@supabase/supabase-js";
  * role = 'admin') on every call — this helper only provides the session,
  * it never bypasses the admin layer.
  *
- * Returns null when env is incomplete or any step fails; callers must
- * treat null as "cannot publish" and stop loudly.
+ * mintAdminSession reports WHICH step failed (config / generate_link /
+ * verify_otp / set_session) with the underlying auth error message, so
+ * a failed cron run logs a diagnosis instead of a bare null. Token
+ * material is never included in the failure text.
  */
-export async function getAdminCookieHeader(): Promise<{
-  cookieHeader: string;
-  email: string;
-} | null> {
+
+export type AdminSessionResult =
+  | { ok: true; cookieHeader: string; email: string }
+  | {
+      ok: false;
+      step: "config" | "generate_link" | "verify_otp" | "set_session";
+      error: string;
+    };
+
+function errText(err: unknown): string {
+  const msg = err instanceof Error ? err.message : String(err);
+  return msg.slice(0, 300);
+}
+
+export async function mintAdminSession(): Promise<AdminSessionResult> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !anonKey || !serviceKey) return null;
+  if (!url || !anonKey || !serviceKey) {
+    return {
+      ok: false,
+      step: "config",
+      error:
+        "Missing NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY or SUPABASE_SERVICE_ROLE_KEY.",
+    };
+  }
 
-  const email =
-    process.env.BUFFER_ADMIN_EMAIL || "tauseefrock456@gmail.com";
+  const email = process.env.BUFFER_ADMIN_EMAIL || "tauseefrock456@gmail.com";
 
+  const service = createSupabaseClient(url, serviceKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+  let hashedToken: string | undefined;
   try {
-    const service = createSupabaseClient(url, serviceKey, {
-      auth: { persistSession: false, autoRefreshToken: false },
-    });
     const { data: linkData, error: linkError } =
       await service.auth.admin.generateLink({ type: "magiclink", email });
-    const hashedToken = linkData?.properties?.hashed_token;
-    if (linkError || !hashedToken) return null;
+    if (linkError) {
+      return { ok: false, step: "generate_link", error: errText(linkError) };
+    }
+    hashedToken = linkData?.properties?.hashed_token;
+    if (!hashedToken) {
+      return {
+        ok: false,
+        step: "generate_link",
+        error: "generateLink returned no hashed_token.",
+      };
+    }
+  } catch (err) {
+    return { ok: false, step: "generate_link", error: errText(err) };
+  }
 
-    const anon = createSupabaseClient(url, anonKey, {
-      auth: { persistSession: false, autoRefreshToken: false },
-    });
+  const anon = createSupabaseClient(url, anonKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+  let session: { access_token: string; refresh_token: string } | null = null;
+  try {
     const { data: verified, error: verifyError } = await anon.auth.verifyOtp({
       token_hash: hashedToken,
       type: "magiclink",
     });
-    const session = verified?.session;
-    if (verifyError || !session) return null;
+    if (verifyError) {
+      return { ok: false, step: "verify_otp", error: errText(verifyError) };
+    }
+    session = verified?.session ?? null;
+    if (!session) {
+      return {
+        ok: false,
+        step: "verify_otp",
+        error: "verifyOtp returned no session.",
+      };
+    }
+  } catch (err) {
+    return { ok: false, step: "verify_otp", error: errText(err) };
+  }
 
+  try {
     const captured = new Map<string, string>();
     const ssr = createServerClient(url, anonKey, {
       cookies: {
@@ -70,13 +117,35 @@ export async function getAdminCookieHeader(): Promise<{
       access_token: session.access_token,
       refresh_token: session.refresh_token,
     });
-    if (setError || captured.size === 0) return null;
-
+    if (setError) {
+      return { ok: false, step: "set_session", error: errText(setError) };
+    }
+    if (captured.size === 0) {
+      return {
+        ok: false,
+        step: "set_session",
+        error: "setSession produced no session cookies.",
+      };
+    }
     const cookieHeader = [...captured.entries()]
       .map(([name, value]) => `${name}=${value}`)
       .join("; ");
-    return { cookieHeader, email };
-  } catch {
-    return null;
+    return { ok: true, cookieHeader, email };
+  } catch (err) {
+    return { ok: false, step: "set_session", error: errText(err) };
   }
+}
+
+/**
+ * Backwards-compatible wrapper: the session as a cookie header, or
+ * null when minting failed. New callers should use mintAdminSession
+ * so failures carry their step + cause.
+ */
+export async function getAdminCookieHeader(): Promise<{
+  cookieHeader: string;
+  email: string;
+} | null> {
+  const result = await mintAdminSession();
+  if (!result.ok) return null;
+  return { cookieHeader: result.cookieHeader, email: result.email };
 }
