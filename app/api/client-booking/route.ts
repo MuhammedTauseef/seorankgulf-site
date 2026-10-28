@@ -38,7 +38,7 @@ function dayBoundsUtc(date: string): { startIso: string; endIso: string } {
 /**
  * POST /api/client-booking — book an appointment with a client's business.
  * Body: { business: string, name: string, contact: string, date: "YYYY-MM-DD", time: "HH:MM", notes?: string }
- * Public endpoint (called by the client's AI agent on behalf of end customers).
+ * Public endpoint (books an appointment with a client's business on behalf of end customers).
  * Google Calendar sync happens when GOOGLE_CALENDAR_CREDENTIALS is configured.
  */
 export async function POST(req: NextRequest) {
