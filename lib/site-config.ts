@@ -18,6 +18,14 @@
  */
 export const WHATSAPP_NUMBER = "923150642491";
 
+/** Public contact email — shown on the Contact page and in the site footer. */
+export const CONTACT_EMAIL = "muhammadtauseef714@gmail.com";
+
+/** Build a mailto link for the public contact email. */
+export function emailLink(): string {
+  return `mailto:${CONTACT_EMAIL}`;
+}
+
 /** Build a wa.me click-to-chat link with a pre-filled message. */
 export function whatsappLink(message: string): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
