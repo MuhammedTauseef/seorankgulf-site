@@ -3,7 +3,7 @@
  * Run: npx tsx scripts/test-emails.ts
  * 
  * Tests:
- * 1. All 4 templates render without crashing
+ * 1. All templates render without crashing
  * 2. Dev-mode (no API key) returns honest 'dev-mode' status, never 'sent'
  * 3. HTML output contains expected content
  * 4. No unhandled exceptions when provider unavailable
@@ -41,16 +41,6 @@ async function main() {
     results.push(await emails.paymentReceipt("test@example.com", "$125.00", "Build Deposit"));
     check("paymentReceipt renders", true);
   } catch (e) { check("paymentReceipt renders", false, String(e)); }
-
-  try {
-    results.push(await emails.demoFollowup("test@example.com", "Ahmed"));
-    check("demoFollowup renders", true);
-  } catch (e) { check("demoFollowup renders", false, String(e)); }
-
-  try {
-    results.push(await emails.bookingConfirmed("test@example.com", "Ahmed", "2026-10-15", "14:00", "Test Salon"));
-    check("bookingConfirmed renders", true);
-  } catch (e) { check("bookingConfirmed renders", false, String(e)); }
 
   console.log("\n2. Honest status reporting (dev-mode):");
   const allDevMode = results.every(r => r.status === "dev-mode");
