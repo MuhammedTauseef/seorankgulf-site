@@ -2,6 +2,7 @@ import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
 import MobileNav from "@/components/MobileNav";
 import AuthNav from "@/components/AuthNav";
+import LogoMark from "@/components/LogoMark";
 
 /**
  * Slim site header for content pages (/blog).
@@ -14,7 +15,7 @@ export default function PageHeader() {
     <header className="site-header">
       <div className="wrap">
         <Link className="brand" href="/" aria-label="SEORankGulf home">
-          <span className="brand-mark">S</span>SEORANKGULF
+          <span className="brand-mark"><LogoMark /></span>SEORANKGULF
         </Link>
         <div className="header-actions">
           <Link

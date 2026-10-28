@@ -10,6 +10,7 @@ import {
 import MobileNav from "@/components/MobileNav";
 import ThemeToggle from "@/components/ThemeToggle";
 import AuthNav from "@/components/AuthNav";
+import LogoMark from "@/components/LogoMark";
 import { safeJsonLd } from "@/lib/json-ld";
 
 /** SEORankGulf homepage — SEO services for Gulf businesses. */
@@ -122,7 +123,7 @@ export default async function Home() {
       <header className="site-header">
         <div className="wrap">
           <a className="brand" href="/" aria-label="SEORankGulf home">
-            <span className="brand-mark">S</span>SEORANKGULF
+            <span className="brand-mark"><LogoMark /></span>SEORANKGULF
           </a>
           <div className="header-actions">
             <a
@@ -543,7 +544,7 @@ export default async function Home() {
           <div className="foot-grid">
             <div className="foot-brand">
               <a className="brand" href="#top" aria-label="SEORankGulf home">
-                <span className="brand-mark">S</span>SEORANKGULF
+                <span className="brand-mark"><LogoMark /></span>SEORANKGULF
               </a>
               <p className="ag-footer-tag">{c.footer.tagline}</p>
             </div>
