@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <div className="admin-wrap" style={{ paddingTop: 26, paddingBottom: 0 }}>
+      <div className="admin-wrap dash-shell" style={{ paddingTop: 26, paddingBottom: 0 }}>
         <DashboardNav />
       </div>
       {children}
