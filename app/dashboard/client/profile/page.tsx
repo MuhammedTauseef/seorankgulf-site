@@ -53,11 +53,17 @@ export default function ProfilePage() {
     }
   }
 
-  if (loading) return <p style={{ color: "var(--muted)" }}>Loading profile…</p>;
+  if (loading)
+    return (
+      <main className="admin-wrap dash-shell">
+        <p style={{ color: "var(--muted)" }}>Loading profile…</p>
+      </main>
+    );
 
   return (
-    <div style={{ display: "grid", gap: 18, maxWidth: 480 }}>
-      <h2 style={{ margin: "0 0 6px" }}>Profile settings</h2>
+    <main className="admin-wrap dash-shell">
+    <div className="dash-form" style={{ display: "grid", gap: 18, maxWidth: 480 }}>
+      <h2 style={{ margin: "0 0 6px", fontSize: "1.5rem", letterSpacing: "-.02em" }}>Profile settings</h2>
 
       {error && <p style={{ color: "#ef4444" }}>{error}</p>}
       {saved && <p style={{ color: "#22c55e" }}>✓ Saved successfully.</p>}
@@ -95,5 +101,6 @@ export default function ProfilePage() {
         </button>
       </div>
     </div>
+    </main>
   );
 }
