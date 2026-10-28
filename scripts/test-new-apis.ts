@@ -7,6 +7,7 @@
  * 2. Profile: role never writable, name validation
  * 3. FAQ: input length limits
  * 4. Admin users: safeguards (self-demote, last-admin)
+ * 5. Registered-users visibility: admin-only guards + registration defaults
  */
 let passed = 0, failed = 0;
 function check(name: string, cond: boolean, detail = "") {
@@ -78,6 +79,27 @@ check("Users API protects last admin (delete)", usersApi.includes("Cannot delete
 const convApi = readFileSync("app/api/conversations/route.ts", "utf-8");
 check("Conversations filtered by user_id", convApi.includes('.eq("user_id", user.id)'));
 check("Conversations require auth", convApi.includes("Not signed in"));
+
+console.log("\n=== Registered Users — Admin-Only Guards ===\n");
+check("Users API rejects signed-out callers (401)", usersApi.includes('"Not signed in."') && usersApi.includes("status: 401"));
+check("Users API rejects non-admins (403)", usersApi.includes('"Admins only."') && usersApi.includes("status: 403"));
+check("Users API runs admin guard before listing auth users", usersApi.indexOf("await requireAdmin()") > -1 && usersApi.indexOf("await requireAdmin()") < usersApi.indexOf("service.auth.admin.listUsers"));
+
+const usersPage = readFileSync("app/admin/users/page.tsx", "utf-8");
+check("Users page redirects signed-out visitors to login", usersPage.includes('if (!user) redirect("/admin/login")'));
+check("Users page redirects non-admins to login", usersPage.includes('role !== "admin"') && usersPage.includes('redirect("/admin/login")'));
+
+const adminHome = readFileSync("app/admin/page.tsx", "utf-8");
+check("Admin dashboard links to /admin/users", adminHome.includes('href="/admin/users"'));
+
+console.log("\n=== Registration Defaults ===\n");
+const signupPage = readFileSync("app/signup/page.tsx", "utf-8");
+check("Signup page creates accounts via supabase signUp", signupPage.includes("supabase.auth.signUp"));
+check("Signup page links back to /login", signupPage.includes('href="/login"'));
+
+const schemaSql = readFileSync("supabase/schema.sql", "utf-8");
+check("New-user trigger creates a profile", schemaSql.includes("handle_new_user") && schemaSql.includes("insert into public.profiles"));
+check("Default profile role is 'client' (never admin)", schemaSql.includes("'client')") && schemaSql.includes("default 'client'"));
 
 const faqsApi = readFileSync("app/api/admin/faqs/route.ts", "utf-8");
 check("FAQs API requires admin", faqsApi.includes("Admins only"));
