@@ -237,6 +237,170 @@ async function main() {
     check("queue row published", store.rows[0].status === "published");
   }
 
+  console.log("\n10. Bare 401 then success on in-run retry → published, one queue attempt:");
+  {
+    const store = new FakeStore([article("1", "retry-win", "2026-10-26T03:00:00.000Z")]);
+    let calls = 0;
+    const flaky = async (): Promise<AdminPublishResult> => {
+      calls++;
+      if (calls === 1) {
+        return {
+          ok: false,
+          httpStatus: 401,
+          postId: null,
+          slug: null,
+          duplicateSlug: false,
+          error: "HTTP 401",
+          detail: 'HTTP 401 without the admin route\'s JSON error (content-type: text/html; body starts: "<html>")',
+        };
+      }
+      return okAdmin();
+    };
+    const r = await publishNextQueuedArticle(store, flaky, liveYes, true, NOW);
+    check("outcome published", r.outcome === "published");
+    check("admin API called twice", calls === 2);
+    check("queue row published", store.rows[0].status === "published");
+    check("no queue attempt burned", store.rows[0].attempts === 0);
+    check(
+      "run log notes the retry",
+      (store.logs[0]?.detail ?? "").includes("First attempt in this run returned HTTP 401"),
+      store.logs[0]?.detail ?? ""
+    );
+  }
+
+  console.log("\n11. 401 twice → publish_failed, exactly ONE queue attempt burned:");
+  {
+    const store = new FakeStore([article("1", "retry-lose", "2026-10-26T03:00:00.000Z")]);
+    let calls = 0;
+    const always401 = async (): Promise<AdminPublishResult> => {
+      calls++;
+      return {
+        ok: false,
+        httpStatus: 401,
+        postId: null,
+        slug: null,
+        duplicateSlug: false,
+        error: "Not signed in.",
+      };
+    };
+    const r = await publishNextQueuedArticle(store, always401, liveYes, true, NOW);
+    check("outcome publish_failed", r.outcome === "publish_failed");
+    check("admin API called twice (one retry)", calls === 2);
+    check("attempts incremented by one only", store.rows[0].attempts === 1);
+    check("row back to queued for next run", store.rows[0].status === "queued");
+    check(
+      "run log keeps the route's real error message",
+      (store.logs[0]?.detail ?? "").includes("Not signed in."),
+      store.logs[0]?.detail ?? ""
+    );
+  }
+
+  console.log("\n12. Non-retryable 400 failure → no in-run retry:");
+  {
+    const store = new FakeStore([article("1", "bad-request", "2026-10-26T03:00:00.000Z")]);
+    let calls = 0;
+    const badReq = async (): Promise<AdminPublishResult> => {
+      calls++;
+      return {
+        ok: false,
+        httpStatus: 400,
+        postId: null,
+        slug: null,
+        duplicateSlug: false,
+        error: "Create failed.",
+      };
+    };
+    const r = await publishNextQueuedArticle(store, badReq, liveYes, true, NOW);
+    check("outcome publish_failed", r.outcome === "publish_failed");
+    check("admin API called once", calls === 1);
+  }
+
+  console.log("\n13. Session failure on first call → no retry, claim released:");
+  {
+    const store = new FakeStore([article("1", "sess-first", "2026-10-26T03:00:00.000Z")]);
+    let calls = 0;
+    const sessFail = async (): Promise<AdminPublishResult> => {
+      calls++;
+      return {
+        ok: false,
+        httpStatus: 0,
+        postId: null,
+        slug: null,
+        duplicateSlug: false,
+        sessionFailed: true,
+        error: "admin_session_failed",
+        detail: 'Admin session minting failed at step "verify_otp": OTP expired',
+      };
+    };
+    const r = await publishNextQueuedArticle(store, sessFail, liveYes, true, NOW);
+    check("outcome admin_session_failed", r.outcome === "admin_session_failed");
+    check("admin API called once", calls === 1);
+    check("attempts unchanged", store.rows[0].attempts === 0);
+    check(
+      "run log carries minting step diagnostics",
+      (store.logs[0]?.detail ?? "").includes("verify_otp"),
+      store.logs[0]?.detail ?? ""
+    );
+  }
+
+  console.log("\n14. 401 then session failure on retry → session path, no attempt burned:");
+  {
+    const store = new FakeStore([article("1", "sess-retry", "2026-10-26T03:00:00.000Z")]);
+    let calls = 0;
+    const mixed = async (): Promise<AdminPublishResult> => {
+      calls++;
+      if (calls === 1) {
+        return {
+          ok: false,
+          httpStatus: 401,
+          postId: null,
+          slug: null,
+          duplicateSlug: false,
+          error: "HTTP 401",
+        };
+      }
+      return {
+        ok: false,
+        httpStatus: 0,
+        postId: null,
+        slug: null,
+        duplicateSlug: false,
+        sessionFailed: true,
+        error: "admin_session_failed",
+        detail: 'Admin session minting failed at step "generate_link": rate limited',
+      };
+    };
+    const r = await publishNextQueuedArticle(store, mixed, liveYes, true, NOW);
+    check("outcome admin_session_failed", r.outcome === "admin_session_failed");
+    check("admin API called twice", calls === 2);
+    check("row back to queued", store.rows[0].status === "queued");
+    check("attempts unchanged", store.rows[0].attempts === 0);
+  }
+
+  console.log("\n15. Network-level failure (status 0) is retried once:");
+  {
+    const store = new FakeStore([article("1", "net-flake", "2026-10-26T03:00:00.000Z")]);
+    let calls = 0;
+    const netFlake = async (): Promise<AdminPublishResult> => {
+      calls++;
+      if (calls === 1) {
+        return {
+          ok: false,
+          httpStatus: 0,
+          postId: null,
+          slug: null,
+          duplicateSlug: false,
+          error: "admin_fetch_failed",
+          detail: "Admin API fetch failed before any response: fetch failed",
+        };
+      }
+      return okAdmin();
+    };
+    const r = await publishNextQueuedArticle(store, netFlake, liveYes, true, NOW);
+    check("outcome published", r.outcome === "published");
+    check("admin API called twice", calls === 2);
+  }
+
   console.log(`\n=== ${passed} passed, ${failed} failed ===\n`);
   if (failed > 0) process.exit(1);
 }
