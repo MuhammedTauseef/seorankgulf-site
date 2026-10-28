@@ -13,7 +13,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin/", "/dashboard/", "/onboarding/", "/api/"],
+        disallow: ["/admin/", "/dashboard/", "/api/"],
       },
       // AI training/search crawlers — explicitly allowed for GEO
       { userAgent: "GPTBot", allow: "/" },
