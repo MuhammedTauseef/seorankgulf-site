@@ -86,8 +86,9 @@ img{display:block;max-width:100%}
   display:flex;align-items:center;font-family:inherit}
 .mobile-menu button[role="menuitem"]:hover{background:var(--light-blue);color:var(--gold-deep)}
 .nav-cta{display:inline-flex;align-items:center;min-height:46px;padding:0 22px;border-radius:8px;
-  background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:.93rem}
+  background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:.93rem;white-space:nowrap}
 .nav-cta:hover{background:var(--blue)}
+.header-actions{margin-left:auto;display:flex;align-items:center;gap:14px}
 
 /* ---------- hero ---------- */
 .hero{background:linear-gradient(120deg,var(--navy-2) 0%,var(--navy) 60%,#1b3a66 100%);color:#fff;overflow:hidden;position:relative}
@@ -274,8 +275,8 @@ h2.display{font-size:clamp(2.1rem,4.4vw,3.6rem);line-height:1.08;letter-spacing:
 .chat-shell{background:var(--paper-2);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
 [data-theme="dark"] .chat-shell{background:#0e1626}
 
-/* ---------- mobile hamburger nav ---------- */
-.mobile-nav{display:none;position:relative;margin-left:auto}
+/* ---------- hamburger nav (all widths — desktop included) ---------- */
+.mobile-nav{display:block;position:relative}
 .burger{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;
   width:44px;height:44px;background:transparent;border:0;cursor:pointer;padding:10px}
 .burger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;transition:transform .25s,opacity .25s}
@@ -290,8 +291,18 @@ h2.display{font-size:clamp(2.1rem,4.4vw,3.6rem);line-height:1.08;letter-spacing:
 .mobile-menu a[role="menuitem"]:hover{background:var(--light-blue)}
 .mobile-menu a[role="menuitem"]:not(.mobile-cta):hover{color:var(--gold-deep)}
 .mobile-menu .mobile-cta{margin:8px 4px 4px;justify-content:center;color:#fff}
-@media (max-width:820px){
-  .mobile-nav{display:block}
+.mobile-menu .mobile-auth{display:flex;flex-direction:column;border-top:1px solid var(--line);margin-top:6px;padding-top:6px}
+.mobile-menu .mobile-auth a.nav-link,.mobile-menu .mobile-auth button.nav-link{display:flex;align-items:center;
+  width:100%;min-height:44px;padding:12px 14px;border-radius:9px;background:none;border:0;cursor:pointer;
+  font:inherit;font-weight:600;font-size:.95rem;color:var(--ink);text-decoration:none;text-align:left}
+.mobile-menu .mobile-auth a.nav-link:hover,.mobile-menu .mobile-auth button.nav-link:hover{background:var(--light-blue);color:var(--gold-deep)}
+/* The audit CTA lives in the header bar on wider screens; on narrow screens
+   it would squeeze the bar, so there it moves into the panel instead. */
+@media (min-width:641px){
+  .mobile-menu .mobile-cta{display:none}
+}
+@media (max-width:640px){
+  .header-actions .nav-cta{display:none}
 }
 
 /* ---------- demo detail page ---------- */
@@ -431,8 +442,6 @@ html:not([data-theme="dark"]) .foot-admin-link{color:var(--faint)}
   .foot-grid{grid-template-columns:1fr 1fr}
 }
 @media (max-width:820px){
-  .site-nav a.nav-link{display:none}
-  .site-nav .nav-cta{display:none}
   .site-header .wrap{min-height:64px}
   .section-head,.split,.pricing-grid,.price-cards,.contact-grid{grid-template-columns:1fr}
   .section-head{gap:18px}

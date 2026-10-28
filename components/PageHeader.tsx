@@ -1,10 +1,13 @@
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
 import MobileNav from "@/components/MobileNav";
+import AuthNav from "@/components/AuthNav";
 
 /**
  * Slim site header for content pages (/blog).
- * Reuses .site-header/.site-nav styles from globals.css.
+ * Same hamburger pattern as the homepage header: the bar keeps the brand,
+ * the audit CTA and the theme toggle; all links + auth live in the panel.
+ * Reuses .site-header styles from globals.css.
  */
 export default function PageHeader() {
   return (
@@ -13,22 +16,7 @@ export default function PageHeader() {
         <Link className="brand" href="/" aria-label="SEORankGulf home">
           <span className="brand-mark">S</span>SEORANKGULF
         </Link>
-        <nav className="site-nav" aria-label="Primary navigation">
-          <Link className="nav-link" href="/seo-services">
-            Services
-          </Link>
-          <Link className="nav-link" href="/seo-audit">
-            Free Audit
-          </Link>
-          <Link className="nav-link" href="/blog">
-            Blog
-          </Link>
-          <Link className="nav-link" href="/about">
-            About
-          </Link>
-          <Link className="nav-link" href="/contact">
-            Contact
-          </Link>
+        <div className="header-actions">
           <Link
             className="nav-cta"
             href="https://wa.me/923150642491?text=Hi!%20I%20want%20a%20free%20SEO%20audit%20for%20my%20business."
@@ -38,8 +26,10 @@ export default function PageHeader() {
             Get Free SEO Audit
           </Link>
           <ThemeToggle />
-        </nav>
-        <MobileNav />
+          <MobileNav>
+            <AuthNav />
+          </MobileNav>
+        </div>
       </div>
     </header>
   );

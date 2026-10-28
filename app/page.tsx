@@ -124,16 +124,7 @@ export default async function Home() {
           <a className="brand" href="/" aria-label="SEORankGulf home">
             <span className="brand-mark">S</span>SEORANKGULF
           </a>
-          <nav className="site-nav" aria-label="Primary navigation">
-            <a className="nav-link" href="/">Home</a>
-            <a className="nav-link" href="/seo-services">Services</a>
-            <a className="nav-link" href="/seo-audit">Free Audit</a>
-            <a className="nav-link" href="#pricing">Pricing</a>
-            <a className="nav-link" href="/blog">Blog</a>
-            <a className="nav-link" href="/about">About</a>
-            <a className="nav-link" href="#faq">FAQ</a>
-            <a className="nav-link" href="/contact">Contact</a>
-            <AuthNav />
+          <div className="header-actions">
             <a
               className="nav-cta"
               href={wa(c.hero.cta1Message)}
@@ -142,9 +133,11 @@ export default async function Home() {
             >
               {c.hero.cta1Text}
             </a>
-          </nav>
-          <ThemeToggle />
-          <MobileNav />
+            <ThemeToggle />
+            <MobileNav>
+              <AuthNav />
+            </MobileNav>
+          </div>
         </div>
       </header>
 
