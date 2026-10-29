@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServiceClient } from "@/lib/supabase/service";
 import { mintAdminSession, bufferAdminEmail } from "@/lib/admin-session";
+import { SITE_URL } from "@/lib/site-config";
 import {
   createSupabaseQueueStore,
   publishNextQueuedArticle,
@@ -11,6 +12,13 @@ import {
 // Vercel Cron: daily 03:00 UTC (08:00 PKT). Publishes at most ONE due
 // queued article, through the admin publish API (POST /api/admin/blog)
 // with a real admin session — the same action the /admin panel uses.
+//
+// Every self-call below targets SITE_URL (the public production
+// alias), NEVER req.nextUrl.origin: cron invocations arrive on the
+// per-deployment URL, which is protected by Vercel Authentication,
+// so an origin-based self-call gets a 401 from Vercel's auth wall
+// ("Protected by Vercel Authentication") before it reaches the app —
+// that was the buffer publisher's recurring publish_failed 401.
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
@@ -87,7 +95,7 @@ export async function GET(req: NextRequest) {
         });
       }
       try {
-        const res = await fetch(`${req.nextUrl.origin}/api/admin/blog`, {
+        const res = await fetch(`${SITE_URL}/api/admin/blog`, {
           method: "GET",
           headers: { cookie: session.cookieHeader },
         });
@@ -136,7 +144,7 @@ export async function GET(req: NextRequest) {
       }
       let res: Response;
       try {
-        res = await fetch(`${req.nextUrl.origin}/api/admin/blog`, {
+        res = await fetch(`${SITE_URL}/api/admin/blog`, {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -200,7 +208,7 @@ export async function GET(req: NextRequest) {
     };
 
     const liveCheck = async (slug: string): Promise<boolean> => {
-      const url = `${req.nextUrl.origin}/blog/${slug}`;
+      const url = `${SITE_URL}/blog/${slug}`;
       const deadline = Date.now() + 40_000;
       while (Date.now() < deadline) {
         try {
