@@ -48,6 +48,13 @@ export const metadata: Metadata = {
 
 
 
+/** Whop card-checkout link per plan (owner order 2026-10-30). */
+const WHOP_CHECKOUT_URLS: Record<string, string> = {
+  Starter: "https://whop.com/seorankgulf/starter-seo-ab",
+  Growth: "https://whop.com/seorankgulf/growth-seo",
+  Enterprise: "https://whop.com/seorankgulf/enterprise-seo",
+};
+
 export default async function Home() {
   const latestPosts = (await getPublishedPosts()).slice(0, 3);
   const c = await getSiteContent();
@@ -469,6 +476,22 @@ export default async function Home() {
                     Start with {p.name}{" "}
                     <span className="arrow" aria-hidden="true">→</span>
                   </a>
+                  {WHOP_CHECKOUT_URLS[p.name] ? (
+                    <a
+                      className={p.popular ? "btn btn-navy" : "btn btn-gold"}
+                      style={{
+                        width: "100%",
+                        textAlign: "center",
+                        display: "block",
+                        marginTop: 12,
+                      }}
+                      href={WHOP_CHECKOUT_URLS[p.name]}
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      Pay by card — Whop (USD)
+                    </a>
+                  ) : null}
                 </div>
               ))}
             </div>
