@@ -116,7 +116,7 @@ async function DashboardContent() {
             your account.
           </p>
         </div>
-        <LogoutButton />
+        <LogoutButton redirectTo="/login" />
       </div>
 
       <div
