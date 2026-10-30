@@ -3,6 +3,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   cacheComponents: false,
   partialPrefetching: false,
+  // Security audit 2026-10-30: stop leaking the framework via X-Powered-By
+  poweredByHeader: false,
 
   /**
    * Retired routes: the legacy AI-agent onboarding flow has been removed.
