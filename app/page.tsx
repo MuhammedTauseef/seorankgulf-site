@@ -467,7 +467,7 @@ export default async function Home() {
                     ))}
                   </ul>
                   <a
-                    className={p.popular ? "btn btn-gold" : "btn btn-navy"}
+                    className="btn btn-navy"
                     style={{ width: "100%", textAlign: "center", display: "block" }}
                     href={wa(`Hi! I'm interested in the ${p.name} plan (${p.price}${p.period}).`)}
                     target="_blank"
@@ -478,7 +478,7 @@ export default async function Home() {
                   </a>
                   {WHOP_CHECKOUT_URLS[p.name] ? (
                     <a
-                      className={p.popular ? "btn btn-navy" : "btn btn-gold"}
+                      className="btn btn-gold"
                       style={{
                         width: "100%",
                         textAlign: "center",
