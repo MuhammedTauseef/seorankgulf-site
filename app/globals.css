@@ -510,7 +510,8 @@ html:not([data-theme="dark"]) .foot-admin-link{color:var(--faint)}
 /* ---------- blog ---------- */
 .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .blog-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:32px 28px;
-  display:flex;flex-direction:column;transition:transform .22s ease,box-shadow .22s ease;text-decoration:none}
+  display:flex;flex-direction:column;transition:transform .22s ease,box-shadow .22s ease;text-decoration:none;min-width:0}
+.blog-grid>*{min-width:0}
 .blog-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:var(--gold)}
 .blog-card .service-num{margin-bottom:12px}
 .blog-card h3{font-size:1.22rem;letter-spacing:-.015em;margin:0 0 10px;line-height:1.3;color:var(--navy-2)}
@@ -524,13 +525,21 @@ html:not([data-theme="dark"]) .foot-admin-link{color:var(--faint)}
 
 /* ---------- article ---------- */
 .article-hero{background:linear-gradient(120deg,var(--navy-2) 0%,var(--navy) 60%,#1b3a66 100%);color:#fff}
-.article-body{font-size:1.06rem;line-height:1.75;color:var(--ink)}
+.article-body{font-size:1.06rem;line-height:1.75;color:var(--ink);overflow-wrap:break-word}
 .article-body p{color:var(--muted);margin:0 0 20px}
 .article-body h2{font-size:1.45rem;letter-spacing:-.015em;margin:38px 0 12px;color:var(--navy-2)}
+.article-body h3{font-size:1.18rem;letter-spacing:-.01em;margin:28px 0 8px;color:var(--navy-2)}
+.article-body a{overflow-wrap:anywhere}
 .article-body ul{padding-left:22px;margin:0 0 22px;display:grid;gap:10px;color:var(--muted)}
 .article-body strong{color:var(--ink)}
-[data-theme="dark"] .article-body h2{color:#f2f6fc}
+[data-theme="dark"] .article-body h2,[data-theme="dark"] .article-body h3{color:#f2f6fc}
 [data-theme="dark"] .article-body strong{color:#f2f6fc}
+/* Article pages on small screens: calmer type, tighter CTA padding */
+@media (max-width:640px){
+  .article-body h2{font-size:1.32rem;margin-top:32px}
+  .article-cta{padding:32px 24px}
+  .article-cta h3{font-size:1.3rem}
+}
 .article-cta{margin-top:52px;background:linear-gradient(140deg,var(--navy),var(--navy-3));border-radius:20px;
   padding:44px 40px;color:#fff;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between}
 .article-cta h3{margin:0 0 8px;font-size:1.5rem;letter-spacing:-.02em}
