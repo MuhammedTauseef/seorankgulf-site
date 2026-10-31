@@ -466,7 +466,7 @@ export default async function BlogPostPage({ params }: Props) {
         <section className="article-hero">
           <div
             className="wrap hero-inner"
-            style={{ paddingTop: 64, paddingBottom: 48, maxWidth: 860 }}
+            style={{ paddingTop: 64, paddingBottom: 48, maxWidth: 760 }}
           >
             <Link
               href="/blog"
@@ -482,7 +482,7 @@ export default async function BlogPostPage({ params }: Props) {
             <h1
               className="hero-statement"
               style={{
-                fontSize: "clamp(2rem,5vw,3.4rem)",
+                fontSize: "clamp(1.8rem,5vw,3.4rem)",
                 marginTop: 20,
               }}
             >
@@ -501,7 +501,7 @@ export default async function BlogPostPage({ params }: Props) {
 
         {post.cover_image && (
           <section className="block" style={{ paddingTop: 0, paddingBottom: 0 }}>
-            <div className="wrap" style={{ maxWidth: 860 }}>
+            <div className="wrap" style={{ maxWidth: 760 }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={post.cover_image}
@@ -540,7 +540,7 @@ export default async function BlogPostPage({ params }: Props) {
                 >
                   Keep reading
                 </h2>
-                <div className="blog-grid" style={{ gridTemplateColumns: "repeat(3,1fr)" }}>
+                <div className="blog-grid">
                   {related.map((r) => (
                     <Link
                       key={r.slug}
